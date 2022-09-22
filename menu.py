@@ -3,6 +3,7 @@ from PPlay.window import *
 from PPlay.gameimage import *
 from PPlay.sprite import *
 from PPlay.keyboard import *
+import pygame
 
 #musica do menu
 p_musica = True
@@ -104,14 +105,21 @@ while True:
     if click.is_over_object(exit) and click.is_button_pressed(True):
         janela.close()
 
-    #botao musica
-    if click.is_over_object(music) and click.is_button_pressed(True):
-        if p_musica == True:
-            mixer.music.pause()
-            p_musica = False
-        else:
-            mixer.music.unpause()
-            p_musica = True
+    ###################
+
+    #nos captamos o evento da mudanca se estado do bota
+    #dessa forma o click so e registrado no primeiro momento
+    #em que ocorre
+    for event in pygame.event.get():
+        if event.type == MOUSEBUTTONDOWN and click.is_over_object(music):
+            if event.button == 1:
+                if p_musica == True:
+                    mixer.music.pause()
+                    p_musica = False
+                else:
+                    mixer.music.unpause()
+                    p_musica = True
+    ###################
     
     #botao help
     if click.is_over_object(help) and click.is_button_pressed(True):
@@ -135,3 +143,4 @@ while True:
         
 
     janela.update()
+  
