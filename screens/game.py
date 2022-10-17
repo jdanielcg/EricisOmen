@@ -5,7 +5,7 @@ from interface.framerate import Framerate
 from interface.gameinterface import Gameinterface
 from mapa.tilemap import Tilemap
 from mapa.tileset import Tileset
-from movablesmanager import MovablesManager
+from movables.movablesmanager import MovablesManager
 from world import World
 from buildings.objectmap import Objectmap
 from buildings.objectset import Objectset
