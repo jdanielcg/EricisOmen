@@ -1,5 +1,6 @@
 import pygame
 import json
+from buildings.buildings import Building
 from movables.creature import Creature
 from mapa.cell import*
 

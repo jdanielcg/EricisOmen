@@ -1,21 +1,21 @@
 from PPlay.window import*
-from globals import Globals
+from settings import Settings
 from screens.game import Game
 from screens.mainmenu import MainMenu
 
 def main():
-    g = Globals()   
+    s = Settings()   
 
-    gameWindow = Window(g.game_w,g.game_h)
-    gameWindow.set_title(g.gameApplicationName)
+    gameWindow = Window(s.game_w,s.game_h)
+    gameWindow.set_title(s.gameApplicationName)
 
-    g.gamescreen = Game(g, gameWindow)
-    g.mainmenuscreen = MainMenu(g,gameWindow)
-    g.current_screen = g.mainmenuscreen
+    s.gamescreen = Game(s, gameWindow)
+    s.mainmenuscreen = MainMenu(s,gameWindow)
+    s.current_screen = s.mainmenuscreen
     
-    while g.current_screen != None:
+    while s.current_screen != None:
         delta_time = gameWindow.delta_time()
-        g.current_screen.update(delta_time)
+        s.current_screen.update(delta_time)
         gameWindow.update()
 
 
