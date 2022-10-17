@@ -19,22 +19,30 @@ class BuildingMode:
     def update(self, delta_time):
         if self.selected != None:
             pos = self.mouse.get_position()
-            u = pos[0]/Settings.tilesize
-            v = pos[1]/Settings.tilesize
+            u = floor(pos[0]/Settings.tilesize)
+            v = floor(pos[1]/Settings.tilesize)
 
-            x = floor(u)*Settings.tilesize
-            y = floor(v)*Settings.tilesize
+            x = u*Settings.tilesize
+            y = v*Settings.tilesize
 
-            self.screen.blit(self.selected.silhouette, (x,y))
+            possible = True
+            for cell_mask in self.selected.mask:
+                vc = v + cell_mask[1]
+                uc = u + cell_mask[0]
+                if not self.game.world.cells[vc][uc].walkable :
+                    possible = False                   
 
-            #verifica o click para construcao
-            if self.mouse.is_button_pressed(True):
-                if not self.cliked:                    
-                    self.cliked = True
-            #a ação ocorre ao soltar o botão, evitando erros
-            elif self.cliked:                
-                self.build((floor(u),floor(v)))
-                self.cliked = False
+            self.screen.blit(self.selected.silhouette if possible else self.selected.silhouette_red, (x,y))
+
+            if possible:
+                #verifica o click para construcao
+                if self.mouse.is_button_pressed(True):
+                    if not self.cliked:                    
+                        self.cliked = True
+                #a ação ocorre ao soltar o botão, evitando erros
+                elif self.cliked:                
+                    self.build((u,v))
+                    self.cliked = False
 
     def build(self, posUV):        
         self.game.buildings_manager.add(self.selected, posUV)
