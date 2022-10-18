@@ -55,8 +55,8 @@ class WalkingState:
 
         #movimentar
         if abs(dirX) == 1:
-            self.creature.x += dirX*delta_time*self.creature.speed
-        elif abs(dirY) == 1:
+            self.creature.x += dirX*delta_time*self.creature.speed            
+        elif abs(dirY) == 1:            
             self.creature.y += dirY*delta_time*self.creature.speed
 
         #atualiza o animation controller

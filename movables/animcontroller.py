@@ -68,7 +68,7 @@ class CharAnimationController:
                 self.current_sprite = self.down_idle
 
         #atualiza a "ultima" direção se a atual for diferente de 0
-        if abs(self.direction[1]) + abs(self.direction[1]) > 0.5:
+        if abs(self.direction[0]) + abs(self.direction[1]) > 0.5:
             self.last_direction[0] = self.direction[0]
             self.last_direction[1] = self.direction[1]
 
