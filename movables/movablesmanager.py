@@ -1,21 +1,26 @@
 from random import randint
-import pygame
+from movables.creatures import Creature
 
-from movables.creature import Creature
+
+    
 
 
 
 class MovablesManager:
-    def __init__(self, gamewindow, world):
-        self.generate_test_creatures(gamewindow,world)
+
+    spawnpoints = [(10,10)]
+    goalpoint = (5,5)
+    
+    def __init__(self, game, world):
+        self.generate_test_creatures(game,world)
 
     def generate_test_creatures(self,gamewindow, world):
         for h in world.cells:
             for w in h:            
-                roll = randint(1, 20)
-                if roll == 20 :
+                roll = randint(1, 80)
+                if roll == 80 :
                     creature = Creature(gamewindow ,w.location)
-                    world.creatures.append(creature)
+                    world.creatures.append(creature)                    
         print("generated " + str(len(world.creatures)) + " creatures ")
 
     def update(self, world, delta_time):                

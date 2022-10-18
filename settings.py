@@ -7,6 +7,7 @@ class Settings:
     #classe para armazenar configurações e propriedades globais
 
     tilesize = 32
+    show_debug = False
 
     def __init__(self):
         self.game_w = 1280

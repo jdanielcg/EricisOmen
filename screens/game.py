@@ -1,22 +1,15 @@
 
-from ast import match_case
-from PPlay.sprite import*
 from settings import SimulationMode
 from buildings.buildingmanager import BuildingManager
 from interface.buildingmode import BuildingMode
 from interface.debug_interface import DebugInterface
-from settings import Settings
 from interface.framerate import Framerate
 from interface.gameinterface import Gameinterface
 from mapa.tilemap import Tilemap
 from mapa.tileset import Tileset
 from movables.movablesmanager import MovablesManager
 from world import World
-
-
-import pygame
-
-
+import movables.pathfinder as pathfinder
 
 
 class Game: 
@@ -39,7 +32,7 @@ class Game:
         self.buildings_manager = BuildingManager(self, "edit_terrain.png")
 
         #movablesmanager: gerencia os personagens
-        self.movables_manager = MovablesManager(gameWindow,self.world)    
+        self.movables_manager = MovablesManager(self,self.world)    
 
         #interface do jogo
         self.gameinterface = Gameinterface(settings,gameWindow)
@@ -50,8 +43,14 @@ class Game:
         #interface de construção de construções
         self.building_mode_interface = BuildingMode(self)
 
+        #inicia o modulo de pathfinding
+        pathfinder.setup(self.world)
+
     #loop principal
     def update(self, delta_time):  
+
+        #gera os caminhos no módulo de pathfinding
+        pathfinder.update(delta_time)
 
         #limpa a janela     
         self.gameWindow.set_background_color([128,128,128])     

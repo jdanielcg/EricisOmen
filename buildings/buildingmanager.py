@@ -1,6 +1,5 @@
 import pygame
 from buildings.buildings import Building, BuildingInfo
-from world import World
 
 class BuildingManager:
     def __init__(self,game, filename):        

@@ -7,3 +7,4 @@ class Cell:
         self.tile_code = tile_code                    
         self.buildable = True
         self.walkable = True
+        self.creature = None

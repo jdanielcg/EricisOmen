@@ -1,11 +1,13 @@
 from pygame import Vector2
 from PPlay.sprite import *
 
+
+
 class CharAnimationController:
 
-    def __init__(self, start_pos):        
-        #velocidade
-        self.speed = 100        
+    def __init__(self, creature):        
+        self.creature = creature
+        
 
         #cima
         self.walking_up = Sprite("assets\movables\Kobold\wup.png", 9)
@@ -33,9 +35,8 @@ class CharAnimationController:
 
         #começo
         self.current_sprite = self.down_idle
-        self.direction = Vector2(0,0)
-        self.last_direction = Vector2(0,0)
-        self.pos = start_pos
+        self.direction = [0,0]
+        self.last_direction = [0,0]
         
     #usada para controlar a direção do movimento
     def set_dir(self,vec):
@@ -44,40 +45,36 @@ class CharAnimationController:
         
     def update(self, delta_time):              
         
-        if self.direction.y < 0:
+        if self.direction[1] < 0:
             self.current_sprite = self.walking_up
-        elif self.direction.y > 0:
+        elif self.direction[1] > 0:
             self.current_sprite = self.walking_down
-        elif self.direction.x < 0:
+        elif self.direction[0] < 0:
             self.current_sprite = self.walking_left
-        elif self.direction.x > 0:
+        elif self.direction[0] > 0:
             self.current_sprite = self.walking_right
         else:
             #o personagem está parado
             #vamos escolher a direção idle com base na ultima direção
-            if self.last_direction.y < 0:
+            if self.last_direction[1] < 0:
                 self.current_sprite = self.up_idle
-            elif self.last_direction.y > 0:
+            elif self.last_direction[1] > 0:
                 self.current_sprite = self.down_idle
-            elif self.last_direction.x < 0:
+            elif self.last_direction[0] < 0:
                 self.current_sprite = self.left_idle
-            elif self.last_direction.x > 0:
+            elif self.last_direction[0] > 0:
                 self.current_sprite = self.right_idle
             else:
                 self.current_sprite = self.down_idle
 
-        #mudando a posição
-        self.pos.x += self.direction.x*delta_time*self.speed
-        self.pos.y += self.direction.y*delta_time*self.speed
+        #atualiza a "ultima" direção se a atual for diferente de 0
+        if abs(self.direction[1]) + abs(self.direction[1]) > 0.5:
+            self.last_direction[0] = self.direction[0]
+            self.last_direction[1] = self.direction[1]
 
-        #atualiza a "ultima" dereção se a atual dor diferente de 0
-        if self.direction.magnitude() > 0.5:
-            self.last_direction.x = self.direction.x
-            self.last_direction.y = self.direction.y
+        self.direction[0] = 0
+        self.direction[1] = 0
 
-        self.direction.x = 0
-        self.direction.y = 0
-
-        self.current_sprite.set_position(self.pos.x, self.pos.y) 
+        self.current_sprite.set_position(self.creature.x, self.creature.y) 
         self.current_sprite.update()
         self.current_sprite.draw()

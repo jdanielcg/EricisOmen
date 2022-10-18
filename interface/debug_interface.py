@@ -1,5 +1,5 @@
 from PPlay.sprite import *
-from settings import SimulationMode
+from settings import Settings, SimulationMode
 from interface.spritebutton import SpriteButton
 
 class DebugInterface:
@@ -15,6 +15,7 @@ class DebugInterface:
         gw = gamewindow
 
         self.buildtestbutton = SpriteButton(gw, self.build_dormitory, (20,500), "help.png")        
+        self.debug_show_button = SpriteButton(gw, self.show_debug_info, (20,600), "help.png")   
 
 
 #######################fuções dos botões
@@ -22,11 +23,15 @@ class DebugInterface:
         self.game.building_mode_interface.start("dormitory")
         self.game.simulation_mode = SimulationMode.BUILDING
 
+    def show_debug_info(self):
+        Settings.show_debug = not Settings.show_debug
+
 
 #########################################
 
     def update(self, delta_time):
         self.buildtestbutton.update()  
+        self.debug_show_button.update()
                     
 
 
