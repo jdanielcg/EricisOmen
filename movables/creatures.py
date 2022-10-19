@@ -22,10 +22,15 @@ class Creature:
 
         self.anim_controller = CharAnimationController(self)      
 
-        self.damage = 300    
+        self.damage = 300
+
+
+        self.max_integrity = 1000    
+        self.integrity = self.max_integrity    
 
         self.game = game
         self.state = WalkingState(self)     
+        self.is_dead = False
         print("creature created at {0}, {1} ".format(self.u, self.v))
     
     @property
@@ -36,8 +41,14 @@ class Creature:
     def v(self):
         return floor(self.y/Settings.tilesize)
 
+    def take_damage(self, damage):
+        self.integrity -= damage
+        self.game.effects_manager.add_smoke(self.x, self.y)
+        if self.integrity < 0:
+            self.anim_controller.set_dead()
+
     def update(self, delta_time):
-        self.state.update(delta_time)
+        if not self.is_dead : self.state.update(delta_time)
         self.anim_controller.update(delta_time)
 
         if Settings.show_debug:

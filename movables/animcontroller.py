@@ -33,6 +33,11 @@ class CharAnimationController:
         self.walking_right.set_total_duration(1000)
         self.right_idle.set_total_duration(1000)
 
+        #morto               
+        self.dead = Sprite("assets\movables\Kobold\dead.png")       
+        self.dead.set_total_duration(1000)
+        self.is_dead = False
+
         #começo
         self.current_sprite = self.down_idle
         self.direction = [0,0]
@@ -41,39 +46,43 @@ class CharAnimationController:
     #usada para controlar a direção do movimento
     def set_dir(self,vec):
         self.direction = vec
-        
+
+    def set_dead(self):
+        self.is_dead = True
+        self.current_sprite = self.dead        
         
     def update(self, delta_time):              
         
-        if self.direction[1] < 0:
-            self.current_sprite = self.walking_up
-        elif self.direction[1] > 0:
-            self.current_sprite = self.walking_down
-        elif self.direction[0] < 0:
-            self.current_sprite = self.walking_left
-        elif self.direction[0] > 0:
-            self.current_sprite = self.walking_right
-        else:
-            #o personagem está parado
-            #vamos escolher a direção idle com base na ultima direção
-            if self.last_direction[1] < 0:
-                self.current_sprite = self.up_idle
-            elif self.last_direction[1] > 0:
-                self.current_sprite = self.down_idle
-            elif self.last_direction[0] < 0:
-                self.current_sprite = self.left_idle
-            elif self.last_direction[0] > 0:
-                self.current_sprite = self.right_idle
+        if not self.is_dead:
+            if self.direction[1] < 0:
+                self.current_sprite = self.walking_up
+            elif self.direction[1] > 0:
+                self.current_sprite = self.walking_down
+            elif self.direction[0] < 0:
+                self.current_sprite = self.walking_left
+            elif self.direction[0] > 0:
+                self.current_sprite = self.walking_right
             else:
-                self.current_sprite = self.down_idle
+                #o personagem está parado
+                #vamos escolher a direção idle com base na ultima direção
+                if self.last_direction[1] < 0:
+                    self.current_sprite = self.up_idle
+                elif self.last_direction[1] > 0:
+                    self.current_sprite = self.down_idle
+                elif self.last_direction[0] < 0:
+                    self.current_sprite = self.left_idle
+                elif self.last_direction[0] > 0:
+                    self.current_sprite = self.right_idle
+                else:
+                    self.current_sprite = self.down_idle
 
-        #atualiza a "ultima" direção se a atual for diferente de 0
-        if abs(self.direction[0]) + abs(self.direction[1]) > 0.5:
-            self.last_direction[0] = self.direction[0]
-            self.last_direction[1] = self.direction[1]
+            #atualiza a "ultima" direção se a atual for diferente de 0
+            if abs(self.direction[0]) + abs(self.direction[1]) > 0.5:
+                self.last_direction[0] = self.direction[0]
+                self.last_direction[1] = self.direction[1]
 
-        self.direction[0] = 0
-        self.direction[1] = 0
+            self.direction[0] = 0
+            self.direction[1] = 0
 
         self.current_sprite.set_position(self.creature.x, self.creature.y) 
         self.current_sprite.update()

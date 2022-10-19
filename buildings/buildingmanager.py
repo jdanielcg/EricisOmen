@@ -8,6 +8,7 @@ class BuildingManager:
         
         self.infos = {}
         self.infos["dormitory"] = BuildingInfo("dormitory", (0, 12), (2,2), self._image, True)
+        self.infos["firetower"] = BuildingInfo("firetower", (20, 12), (1,2), self._image, True)
         self.game = game        
 
     def update(self, delta_time):

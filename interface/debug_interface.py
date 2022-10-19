@@ -15,12 +15,17 @@ class DebugInterface:
         gw = gamewindow
 
         self.buildtestbutton = SpriteButton(gw, self.build_dormitory, (20,500), "help.png")        
+        self.buildtestbutton2 = SpriteButton(gw, self.build_firetower, (20,550), "help.png")  
         self.debug_show_button = SpriteButton(gw, self.show_debug_info, (20,600), "help.png")   
 
 
 #######################fuções dos botões
     def build_dormitory(self):
         self.game.building_mode_interface.start("dormitory")
+        self.game.simulation_mode = SimulationMode.BUILDING
+
+    def build_firetower(self):
+        self.game.building_mode_interface.start("firetower")
         self.game.simulation_mode = SimulationMode.BUILDING
 
     def show_debug_info(self):
@@ -31,6 +36,7 @@ class DebugInterface:
 
     def update(self, delta_time):
         self.buildtestbutton.update()  
+        self.buildtestbutton2.update()  
         self.debug_show_button.update()
                     
 
