@@ -1,4 +1,5 @@
 
+from effects.effectsmanager import EffectsManager
 from settings import SimulationMode
 from buildings.buildingmanager import BuildingManager
 from interface.buildingmode import BuildingMode
@@ -43,6 +44,9 @@ class Game:
         #interface de construção de construções
         self.building_mode_interface = BuildingMode(self)
 
+        #effects manager: gerencia e desenha os efeitos (dano, etc)
+        self.effects_manager = EffectsManager()
+
         #inicia o modulo de pathfinding
         pathfinder.setup(self.world)
 
@@ -76,6 +80,8 @@ class Game:
             case SimulationMode.BUILDING:
                 #executa o modo de construção, escrevendo a silhueta da construção na tela
                 self.building_mode_interface.update(delta_time)
+
+        self.effects_manager.update(delta_time)
 
         #atualiza a janela e rendeniza tudo
         self.gameWindow.set_title(self.s.gameApplicationName + self.framerate.get_text(delta_time))
