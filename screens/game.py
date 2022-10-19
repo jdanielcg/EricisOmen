@@ -62,8 +62,8 @@ class Game:
         #escreve a imagem do mapa na janela
         self.tilemap.draw(self.gameWindow, self.world) 
 
-        #escreve a imagem dos objetos na janela
-        self.buildings_manager.draw(self.gameWindow, self.world)  
+        #escreve a imagem dos objetos na janela        
+        self.buildings_manager.update(self.gameWindow, self.world, delta_time)  
 
         #escreve a imagem das criaturas na tela
         self.movables_manager.update(self.world, delta_time) 

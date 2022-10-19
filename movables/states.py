@@ -1,4 +1,6 @@
+from distutils.command.build import build
 from math import sqrt
+from PPlay import gameimage
 #from movables.creatures import Creature
 from settings import Settings
 import movables.pathfinder as pathfinder
@@ -13,7 +15,10 @@ class IdleState:
         self.creature = creature
 
     def update(self, delta_time):
-        #check attack
+        #tentar atacar
+        attakable_target = self.creature.get_attackable_target()
+        if attakable_target != None:                
+            self.creature.state = AtkState(self.creature, attakable_target)
         
         #tentar pegar novo caminho                        
         if len(self.creature.path) != 0:            
@@ -72,7 +77,7 @@ class WalkingState:
             #tentar atacar
             attakable_target = self.creature.get_attackable_target()
             if attakable_target != None:                
-                return True
+                self.creature.state = AtkState(self.creature, attakable_target)
 
 
             #tentar pegar novo caminho                        
@@ -87,3 +92,30 @@ class WalkingState:
             
         else:
             return False
+
+class AtkState:
+    def __init__(self, creature : "Creature", attakable_target) -> None:        
+        self.creature = creature
+        self.atktarget = attakable_target
+        self.timer = 2.0
+        self.atkinterval = 2.0
+
+    def update(self, delta_time):
+        #check attack
+        building = self.creature.game.world.cells[self.atktarget[0]][self.atktarget[1]].building
+        if building != None:
+            if building.integrity > 0:
+                self.timer += delta_time
+                if self.timer >= self.atkinterval:
+                    self.timer = 0
+                    building.integrity -= self.creature.damage
+                    print("damage")
+                    self.creature.game.effects_manager.add_smoke(self.atktarget[1], self.atktarget[0])
+                return
+
+
+
+        
+        #se falhar, ficar idle e avisar ao pathfinder
+        self.creature.state = IdleState(self.creature)
+        pathfinder.creatures_needing_path.append(self.creature)

@@ -8,3 +8,4 @@ class Cell:
         self.buildable = True
         self.walkable = True
         self.creature = None
+        self.building = None

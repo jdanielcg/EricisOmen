@@ -6,12 +6,13 @@ class Building:
     def __init__(self, posUV, info):
         self.posUV = posUV
         self.info = info
+        self.integrity = info.max_integrity
         
     def posXY(self):
         return (Settings.tilesize * self.posUV[0], Settings.tilesize * self.posUV[1])
 
 class BuildingInfo:
-    def __init__(self, name, origin, size, atlas, walkable):
+    def __init__(self, name, origin, size, atlas, walkable, max_integrity = 1000):
         self.name = name
         self.origin = origin
         self.size = size      
@@ -21,6 +22,7 @@ class BuildingInfo:
         self.surf = self.make_surf()
         self.silhouette = self.make_silhouette((0, 255, 0))
         self.silhouette_red = self.make_silhouette((255, 0, 0))
+        self.max_integrity = max_integrity
 
     def generate_cellMask(self, size):
         mask = []

@@ -20,7 +20,9 @@ class Creature:
 
         self.speed = 20.0
 
-        self.anim_controller = CharAnimationController(self)          
+        self.anim_controller = CharAnimationController(self)      
+
+        self.damage = 300    
 
         self.game = game
         self.state = WalkingState(self)     
@@ -33,8 +35,6 @@ class Creature:
     @property
     def v(self):
         return floor(self.y/Settings.tilesize)
-
-
 
     def update(self, delta_time):
         self.state.update(delta_time)
@@ -49,8 +49,16 @@ class Creature:
                     pygame.draw.line(screen, self.path_color, start, end, 5)
 
     def get_attackable_target(self):
+        #verifica entornos para alvos atacaveis
+        if self.game.world.cells[self.v - 1][self.u].building != None:
+            return [self.v - 1,self.u]
+        elif self.game.world.cells[self.v + 1][self.u].building != None:
+            return [self.v + 1, self.u]
+        elif self.game.world.cells[self.v][self.u-1].building != None:
+            return [self.v, self.u-1]
+        elif self.game.world.cells[self.v][self.u+1].building != None:
+            return [self.v,self.u+1]
         return None
-
         
 
 
