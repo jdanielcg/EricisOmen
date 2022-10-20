@@ -1,3 +1,8 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
+
 from PPlay.sprite import *
 from settings import Settings, SimulationMode
 from interface.spritebutton import SpriteButton

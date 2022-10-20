@@ -1,3 +1,8 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
+
 import json
 from mapa.cell import*
 

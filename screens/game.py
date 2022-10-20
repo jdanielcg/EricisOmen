@@ -1,3 +1,7 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
 
 from effects.effectsmanager import EffectsManager
 from settings import SimulationMode

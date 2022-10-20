@@ -1,3 +1,8 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
+# ║                        RAMON SANTOS         ║ 
+# ╚═════════════════════════════════════════════╝
+
 from pygame import Vector2
 from PPlay.sprite import *
 

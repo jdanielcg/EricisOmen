@@ -1,5 +1,13 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
+
 from math import sqrt
+
+import pygame
 from PPlay.sprite import Sprite
+from effects.effectsmanager import EffectsManager
 
 
 class SmokeDamage:
@@ -56,6 +64,45 @@ class Fireball:
         self.animation.set_position(self.x, self.y) 
         self.animation.update()
         self.animation.draw()
+
+class Lifebar:
+
+    #gera um unico background a ser usado por todas as barras
+    background = None
+    def __init__(self, owner):        
+        self.owner = owner
+        self.max = owner.max_integrity
+        self.surf = pygame.Surface([32, 8])
+        self.screen = self.owner.game.gameWindow.get_screen()
+        self.duration = 2000
+        self.timer = 0
+
+        if Lifebar.background == None:
+            Lifebar.background = pygame.Surface([32, 6])
+            Lifebar.background.fill((125,0,75))
+
+    def update(self, delta_time):       
+
+        self.timer += delta_time*1000   
+
+        factor = self.owner.integrity/self.max
+
+        self.surf.blit(Lifebar.background, [0,0])
+        
+        pygame.draw.rect(self.surf, (0, 200, 50), (1, 1, round(28*factor), 4),)
+        self.screen.blit(self.surf, (self.owner.x, self.owner.y))
+
+    def renew(self):
+        #se o timer ja tiver transcorrido:
+        if self.timer > self.duration:
+            self.timer = 0
+            self.owner.game.effects_manager.effects.append(self)
+            return
+
+        #se o timer ainda nao transcorreu
+        self.timer = 0
+        return
+
 
         
 

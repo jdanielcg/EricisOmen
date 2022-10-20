@@ -1,3 +1,8 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: RAMON SANTOS         ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
+
 from PPlay.sprite import *
 from pygame import mixer
 

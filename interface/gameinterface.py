@@ -1,3 +1,8 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
+# ║                        RAMON SANTOS         ║ 
+# ╚═════════════════════════════════════════════╝
+
 from PPlay.sprite import *
 from interface.spritebutton import SpriteButton
 

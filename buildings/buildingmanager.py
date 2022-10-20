@@ -1,4 +1,8 @@
-from distutils.command.build import build
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
+
 import pygame
 from buildings.buildings import Building, BuildingInfo
 from effects.effects import Fireball

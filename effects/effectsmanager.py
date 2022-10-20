@@ -1,12 +1,13 @@
-
-from effects.effects import SmokeDamage
-from settings import Settings
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
 
 
 class EffectsManager:
     def __init__(self):
 
-        self.effects = [SmokeDamage(100, 100)]
+        self.effects = []
 
         
     def update(self, delta_time):
@@ -15,6 +16,3 @@ class EffectsManager:
             if effect.timer >= effect.duration:
                 self.effects.remove(effect)
 
-    def add_smoke(self, x, y):
-        smoke = SmokeDamage(x, y)
-        self.effects.append(smoke)

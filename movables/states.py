@@ -1,7 +1,10 @@
-from distutils.command.build import build
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
+
 from math import sqrt
-from PPlay import gameimage
-#from movables.creatures import Creature
+from effects.effects import SmokeDamage
 from settings import Settings
 import movables.pathfinder as pathfinder
 
@@ -110,8 +113,8 @@ class AtkState:
                     self.timer = 0
                     building.integrity -= self.creature.damage
                     print("damage")
-                    self.creature.game.effects_manager.add_smoke(
-                        self.atktarget[1]*Settings.tilesize, self.atktarget[0]*Settings.tilesize)
+                    self.creature.game.effects_manager.effects.append(SmokeDamage(
+                        self.atktarget[1]*Settings.tilesize, self.atktarget[0]*Settings.tilesize))
                 return
 
 

@@ -1,6 +1,12 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
+
 from math import floor
 from random import randint
 import pygame
+from effects.effects import Lifebar, SmokeDamage
 from movables.animcontroller import CharAnimationController
 from movables.states import WalkingState
 from settings import Settings
@@ -23,6 +29,7 @@ class Creature:
         self.anim_controller = CharAnimationController(self)      
 
         self.damage = 300
+        self.lifebar = None
 
 
         self.max_integrity = 1000    
@@ -43,10 +50,16 @@ class Creature:
 
     def take_damage(self, damage):
         self.integrity -= damage
-        self.game.effects_manager.add_smoke(self.x, self.y)
+        self.game.effects_manager.effects.append(SmokeDamage(self.x, self.y))
+        if self.lifebar != None:
+            self.lifebar.renew()
+        else:
+            self.lifebar = Lifebar(self)
+            self.game.effects_manager.effects.append(self.lifebar)
         if self.integrity < 0:
             self.anim_controller.set_dead()
             self.is_dead = True
+            self.lifebar = None
 
     def update(self, delta_time):
         if not self.is_dead : self.state.update(delta_time)
