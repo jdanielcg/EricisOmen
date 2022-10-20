@@ -7,12 +7,23 @@ class Building:
         self.posUV = posUV
         self.info = info
         self.integrity = info.max_integrity
+        self.recharge_time = info.recharge_time
+        self.timer = 0
+        self.action = info.action
         
     def posXY(self):
         return (Settings.tilesize * self.posUV[0], Settings.tilesize * self.posUV[1])
 
+    @property
+    def x(self):
+        return self.posUV[0]*Settings.tilesize
+    
+    @property
+    def y(self):
+        return self.posUV[1]*Settings.tilesize
+
 class BuildingInfo:
-    def __init__(self, name, origin, size, atlas, walkable, max_integrity = 1000):
+    def __init__(self, name, origin, size, atlas, walkable, action = None, recharge_time = 3, max_integrity = 1000):
         self.name = name
         self.origin = origin
         self.size = size      
@@ -23,6 +34,8 @@ class BuildingInfo:
         self.silhouette = self.make_silhouette((0, 255, 0))
         self.silhouette_red = self.make_silhouette((255, 0, 0))
         self.max_integrity = max_integrity
+        self.action = action
+        self.recharge_time = recharge_time
 
     def generate_cellMask(self, size):
         mask = []

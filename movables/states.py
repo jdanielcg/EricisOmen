@@ -110,7 +110,8 @@ class AtkState:
                     self.timer = 0
                     building.integrity -= self.creature.damage
                     print("damage")
-                    self.creature.game.effects_manager.add_smoke(self.atktarget[1], self.atktarget[0])
+                    self.creature.game.effects_manager.add_smoke(
+                        self.atktarget[1]*Settings.tilesize, self.atktarget[0]*Settings.tilesize)
                 return
 
 

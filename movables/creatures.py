@@ -46,6 +46,7 @@ class Creature:
         self.game.effects_manager.add_smoke(self.x, self.y)
         if self.integrity < 0:
             self.anim_controller.set_dead()
+            self.is_dead = True
 
     def update(self, delta_time):
         if not self.is_dead : self.state.update(delta_time)

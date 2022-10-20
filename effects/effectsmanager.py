@@ -15,6 +15,6 @@ class EffectsManager:
             if effect.timer >= effect.duration:
                 self.effects.remove(effect)
 
-    def add_smoke(self, u, v):
-        smoke = SmokeDamage(u*Settings.tilesize, v*Settings.tilesize)
+    def add_smoke(self, x, y):
+        smoke = SmokeDamage(x, y)
         self.effects.append(smoke)

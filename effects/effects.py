@@ -21,12 +21,12 @@ class Fireball:
     def __init__(self, x, y, target_creature):
         self.duration = 10000
         self.timer = 0
-        self.animation = Sprite("assets\fireball.png", 2)        
+        self.animation = Sprite("assets\\fireball.png", 2)        
         self.animation.set_total_duration(200)
         self.animation.set_position(x, y) 
         self.x = x
         self.y = y
-        self.speed = 50
+        self.speed = 150
         self.target_creature = target_creature
         self.damage = 400
         
