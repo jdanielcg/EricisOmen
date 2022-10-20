@@ -1,3 +1,8 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
+
 from PPlay.window import*
 from settings import Settings
 from screens.game import Game
