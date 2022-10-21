@@ -4,6 +4,7 @@
 # ╚═════════════════════════════════════════════╝
 
 from PPlay.sprite import *
+from interface.textbutton import TextButton
 from settings import Settings, SimulationMode
 from interface.spritebutton import SpriteButton
 
@@ -19,9 +20,10 @@ class DebugInterface:
         h = self.gamewindow.height        
         gw = gamewindow
 
-        self.buildtestbutton = SpriteButton(gw, self.build_dormitory, (20,500), "help.png")        
-        self.buildtestbutton2 = SpriteButton(gw, self.build_firetower, (20,550), "help.png")  
-        self.debug_show_button = SpriteButton(gw, self.show_debug_info, (20,600), "help.png")   
+        self.buildtestbutton = TextButton(gw, self.build_dormitory, (20,500), "DORM")        
+        self.buildtestbutton2 = TextButton(gw, self.build_firetower, (20,530), "FIRETOWER")  
+        self.debug_show_button = TextButton(gw, self.show_debug_info, (20,560), "SHOW PATH")   
+        self.debug_up_ripple = TextButton(gw, self.show_debug_info, (20,590), "UP PORTAL")
 
 
 #######################fuções dos botões
@@ -43,6 +45,7 @@ class DebugInterface:
         self.buildtestbutton.update()  
         self.buildtestbutton2.update()  
         self.debug_show_button.update()
+        self.debug_up_ripple.update()
                     
 
 

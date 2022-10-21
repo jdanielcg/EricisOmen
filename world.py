@@ -30,8 +30,7 @@ class World:
         for h in range(self.height):
             line = []
             for w in range(self.width):
-                tile_code = cells_data["layers"][0]["data"][h*self.width + w] - 1
-                building_code = cells_data["layers"][1]["data"][h*self.width + w] - 1
+                tile_code = cells_data["layers"][0]["data"][h*self.width + w] - 1                
                 cell = Cell((w, h), tile_code)                
                 line.append(cell)
             self.cells.append(line)

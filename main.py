@@ -3,6 +3,7 @@
 # ║                                             ║ 
 # ╚═════════════════════════════════════════════╝
 
+from pickle import TRUE
 from PPlay.window import*
 from settings import Settings
 from screens.game import Game
@@ -17,10 +18,12 @@ def main():
     s.gamescreen = Game(s, gameWindow)
     s.mainmenuscreen = MainMenu(s,gameWindow)
     s.current_screen = s.mainmenuscreen
+
     
     while s.current_screen != None:
         delta_time = gameWindow.delta_time()
-        s.current_screen.update(delta_time)
+        s.current_screen.update(delta_time)       
+
         gameWindow.update()
 
 
