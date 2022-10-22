@@ -2,13 +2,13 @@
 # ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
 # ║                                             ║ 
 # ╚═════════════════════════════════════════════╝
-
-from pickle import TRUE
+import pygame
 from PPlay.window import*
 from interface.customcursor import load_custom_cursor
-from settings import Settings
 from screens.game import Game
 from screens.mainmenu import MainMenu
+from settings import Settings
+
 
 def main():
     s = Settings()   
@@ -20,7 +20,7 @@ def main():
     s.mainmenuscreen = MainMenu(s,gameWindow)
     s.current_screen = s.mainmenuscreen
 
-    load_custom_cursor("cursor.png")
+    load_custom_cursor("cursor16.png")
 
     
     while s.current_screen != None:

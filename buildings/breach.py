@@ -5,8 +5,11 @@
 
 #modulo para gerenciar o funcionamento da construção "fenda dimensional"
 
-
+from distutils.command.build import build
 from math import ceil
+from effects.effects import FloatingIconText
+from effects.effectsmanager import EffectsManager
+from match import Match
 from settings import Settings
 
 def add_breach(u,v, manager):
@@ -14,6 +17,11 @@ def add_breach(u,v, manager):
     if info != None:
         manager.add(info, [u, v])  
 
+worker_interval = 3
+worker_timer = 0
+
+aether_interval = 5
+aether_timer = 0
 
 def upgrade_breach(building, manager):
     Settings.breach_level += 1
@@ -29,8 +37,26 @@ def upgrade_breach(building, manager):
         u = building.posUV[0] - dx
         v = building.posUV[1] - dy
         manager.remove(building)
-        manager.add(info, [u, v])    
+        manager.add(info, [u, v])   
+    Match.aether -= 200 
 
+
+#principal loop da fenda. aqui é gerado o recurso aether e o recurso workers(trabalhadores)
 def breach_update(building, manager):
-    upgrade_breach(building, manager)
+    global worker_interval, worker_timer, aether_interval,aether_timer
+    worker_timer += 1
+    aether_timer +=1
+
+    if worker_timer >= worker_interval:
+        worker_timer =0
+        Match.workers += 5
+        EffectsManager.effects.append(FloatingIconText(building.x, building.y,"worker","+5"))
+
+    if aether_timer >= aether_interval:
+        aether_timer =0
+        Match.aether += 75
+        EffectsManager.effects.append(FloatingIconText(building.x, building.y,"aether","+75"))
+
+    if Match.aether >= 200:
+        upgrade_breach(building, manager)
 

@@ -21,6 +21,7 @@ class Game:
     def __init__(self, settings, gameWindow):
         self.s = settings      
         self.gameWindow = gameWindow
+        self.screen = gameWindow.get_screen()
         self.framerate = Framerate()
 
         #stores the current simulation mode

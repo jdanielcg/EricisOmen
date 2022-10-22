@@ -7,7 +7,9 @@ from math import sqrt
 
 import pygame
 from PPlay.sprite import Sprite
+from PPlay.window import Window
 from effects.effectsmanager import EffectsManager
+from interface.icons import text_icon
 
 
 class SmokeDamage:
@@ -22,7 +24,22 @@ class SmokeDamage:
     def update(self, delta_time):
         self.animation.update()
         self.animation.draw()
-        self.timer += delta_time*1000    
+        self.timer += delta_time*1000   
+
+class FloatingIconText:
+    def __init__(self, x, y,  icon, text):
+        self.duration = 2000
+        self.surf  = text_icon(icon, text, (0, 230,20))
+        self.timer = 0
+        self.speed = 30
+        self.x = x
+        self.y = y
+        
+        
+    def update(self, delta_time):
+        self.timer += delta_time*1000 
+        self.y -= delta_time*self.speed  
+        Window.screen.blit(self.surf, (self.x, self.y))
 
 
 class Fireball:

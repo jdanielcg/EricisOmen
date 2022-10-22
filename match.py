@@ -4,14 +4,17 @@
 # ╚═════════════════════════════════════════════╝
 
 
-class EffectsManager:
-    effects = []
-    def __init__(self):
+#modulo para armazenar as informações pertinentes a partida, como
+#recursos, estágios, etc
+
+class Match:
+    wood = 1000
+    iron = 1000
+    workers = 0
+    soldiers = 0
+    aether = 100
+
+
+    def __init__(self) -> None:
         pass
-        
-    def update(self, delta_time):
-        for effect in EffectsManager.effects:
-            effect.update(delta_time)
-            if effect.timer >= effect.duration:
-                EffectsManager.effects.remove(effect)
 

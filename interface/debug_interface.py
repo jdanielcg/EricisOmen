@@ -3,15 +3,19 @@
 # ║                                             ║ 
 # ╚═════════════════════════════════════════════╝
 
+
+from pygame import Surface
 from PPlay.sprite import *
+from interface.icons import text_icon
 from interface.textbutton import TextButton
+from match import Match
 from settings import Settings, SimulationMode
 from interface.spritebutton import SpriteButton
 
 class DebugInterface:
 
     def __init__(self, s, gamewindow, game):
-        self.gamewindow = gamewindow
+        self.gamewindow = gamewindow        
         self.s = s
         self.game = game
 
@@ -23,7 +27,11 @@ class DebugInterface:
         self.buildtestbutton = TextButton(gw, self.build_dormitory, (20,500), "DORM")        
         self.buildtestbutton2 = TextButton(gw, self.build_firetower, (20,530), "FIRETOWER")  
         self.debug_show_button = TextButton(gw, self.show_debug_info, (20,560), "SHOW PATH")   
-        self.debug_up_ripple = TextButton(gw, self.build_obelisk, (20,590), "OBELISK")
+        self.debug_up_ripple = TextButton(gw, self.build_obelisk, (20,590), "OBELISK") 
+
+        self.resources_back = Surface((150, 130))        
+        self.resources_back.fill((0,0,0))
+        self.resources_back.set_alpha(150)
 
 
 #######################fuções dos botões
@@ -50,7 +58,14 @@ class DebugInterface:
         self.buildtestbutton2.update()  
         self.debug_show_button.update()
         self.debug_up_ripple.update()
+
+        self.game.screen.blit(self.resources_back, (150,500))
                     
+        self.game.screen.blit(text_icon("wood", str(Match.wood)),(160,510))
+        self.game.screen.blit(text_icon("iron", str(Match.iron)),(160,530))
+        self.game.screen.blit(text_icon("worker", str(Match.workers)),(160,550))
+        self.game.screen.blit(text_icon("soldier", str(Match.soldiers)),(160,570))
+        self.game.screen.blit(text_icon("aether", str(Match.aether)),(160,590))
 
 
 

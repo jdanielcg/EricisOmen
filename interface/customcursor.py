@@ -6,11 +6,12 @@
 
 #modulo para modificar o cursor padrão
 
+import os
 import pygame
 
 
-def load_custom_cursor(file = "cursor.png"):
-    surf = pygame.image.load("assets\\" + file)
+def load_custom_cursor(file = "cursor16.png"):
+    surf = pygame.image.load(os.path.join("assets",file))
     surf.convert_alpha()
 
     if surf != None:
