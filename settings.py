@@ -11,6 +11,9 @@ class Settings:
 
     tilesize = 32
     show_debug = False
+    breach_level = 1
+    game_won = False
+    dominion_threshold = 1
 
     def __init__(self):
         self.game_w = 1280
@@ -21,7 +24,6 @@ class Settings:
         self.gameApplicationName = "EricisOmen"
 
         #variavéis da partida
-        self.portal_level_counter = 1
         self.portal_level_percent = 0
 
 #varaivel que determina o estado princiapl de interação com o jogo

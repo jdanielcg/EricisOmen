@@ -4,6 +4,7 @@
 # ╚═════════════════════════════════════════════╝
 
 import pygame
+from buildings.breach import add_breach, breach_update
 from buildings.buildings import Building, BuildingInfo
 from effects.effects import Fireball
 
@@ -12,13 +13,23 @@ class BuildingManager:
         self._image = pygame.image.load(filename)
         self._image.convert_alpha()
         
+        
         self.infos = {}
         self.infos["dormitory"] = BuildingInfo("dormitory", (0, 12), (2,2), self._image, True)
         self.infos["firetower"] = BuildingInfo("firetower", (20, 12), (1,2), self._image, True, self.tower_action)
-        self.game = game        
+        self.infos["breach1"] = BuildingInfo("breach1", (0, 23), (1,1), self._image, True, breach_update, 10, 2500, 10)
+        self.infos["breach2"] = BuildingInfo("breach2", (0, 24), (3,3), self._image, True, breach_update, 10, 2500, 25)
+        self.infos["breach3"] = BuildingInfo("breach3", (0, 27), (3,3), self._image, True, breach_update, 10, 2500, 45)
+        self.infos["breach4"] = BuildingInfo("breach4", (0, 30), (5,5), self._image, True, breach_update, 10, 2500, 55)
+        self.infos["breach5"] = BuildingInfo("breach5", (7, 23), (5,5), self._image, True, breach_update, 10, 2500, 75)
+        self.infos["breach6"] = BuildingInfo("breach6", (3, 23), (5,5), self._image, True, breach_update, 10, 2500, 85)
+        self.infos["breach7"] = BuildingInfo("breach7", (8, 24), (7,7), self._image, True, breach_update, 10, 2500, 100)
+        self.game = game   
 
+    def build_base(self):
+        add_breach(10,10, self)
 
-    def tower_action(self, building):
+    def tower_action(self, building, manager):
         #a ação da torre é disparar seu projetil
         closest_enemy = None
         closest_sqr_dist = 10000000000
@@ -54,23 +65,41 @@ class BuildingManager:
                 if building.action != None:
                     if building.timer > building.recharge_time:
                         building.timer = 0
-                        building.action(building)
-            else:
-                world.building_list.remove(building)
+                        building.action(building, self)
+            else:                
                 self.remove(building)
 
     def remove(self, building):
-            for cell_mask in building.info.mask:
-                v = building.posUV[1] + cell_mask[1]
-                u = building.posUV[0] + cell_mask[0]
-                self.game.world.cells[v][u].walkable = True
-                self.game.world.cells[v][u].buildable = True
-                self.game.world.cells[v][u].building = None
+        #if building in self.game.world.building_list
+        self.game.world.building_list.remove(building)
+
+        if building.info.dominion_factor > 0:
+            self.game.world.remove_dominion(building) 
+
+        for cell_mask in building.info.mask:
+            v = building.posUV[1] + cell_mask[1]
+            u = building.posUV[0] + cell_mask[0]
+            self.game.world.cells[v][u].walkable = True
+            self.game.world.cells[v][u].buildable = True
+            self.game.world.cells[v][u].building = None
 
     def add(self, buildingInfo, posUV):        
         building = Building(posUV, buildingInfo)
+
+        #remove connstrução se já houver
+        for cell_mask in buildingInfo.mask:            
+            v = posUV[1] + cell_mask[1]
+            u = posUV[0] + cell_mask[0]
+            if self.game.world.cells[v][u].building != None :
+                self.remove(self.game.world.cells[v][u].building)
+
+
+        #adiciona a contrução 
         self.game.world.building_list.append(building)  
-        for cell_mask in buildingInfo.mask:
+        if building.info.dominion_factor > 0:
+            self.game.world.add_dominion(building)  
+
+        for cell_mask in buildingInfo.mask:            
             v = posUV[1] + cell_mask[1]
             u = posUV[0] + cell_mask[0]
             self.game.world.cells[v][u].walkable = buildingInfo.walkable

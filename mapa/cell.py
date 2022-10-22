@@ -15,3 +15,5 @@ class Cell:
         self.walkable = True
         self.creature = None
         self.building = None
+        self.dominion_level = 0
+        self.original_code = tile_code

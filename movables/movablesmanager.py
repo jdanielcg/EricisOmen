@@ -15,11 +15,11 @@ class MovablesManager:
         self.generate_test_creatures(game,world)
 
     def generate_test_creatures(self,gamewindow, world):
-        for h in range(10,20):
-            for w in range(10,20):            
-                roll = randint(1, 20)
-                if roll == 20 :
-                    creature = Creature(gamewindow, (h, w))
+        for h in range(10,30):
+            for w in range(20,40):            
+                roll = randint(1, 10)
+                if roll == 10 :
+                    creature = Creature(gamewindow, (w, h))
                     world.creatures.append(creature)                    
         print("generated " + str(len(world.creatures)) + " creatures ")
 

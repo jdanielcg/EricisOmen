@@ -15,6 +15,10 @@ class Building:
         self.recharge_time = info.recharge_time
         self.timer = 0
         self.action = info.action
+
+    #substitui as informações e recria a construção
+    def morph_to(self, posUV, info):
+        self.__init__(posUV, info)
         
     def posXY(self):
         return (Settings.tilesize * self.posUV[0], Settings.tilesize * self.posUV[1])
@@ -27,8 +31,16 @@ class Building:
     def y(self):
         return self.posUV[1]*Settings.tilesize
 
+    @property
+    def v(self):
+        return self.posUV[1]
+
+    @property
+    def u(self):
+        return self.posUV[0]
+
 class BuildingInfo:
-    def __init__(self, name, origin, size, atlas, walkable, action = None, recharge_time = 3, max_integrity = 1000):
+    def __init__(self, name, origin, size, atlas, walkable, action = None, recharge_time = 3, max_integrity = 1000, dominion_factor = 0):
         self.name = name
         self.origin = origin
         self.size = size      
@@ -41,6 +53,7 @@ class BuildingInfo:
         self.max_integrity = max_integrity
         self.action = action
         self.recharge_time = recharge_time
+        self.dominion_factor = dominion_factor
 
     def generate_cellMask(self, size):
         mask = []

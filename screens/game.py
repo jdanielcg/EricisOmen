@@ -35,6 +35,7 @@ class Game:
 
         #buildings_manager: gerencia a representação visual dos objetos, construcao, etc
         self.buildings_manager = BuildingManager(self, "edit_terrain.png")
+        self.buildings_manager.build_base()
 
         #movablesmanager: gerencia os personagens
         self.movables_manager = MovablesManager(self,self.world)    
