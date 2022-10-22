@@ -16,6 +16,7 @@ class BuildingManager:
         
         self.infos = {}
         self.infos["dormitory"] = BuildingInfo("dormitory", (0, 12), (2,2), self._image, True, wood_cost= 50)
+        self.infos["miningcamp"] = BuildingInfo("miningcamp", (0, 4), (1,2), self._image, True, wood_cost= 50)
         self.infos["firetower"] = BuildingInfo("firetower", (20, 12), (1,2), self._image, True, self.tower_action, iron_cost=50, wood_cost=50)
         self.infos["breach1"] = BuildingInfo("breach1", (0, 23), (1,1), self._image, True, breach_update, 1, 2500, 10)
         self.infos["breach2"] = BuildingInfo("breach2", (0, 24), (3,3), self._image, True, breach_update, 1, 2500, 20)

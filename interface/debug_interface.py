@@ -29,6 +29,7 @@ class DebugInterface:
         self.buildtestbutton2 = TextButton(gw, self.build_firetower, (20,530), "FIRETOWER")  
         self.debug_show_button = TextButton(gw, self.show_debug_info, (20,560), "SHOW PATH")   
         self.debug_up_ripple = TextButton(gw, self.build_obelisk, (20,590), "OBELISK") 
+        self.buildmining_button = TextButton(gw, self.build_mining, (20,620), "MINING")
 
         self.resources_back = Surface((150, 130))        
         self.resources_back.fill((0,0,0))
@@ -39,6 +40,10 @@ class DebugInterface:
 #######################fuções dos botões
     def build_dormitory(self):
         self.game.building_mode_interface.start("dormitory")
+        self.game.simulation_mode = SimulationMode.BUILDING
+
+    def build_mining(self):
+        self.game.building_mode_interface.start("miningcamp")
         self.game.simulation_mode = SimulationMode.BUILDING
 
     def build_firetower(self):
@@ -60,6 +65,7 @@ class DebugInterface:
         self.buildtestbutton2.update()  
         self.debug_show_button.update()
         self.debug_up_ripple.update()
+        self.buildmining_button.update()
 
         self.game.screen.blit(self.resources_back, (150,500))
                     
