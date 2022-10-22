@@ -69,10 +69,10 @@ class BuildingInfo:
         dx = Settings.tilesize * self.size[0]
         dy = Settings.tilesize * self.size[1]
 
-        surf = pygame.Surface((dx, dy))
-        surf.fill((255, 0, 255))
-        surf.blit(self.atlas, (0,0), (x0, y0, x0 + dx, y0 + dy))
-        surf.set_colorkey((255, 0 , 255))
+        surf = pygame.Surface((dx, dy), pygame.SRCALPHA)
+        surf.fill((0, 0, 0, 0))
+        surf.blit(self.atlas, (0,0), (x0, y0, x0 + dx, y0 + dy), special_flags = pygame.BLEND_RGBA_ADD)
+        #surf.set_colorkey((255, 0 , 255))
         return surf
 
     def make_silhouette(self, color):

@@ -20,7 +20,7 @@ class BuildingManager:
         self.infos["breach1"] = BuildingInfo("breach1", (0, 23), (1,1), self._image, True, breach_update, 10, 2500, 10)
         self.infos["breach2"] = BuildingInfo("breach2", (0, 24), (3,3), self._image, True, breach_update, 10, 2500, 20)
         self.infos["breach3"] = BuildingInfo("breach3", (0, 27), (3,3), self._image, True, breach_update, 10, 2500, 35)
-        self.infos["breach4"] = BuildingInfo("breach4", (0, 28), (3,3), self._image, True, breach_update, 10, 2500, 40)
+        self.infos["breach4"] = BuildingInfo("breach4", (0, 30), (3,3), self._image, True, breach_update, 10, 2500, 40)
         self.infos["breach5"] = BuildingInfo("breach5", (9, 23), (5,5), self._image, True, breach_update, 10, 2500, 40)
         self.infos["breach6"] = BuildingInfo("breach6", (3, 23), (5,5), self._image, True, breach_update, 10, 2500, 50)
         self.infos["breach7"] = BuildingInfo("breach7", (3, 28), (7,7), self._image, True, breach_update, 10, 2500, 60)
