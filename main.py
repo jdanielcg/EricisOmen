@@ -5,6 +5,7 @@
 
 from pickle import TRUE
 from PPlay.window import*
+from interface.customcursor import load_custom_cursor
 from settings import Settings
 from screens.game import Game
 from screens.mainmenu import MainMenu
@@ -18,6 +19,8 @@ def main():
     s.gamescreen = Game(s, gameWindow)
     s.mainmenuscreen = MainMenu(s,gameWindow)
     s.current_screen = s.mainmenuscreen
+
+    load_custom_cursor("cursor.png")
 
     
     while s.current_screen != None:

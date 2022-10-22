@@ -16,6 +16,9 @@
 * https://opengameart.org/content/lpc-medieval-village-decorations
 * https://nyknck.itch.io/fx084
 * https://opengameart.org/content/fireball-flying-through-the-air
+* https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack
+* https://opengameart.org/content/flying-dragon-rework
+* https://statoasty.itch.io/ui-assets-pack-srt
 
 # LPC generator
 * https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Reptile_lightgreen_unwinged&legs=Skirts_legion
