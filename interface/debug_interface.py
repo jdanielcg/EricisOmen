@@ -23,7 +23,7 @@ class DebugInterface:
         self.buildtestbutton = TextButton(gw, self.build_dormitory, (20,500), "DORM")        
         self.buildtestbutton2 = TextButton(gw, self.build_firetower, (20,530), "FIRETOWER")  
         self.debug_show_button = TextButton(gw, self.show_debug_info, (20,560), "SHOW PATH")   
-        self.debug_up_ripple = TextButton(gw, self.show_debug_info, (20,590), "UP PORTAL")
+        self.debug_up_ripple = TextButton(gw, self.build_obelisk, (20,590), "OBELISK")
 
 
 #######################fuções dos botões
@@ -33,6 +33,10 @@ class DebugInterface:
 
     def build_firetower(self):
         self.game.building_mode_interface.start("firetower")
+        self.game.simulation_mode = SimulationMode.BUILDING
+
+    def build_obelisk(self):
+        self.game.building_mode_interface.start("obelisk")
         self.game.simulation_mode = SimulationMode.BUILDING
 
     def show_debug_info(self):
