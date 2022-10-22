@@ -4,6 +4,9 @@
 # ╚═════════════════════════════════════════════╝
 
 from math import floor
+from select import select
+from interface.icons import make_cost_text
+from match import Match
 from settings import SimulationMode
 from settings import Settings
 
@@ -15,10 +18,12 @@ class BuildingMode:
         self.mouse = game.gameWindow.get_mouse()
         self.selected = None
         self.cliked = False
+        self.cost_text = None
 
     def start(self, name):
         self.selected = self.game.buildings_manager.infos[name]
         self.cliked = False
+        self.cost_text = make_cost_text(self.selected.wood_cost,self.selected.iron_cost,self.selected.aether_cost)
 
     def update(self, delta_time):
         if self.selected != None:
@@ -33,10 +38,24 @@ class BuildingMode:
             for cell_mask in self.selected.mask:
                 vc = v + cell_mask[1]
                 uc = u + cell_mask[0]
-                if not self.game.world.cells[vc][uc].walkable :
-                    possible = False                   
+                if not self.game.world.cells[vc][uc].walkable : possible = False  
+                if self.game.world.cells[vc][uc].is_dominion_border: possible = False
+                if self.game.world.cells[vc][uc].dominion_level < Settings.dominion_threshold: possible = False
+            #Verifica se possui recursos o suficiente
+            if self.selected.wood_cost > Match.wood: possible = False
+            if self.selected.iron_cost > Match.iron: possible = False
+            if self.selected.aether_cost > Match.aether: possible = False
+            #verifica se esta sobre um tile dominado:
+
+
+
+
+
+            #desenha o contorno da construção e seu custo
 
             self.screen.blit(self.selected.silhouette if possible else self.selected.silhouette_red, (x,y))
+            if self.cost_text != None:
+                self.screen.blit(self.cost_text,(x-70,y))
 
             if possible:
                 #verifica o click para construcao
@@ -51,6 +70,9 @@ class BuildingMode:
     def build(self, posUV):        
         self.game.buildings_manager.add(self.selected, posUV)
         self.game.simulation_mode = SimulationMode.RUNNING
+        Match.wood -= self.selected.wood_cost 
+        Match.iron -= self.selected.iron_cost
+        Match.aether -= self.selected.aether_cost 
 
 
 

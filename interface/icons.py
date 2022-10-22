@@ -41,8 +41,7 @@ def build_dic():
                 "iron":     Icon("wood", sprites16, sprites32, 13, 21),
                 "worker":   Icon("worker", sprites16, sprites32, 7, 11),
                 "soldier":  Icon("soldier", sprites16, sprites32, 12, 11),
-                "aether":   Icon("aether", sprites16, sprites32, 10, 9),
-                
+                "aether":   Icon("aether", sprites16, sprites32, 10, 9),                
                 "error":    error_icon,
     }
 
@@ -66,6 +65,23 @@ def text_icon(icon, text, cor = (255,240,255), large = False) -> pygame.Surface:
     back_surf.blit(icon,(0,0), special_flags = pygame.BLEND_RGBA_ADD )
     back_surf.blit(textsurf, (s,0))
     return back_surf
+
+def make_cost_text(wood_cost, iron_cost, aether_cost) -> pygame.Surface:
+    y = 10
+    x = 10
+    surf = pygame.Surface((100,100), pygame.SRCALPHA)
+    surf.fill((0,0,0,0))
+
+    if wood_cost > 0:
+        surf.blit(text_icon("wood", str(wood_cost)), (x, y), special_flags = pygame.BLEND_RGBA_ADD )
+        y += 20
+    if iron_cost > 0:
+        surf.blit(text_icon("iron", str(iron_cost)), (x, y), special_flags = pygame.BLEND_RGBA_ADD )
+        y += 20
+    if aether_cost > 0:
+        surf.blit(text_icon("aether", str(aether_cost)), (x, y), special_flags = pygame.BLEND_RGBA_ADD )
+        y += 20
+    return surf
 
 
 

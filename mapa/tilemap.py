@@ -35,6 +35,7 @@ class Tilemap:
                 #verifica parra criar a mancha de dominio no piso
                 if can_be_dominated(cell) and not cell.is_map_edge:
                     border_tile_code = border_maker(cell, world)
+                    cell.is_dominion_border = border_tile_code != 208
                     tile = self.tileset.get_tile(border_tile_code)
 
                 screen.blit(tile, (cell.x, cell.y))

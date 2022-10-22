@@ -40,7 +40,9 @@ class Building:
         return self.posUV[0]
 
 class BuildingInfo:
-    def __init__(self, name, origin, size, atlas, walkable, action = None, recharge_time = 3, max_integrity = 1000, dominion_factor = 0):
+    def __init__(self, name, origin, size, atlas, walkable, action = None,
+                 recharge_time = 3, max_integrity = 1000, dominion_factor = 0,
+                 iron_cost = 0, aether_cost = 0, wood_cost = 0):
         self.name = name
         self.origin = origin
         self.size = size      
@@ -54,6 +56,12 @@ class BuildingInfo:
         self.action = action
         self.recharge_time = recharge_time
         self.dominion_factor = dominion_factor
+
+        #custos
+        self.wood_cost = wood_cost
+        self.aether_cost = aether_cost
+        self.iron_cost = iron_cost
+
 
     def generate_cellMask(self, size):
         mask = []
