@@ -25,9 +25,7 @@ class World:
                 bu = building.u + floor(building.info.size[0]/2)
                 bv = building.v + floor(building.info.size[1]/2)
                 factor = building.info.dominion_factor/((cell.location[0] - bu)**2 + (cell.location[1] - bv)**2 + 1)
-                cell.dominion_level += factor
-                if cell.dominion_level > Settings.dominion_threshold:
-                    cell.tile_code = 208                
+                cell.dominion_level += factor                
 
     def remove_dominion(self, building):
         self._dominion_buildings.append(building)
@@ -36,9 +34,7 @@ class World:
                 bu = building.u + floor(building.info.size[0]/2.0)
                 bv = building.v + floor(building.info.size[1]/2.0)
                 factor = building.info.dominion_factor/((cell.location[0] - bu)**2 + (cell.location[1] - bv)**2 + 1)
-                cell.dominion_level -= factor
-                if cell.dominion_level <= Settings.dominion_threshold:
-                    cell.tile_code = cell.original_code  
+                cell.dominion_level -= factor 
 
     # crial cells com valores apartir de um arquino json
     def generate_map(self):        
@@ -54,10 +50,13 @@ class World:
         self.height = cells_data["layers"][0]["height"]
         self.width = cells_data["layers"][0]["width"]
         self.cells = []
+        h_max = self.height -1
+        w_max = self.width -1
         for h in range(self.height):
             line = []
             for w in range(self.width):
                 tile_code = cells_data["layers"][0]["data"][h*self.width + w] - 1                
-                cell = Cell((w, h), tile_code)                
+                cell = Cell((w, h), tile_code) 
+                cell.is_map_edge = (h == h_max or h == 0 or w == 0 or w == w_max)               
                 line.append(cell)
             self.cells.append(line)
