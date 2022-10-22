@@ -7,6 +7,7 @@
 from pygame import Surface
 from PPlay.sprite import *
 from interface.icons import text_icon
+from interface.minimap import Minimap
 from interface.textbutton import TextButton
 from match import Match
 from settings import Settings, SimulationMode
@@ -32,6 +33,7 @@ class DebugInterface:
         self.resources_back = Surface((150, 130))        
         self.resources_back.fill((0,0,0))
         self.resources_back.set_alpha(150)
+        self.minimap = Minimap(game.world)
 
 
 #######################fuções dos botões
@@ -66,6 +68,7 @@ class DebugInterface:
         self.game.screen.blit(text_icon("worker", str(Match.workers)),(160,550))
         self.game.screen.blit(text_icon("soldier", str(Match.soldiers)),(160,570))
         self.game.screen.blit(text_icon("aether", str(Match.aether)),(160,590))
+        self.minimap.update()
 
 
 

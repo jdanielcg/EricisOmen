@@ -55,7 +55,7 @@ class BuildingMode:
 
             self.screen.blit(self.selected.silhouette if possible else self.selected.silhouette_red, (x,y))
             if self.cost_text != None:
-                self.screen.blit(self.cost_text,(x-70,y))
+                self.screen.blit(self.cost_text,(x-40,y))
 
             if possible:
                 #verifica o click para construcao

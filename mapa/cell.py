@@ -21,6 +21,7 @@ class Cell:
         self.original_code = tile_code
         self.is_dominion_border = False
         self.is_map_edge = False
+        self.resource = None
 
     @property
     def u(self):    return self.location[0]

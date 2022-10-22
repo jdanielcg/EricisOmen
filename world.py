@@ -57,6 +57,14 @@ class World:
             for w in range(self.width):
                 tile_code = cells_data["layers"][0]["data"][h*self.width + w] - 1                
                 cell = Cell((w, h), tile_code) 
-                cell.is_map_edge = (h == h_max or h == 0 or w == 0 or w == w_max)               
+                cell.is_map_edge = (h == h_max or h == 0 or w == 0 or w == w_max) 
+
+                cell.walkable = (tile_code == 0 or tile_code == 1 or tile_code == 2 or
+                                tile_code == 3 or tile_code == 4 or tile_code == 5)
+
+                extra = cells_data["layers"][1]["data"][h*self.width + w] - 1 
+                if extra == 43 :  cell.resource = "wood"                    
+                elif extra == 73: cell.resource = "iron"
+
                 line.append(cell)
             self.cells.append(line)
