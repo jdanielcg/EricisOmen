@@ -62,7 +62,7 @@ class BuildingManager:
         for building in world.building_list:   
             #print("drawing building ", building.info.name, "in ", building.posXY())
             if building.integrity > 0:        
-                screen.blit(building.info.surf, building.posXY())
+                screen.blit(building.info.surf, building.posXY_render())
                 #executa a ação da construçao, se houver
                 building.timer += delta_time
                 if building.action != None:

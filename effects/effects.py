@@ -4,10 +4,12 @@
 # ╚═════════════════════════════════════════════╝
 
 from math import sqrt
+from types import DynamicClassAttribute
 
 import pygame
 from PPlay.sprite import Sprite
 from PPlay.window import Window
+from camera import Camera
 from effects.effectsmanager import EffectsManager
 from interface.icons import text_icon
 
@@ -15,6 +17,8 @@ from interface.icons import text_icon
 class SmokeDamage:
     def __init__(self, x, y):
         self.duration = 1000
+        self.x = x
+        self.y = y
         self.animation = Sprite("assets\smoke.png", 5)        
         self.animation.set_total_duration(self.duration)
         self.animation.set_position(x, y) 
@@ -22,6 +26,7 @@ class SmokeDamage:
         
         
     def update(self, delta_time):
+        self.animation.set_position(self.x - Camera.dx, self.y - Camera.dy) 
         self.animation.update()
         self.animation.draw()
         self.timer += delta_time*1000   
@@ -39,7 +44,7 @@ class FloatingIconText:
     def update(self, delta_time):
         self.timer += delta_time*1000 
         self.y -= delta_time*self.speed  
-        Window.screen.blit(self.surf, (self.x, self.y))
+        Window.screen.blit(self.surf, (self.x - Camera.dx, self.y- Camera.dy))
 
 
 class Fireball:
@@ -78,7 +83,7 @@ class Fireball:
             self.x += dirX*delta_time*self.speed                   
             self.y += dirY*delta_time*self.speed
 
-        self.animation.set_position(self.x, self.y) 
+        self.animation.set_position(self.x- Camera.dx, self.y - Camera.dy) 
         self.animation.update()
         self.animation.draw()
 
@@ -107,7 +112,7 @@ class Lifebar:
         self.surf.blit(Lifebar.background, [0,0])
         
         pygame.draw.rect(self.surf, (0, 200, 50), (1, 1, round(28*factor), 4),)
-        self.screen.blit(self.surf, (self.owner.x, self.owner.y))
+        self.screen.blit(self.surf, (self.owner.x - Camera.dx, self.owner.y - Camera.dy))
 
     def renew(self):
         #se o timer ja tiver transcorrido:

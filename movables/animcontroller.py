@@ -5,6 +5,7 @@
 
 from pygame import Vector2
 from PPlay.sprite import *
+from camera import Camera
 
 
 
@@ -89,6 +90,6 @@ class CharAnimationController:
             self.direction[0] = 0
             self.direction[1] = 0
 
-        self.current_sprite.set_position(self.creature.x, self.creature.y) 
+        self.current_sprite.set_position(self.creature.x - Camera.dx, self.creature.y- Camera.dy) 
         self.current_sprite.update()
         self.current_sprite.draw()

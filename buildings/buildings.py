@@ -5,6 +5,7 @@
 
 #loads all info about buildings and their sprites
 import pygame
+from camera import Camera
 from settings import Settings
 
 class Building:
@@ -22,6 +23,10 @@ class Building:
         
     def posXY(self):
         return (Settings.tilesize * self.posUV[0], Settings.tilesize * self.posUV[1])
+
+    def posXY_render(self):
+        return (Settings.tilesize * self.posUV[0] - Camera.dx,
+                Settings.tilesize * self.posUV[1] - Camera.dy)
 
     @property
     def x(self):

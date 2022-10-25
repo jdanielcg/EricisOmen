@@ -7,6 +7,7 @@
 from random import randint
 import pygame
 import json
+from camera import Camera
 from mapa.borderchecker import border_maker, can_be_dominated
 from settings import Settings
 
@@ -26,8 +27,10 @@ class Tilemap:
         width = world.width
         screen = game_window.get_screen()
 
-        for cell_line in world.cells:
-            for cell in cell_line:  
+        cell = None
+        for v in range(Camera.rootV, Camera.rootV + Camera.nV()):
+            for u in range(Camera.rootU, Camera.rootU + Camera.nU()):  
+                cell = world.cells[v][u]
 
                 tile_code = cell.tile_code
                 tile = self.tileset.get_tile(cell.tile_code)
@@ -53,9 +56,9 @@ class Tilemap:
                         
 
 
-                screen.blit(tile, (cell.x, cell.y))
+                screen.blit(tile, (cell.x - Camera.dx, cell.y - Camera.dy))
                 if extra_surf != None :
-                    screen.blit(extra_surf, (cell.x, cell.y))
+                    screen.blit(extra_surf, (cell.x - Camera.dx, cell.y - Camera.dy))
                 #self.surface.blit(tile, (cell.x, cell.y))
 
 

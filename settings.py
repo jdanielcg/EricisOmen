@@ -10,6 +10,8 @@ class Settings:
     #classe para armazenar configurações e propriedades globais
 
     tilesize = 32
+    tile_number_u = 60
+    tile_number_v = 60
     show_debug = False
     breach_level = 1
     game_won = False
