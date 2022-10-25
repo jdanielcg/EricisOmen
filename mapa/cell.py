@@ -22,6 +22,7 @@ class Cell:
         self.is_dominion_border = False
         self.is_map_edge = False
         self.resource = None
+        self.resource_amount = 1000
 
     @property
     def u(self):    return self.location[0]

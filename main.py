@@ -11,21 +11,21 @@ from settings import Settings
 
 
 def main():
-    s = Settings()   
+    settings = Settings()   
 
-    gameWindow = Window(s.game_w,s.game_h)
-    gameWindow.set_title(s.gameApplicationName)
+    gameWindow = Window(settings.game_w,settings.game_h)
+    gameWindow.set_title(settings.gameApplicationName)
 
-    s.gamescreen = Game(s, gameWindow)
-    s.mainmenuscreen = MainMenu(s,gameWindow)
-    s.current_screen = s.mainmenuscreen
+    settings.gamescreen = Game(settings, gameWindow)
+    settings.mainmenuscreen = MainMenu(settings,gameWindow)
+    settings.current_screen = settings.mainmenuscreen
 
     load_custom_cursor("cursor16.png")
 
     
-    while s.current_screen != None:
+    while settings.current_screen != None:
         delta_time = gameWindow.delta_time()
-        s.current_screen.update(delta_time)       
+        settings.current_screen.update(delta_time)       
 
         gameWindow.update()
 

@@ -32,13 +32,30 @@ class Tilemap:
                 tile_code = cell.tile_code
                 tile = self.tileset.get_tile(cell.tile_code)
 
-                #verifica parra criar a mancha de dominio no piso
+                #verifica para criar a mancha de dominio no piso
                 if can_be_dominated(cell) and not cell.is_map_edge:
                     border_tile_code = border_maker(cell, world)
                     cell.is_dominion_border = border_tile_code != 208
                     tile = self.tileset.get_tile(border_tile_code)
 
+                #verifica para desenhar recurso no piso
+                extra_surf = None
+                if cell.resource != None and cell.resource_amount > 0:
+                    #cell.walkable = False
+                    if cell.resource == "wood":
+                        if cell.dominion_level > Settings.dominion_threshold:
+                            extra_surf = self.tileset.get_tile_alpha(68)
+                        else:
+                            extra_surf = self.tileset.get_tile_alpha(67)
+                    elif cell.resource == "iron":
+                        extra_surf = self.tileset.get_tile_alpha(66)
+                
+                        
+
+
                 screen.blit(tile, (cell.x, cell.y))
+                if extra_surf != None :
+                    screen.blit(extra_surf, (cell.x, cell.y))
                 #self.surface.blit(tile, (cell.x, cell.y))
 
 

@@ -40,12 +40,12 @@ class BuildingMode:
                 uc = u + cell_mask[0]
                 if not self.game.world.cells[vc][uc].walkable : possible = False  
                 if self.game.world.cells[vc][uc].is_dominion_border: possible = False
+                #verifica se esta sobre um tile dominado:
                 if self.game.world.cells[vc][uc].dominion_level < Settings.dominion_threshold: possible = False
             #Verifica se possui recursos o suficiente
             if self.selected.wood_cost > Match.wood: possible = False
             if self.selected.iron_cost > Match.iron: possible = False
             if self.selected.aether_cost > Match.aether: possible = False
-            #verifica se esta sobre um tile dominado:
 
 
 
