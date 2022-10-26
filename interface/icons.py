@@ -42,6 +42,7 @@ def build_dic():
                 "worker":   Icon("worker", sprites16, sprites32, 7, 11),
                 "soldier":  Icon("soldier", sprites16, sprites32, 12, 11),
                 "aether":   Icon("aether", sprites16, sprites32, 10, 9),                
+                "book":   Icon("book", sprites16, sprites32, 2, 2),     
                 "error":    error_icon,
     }
 

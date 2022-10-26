@@ -3,26 +3,31 @@
 # ║                                             ║ 
 # ╚═════════════════════════════════════════════╝
 
+
 from random import randint
+
+from numpy import roll
 from movables.creatures import Creature
+from settings import Settings
 
 class MovablesManager:
-
-    spawnpoints = [(10,10)]
-    goalpoint = (5,5)
     
     def __init__(self, game, world):
-        self.generate_test_creatures(game,world)
+        self.game = game
+        self.world = world
+        self.roll = 10      
+        
 
-    def generate_test_creatures(self,gamewindow, world):
-        for h in range(10,30):
-            for w in range(20,40):            
-                roll = randint(1, 10)
-                if roll == 10 :
-                    creature = Creature(gamewindow, (w, h))
-                    world.creatures.append(creature)                    
-        print("generated " + str(len(world.creatures)) + " creatures ")
+    def generate(self):
+        for pos in Settings.enemy_spawns:           
+            if len(self.world.creatures) < Settings.max_enemies - 10:
+                roll = randint(0,100)
+                if roll == 100:
+                    creature = Creature(self.game, pos)
+                    self.world.creatures.append(creature)                    
+        
 
-    def update(self, world, delta_time):                        
+    def update(self, world, delta_time):   
+        self.generate()                   
         for creature in world.creatures:
             creature.update(delta_time)

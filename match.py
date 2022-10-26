@@ -14,6 +14,15 @@ class Match:
     soldiers = 0
     aether = 100
 
+    #registra a velocidade da simuulaçãoo [para testes]
+    speed = 1.0
+
+    #registra quando o jogador decidir expandir a fenda
+    beach_enabled = False
+
+    #registra a vitória ou derrota
+    game_won = False
+    game_lost = False
 
     def __init__(self) -> None:
         pass

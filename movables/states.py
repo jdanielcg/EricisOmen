@@ -22,12 +22,14 @@ class IdleState:
         attakable_target = self.creature.get_attackable_target()
         if attakable_target != None:                
             self.creature.state = AtkState(self.creature, attakable_target)
+            return
         
         #tentar pegar novo caminho                        
         if len(self.creature.path) != 0:            
             self.creature.state = WalkingState(self.creature)
             return 
         
+        #se nao tem caminho, solicita um novo, se possivel        
         pathfinder.creatures_needing_path.append(self.creature)
 
 
@@ -88,9 +90,8 @@ class WalkingState:
                 self.targetUV = self.creature.path.pop()
                 return True
 
-            #se falhar, ficar idle e avisar ao pathfinder
+            #se falhar, ficar idle
             self.creature.state = IdleState(self.creature)
-            pathfinder.creatures_needing_path.append(self.creature)
             return True
             
         else:
@@ -120,6 +121,5 @@ class AtkState:
 
 
         
-        #se falhar, ficar idle e avisar ao pathfinder
-        self.creature.state = IdleState(self.creature)
-        pathfinder.creatures_needing_path.append(self.creature)
+        #se falhar, ficar idle 
+        self.creature.state = IdleState(self.creature)        

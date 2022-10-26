@@ -7,6 +7,8 @@ import pygame
 from buildings.breach import add_breach, breach_update
 from buildings.buildings import Building, BuildingInfo
 from effects.effects import Fireball
+from match import Match
+from settings import Settings
 
 class BuildingManager:
     def __init__(self,game, filename):        
@@ -19,23 +21,26 @@ class BuildingManager:
         self.infos["miningcamp"] = BuildingInfo("miningcamp", (0, 4), (1,2), self._image, True, wood_cost= 50)
         self.infos["lumbercamp"] = BuildingInfo("lumbercamp", (1, 4), (1,2), self._image, True, wood_cost= 50)
         self.infos["firetower"] = BuildingInfo("firetower", (20, 12), (1,2), self._image, True, self.tower_action, iron_cost=50, wood_cost=50)
-        self.infos["breach1"] = BuildingInfo("breach1", (0, 23), (1,1), self._image, True, breach_update, 1, 2500, 10)
-        self.infos["breach2"] = BuildingInfo("breach2", (0, 24), (3,3), self._image, True, breach_update, 1, 2500, 20)
-        self.infos["breach3"] = BuildingInfo("breach3", (0, 27), (3,3), self._image, True, breach_update, 1, 2500, 35)
-        self.infos["breach4"] = BuildingInfo("breach4", (0, 30), (3,3), self._image, True, breach_update, 1, 2500, 40)
-        self.infos["breach5"] = BuildingInfo("breach5", (9, 23), (5,5), self._image, True, breach_update, 1, 2500, 40)
-        self.infos["breach6"] = BuildingInfo("breach6", (3, 23), (5,5), self._image, True, breach_update, 1, 2500, 50)
-        self.infos["breach7"] = BuildingInfo("breach7", (3, 28), (7,7), self._image, True, breach_update, 1, 2500, 60)
+        self.infos["breach1"] = BuildingInfo("breach1", (0, 23), (1,1), self._image, True, breach_update, 1, 2500, 10, on_destroy= self.set_gameover)
+        self.infos["breach2"] = BuildingInfo("breach2", (0, 24), (3,3), self._image, True, breach_update, 1, 2500, 20, on_destroy= self.set_gameover)
+        self.infos["breach3"] = BuildingInfo("breach3", (0, 27), (3,3), self._image, True, breach_update, 1, 2500, 35, on_destroy= self.set_gameover)
+        self.infos["breach4"] = BuildingInfo("breach4", (0, 30), (3,3), self._image, True, breach_update, 1, 2500, 40, on_destroy= self.set_gameover)
+        self.infos["breach5"] = BuildingInfo("breach5", (9, 23), (5,5), self._image, True, breach_update, 1, 2500, 40, on_destroy= self.set_gameover)
+        self.infos["breach6"] = BuildingInfo("breach6", (3, 23), (5,5), self._image, True, breach_update, 1, 2500, 50, on_destroy= self.set_gameover)
+        self.infos["breach7"] = BuildingInfo("breach7", (3, 28), (7,7), self._image, True, breach_update, 1, 2500, 60, on_destroy= self.set_gameover)
         self.infos["obelisk"] = BuildingInfo("obelisk", (10, 28), (1,2), self._image, True, None, 10, 2500, 10, aether_cost= 30)
         self.game = game   
 
     def build_base(self):
-        add_breach(10,10, self)
+        add_breach(Settings.breach_center[0], Settings.breach_center[1], self)
+
+    def set_gameover(self, building):        
+        Match.game_lost = True
 
     def tower_action(self, building, manager):
         #a ação da torre é disparar seu projetil
         closest_enemy = None
-        closest_sqr_dist = 10000000000
+        closest_sqr_dist = 200000
         dist = 0
         
         #acha o inimigo mais proximo
@@ -85,6 +90,9 @@ class BuildingManager:
             self.game.world.cells[v][u].walkable = True
             self.game.world.cells[v][u].buildable = True
             self.game.world.cells[v][u].building = None
+
+        if building.on_destroy != None:
+            building.on_destroy(building)
 
     def add(self, buildingInfo, posUV):        
         building = Building(posUV, buildingInfo)

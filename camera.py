@@ -6,7 +6,7 @@
 
 #modulo para controlar os parametros de visualização do mundo
 
-from logging import root
+
 from math import ceil
 from PPlay.window import Window
 from settings import Settings

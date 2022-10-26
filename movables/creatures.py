@@ -6,9 +6,10 @@
 from math import floor
 from random import randint
 import pygame
+from camera import Camera
 from effects.effects import Lifebar, SmokeDamage
 from movables.animcontroller import CharAnimationController
-from movables.states import WalkingState
+from movables.states import IdleState, WalkingState
 from settings import Settings
 
 import typing
@@ -36,7 +37,7 @@ class Creature:
         self.integrity = self.max_integrity    
 
         self.game = game
-        self.state = WalkingState(self)     
+        self.state = IdleState(self)     
         self.is_dead = False
         print("creature created at {0}, {1} ".format(self.u, self.v))
     
@@ -69,8 +70,8 @@ class Creature:
             screen = self.game.gameWindow.get_screen()        
             if len(self.path) > 0:
                 for step in range(len(self.path) - 1):   
-                    start = (self.path[step][0]*32 + 16, self.path[step][1]* 32  + 16)                 
-                    end = (self.path[step +1][0]*32  + 16, self.path[step+1][1]*32  + 16)                 
+                    start = (self.path[step][0]*32 + 16 - Camera.dx, self.path[step][1]* 32  + 16 - Camera.dy)                 
+                    end = (self.path[step +1][0]*32  + 16 - Camera.dx, self.path[step+1][1]*32  + 16 - Camera.dy)                 
                     pygame.draw.line(screen, self.path_color, start, end, 5)
 
     def get_attackable_target(self):

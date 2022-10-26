@@ -16,6 +16,7 @@ class Building:
         self.recharge_time = info.recharge_time
         self.timer = 0
         self.action = info.action
+        self.on_destroy = info.on_destroy
 
     #substitui as informações e recria a construção
     def morph_to(self, posUV, info):
@@ -47,7 +48,7 @@ class Building:
 class BuildingInfo:
     def __init__(self, name, origin, size, atlas, walkable, action = None,
                  recharge_time = 3, max_integrity = 1000, dominion_factor = 0,
-                 iron_cost = 0, aether_cost = 0, wood_cost = 0):
+                 iron_cost = 0, aether_cost = 0, wood_cost = 0, on_destroy = None):
         self.name = name
         self.origin = origin
         self.size = size      
@@ -61,6 +62,7 @@ class BuildingInfo:
         self.action = action
         self.recharge_time = recharge_time
         self.dominion_factor = dominion_factor
+        self.on_destroy = on_destroy
 
         #custos
         self.wood_cost = wood_cost

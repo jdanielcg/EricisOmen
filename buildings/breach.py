@@ -7,6 +7,7 @@
 
 from distutils.command.build import build
 from math import ceil
+import math
 from effects.effects import FloatingIconText
 from effects.effectsmanager import EffectsManager
 from match import Match
@@ -27,7 +28,7 @@ def upgrade_breach(building, manager):
     Settings.breach_level += 1
     stage = Settings.breach_level
     if stage >= 7:
-        Settings.game_won = True
+        Match.game_won = True
 
     name = "breach" + str(stage)
     info = manager.infos.get(name)
@@ -37,8 +38,10 @@ def upgrade_breach(building, manager):
         u = building.posUV[0] - dx
         v = building.posUV[1] - dy
         manager.remove(building)
-        manager.add(info, [u, v])   
-    Match.aether -= 200 
+        manager.add(info, [u, v])
+        Match.game_lost = False   
+    Match.aether -= Settings.breach_required_aether
+    Match.beach_enabled = False
 
 
 #principal loop da fenda. aqui é gerado o recurso aether e o recurso workers(trabalhadores)
@@ -57,6 +60,7 @@ def breach_update(building, manager):
         Match.aether += 75
         EffectsManager.effects.append(FloatingIconText(building.x, building.y,"aether","+75"))
 
-    if Match.aether >= 200:
+    if Match.aether >= Settings.breach_required_aether and Match.beach_enabled:
         upgrade_breach(building, manager)
+        
 

@@ -63,8 +63,12 @@ class World:
                                 tile_code == 3 or tile_code == 4 or tile_code == 5)
 
                 extra = cells_data["layers"][1]["data"][h*self.width + w] - 1 
-                if extra == 43 :  cell.resource = "wood"                    
-                elif extra == 73: cell.resource = "iron"
+                if extra == 43 :
+                    cell.resource = "wood"   
+                    cell.walkable = False                 
+                elif extra == 73:
+                    cell.resource = "iron"
+                    cell.walkable = False
 
                 line.append(cell)
             self.cells.append(line)

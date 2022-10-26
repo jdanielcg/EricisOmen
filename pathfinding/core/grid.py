@@ -3,8 +3,10 @@ from .node import Node
 try:
     import numpy as np
     USE_NUMPY = True
+    print("using numpy")
 except ImportError:
     USE_NUMPY = False
+    print("numpy not found")
 from pathfinding.core.diagonal_movement import DiagonalMovement
 
 

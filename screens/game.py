@@ -3,8 +3,9 @@
 # ║                                             ║ 
 # ╚═════════════════════════════════════════════╝
 
+from camera import Camera
 from effects.effectsmanager import EffectsManager
-from settings import SimulationMode
+from settings import Settings, SimulationMode
 from buildings.buildingmanager import BuildingManager
 from interface.buildingmode import BuildingMode
 from interface.debug_interface import DebugInterface
@@ -56,6 +57,9 @@ class Game:
         #inicia o modulo de pathfinding
         pathfinder.setup(self.world)
 
+        #seleciona a posição inicial da camera
+        Camera.set_view_from_center(Settings.breach_center[0], Settings.breach_center[1])
+
     #loop principal
     def update(self, delta_time):  
 
@@ -85,7 +89,7 @@ class Game:
 
             case SimulationMode.BUILDING:
                 #executa o modo de construção, escrevendo a silhueta da construção na tela
-                self.building_mode_interface.update(delta_time)
+                self.building_mode_interface.update(delta_time)            
 
         self.effects_manager.update(delta_time)
 

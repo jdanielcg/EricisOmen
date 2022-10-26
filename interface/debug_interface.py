@@ -6,6 +6,7 @@
 
 from pygame import Surface
 from PPlay.sprite import *
+from PPlay.window import Window
 from interface.icons import text_icon
 from interface.minimap import Minimap
 from interface.textbutton import TextButton
@@ -25,17 +26,25 @@ class DebugInterface:
         h = self.gamewindow.height        
         gw = gamewindow
 
+        self.speed_up_button = TextButton(gw, self.speed_up, (20,440), "SPEED UP")    
+        self.speed_down_button = TextButton(gw, self.speed_down, (20,470), "SPEED DOWN")    
         self.buildtestbutton = TextButton(gw, self.build_dormitory, (20,500), "DORM")        
         self.buildtestbutton2 = TextButton(gw, self.build_firetower, (20,530), "FIRETOWER")  
         self.debug_show_button = TextButton(gw, self.show_debug_info, (20,560), "SHOW PATH")   
         self.debug_up_ripple = TextButton(gw, self.build_obelisk, (20,590), "OBELISK") 
         self.buildmining_button = TextButton(gw, self.build_mining, (20,620), "MINING")
         self.buildmill_button = TextButton(gw, self.build_lumber, (20,650), "LUMBER")
+        self.breach_button = TextButton(gw, self.enable_breach, (230,580), "BREACH")
+        self.restart_button = TextButton(gw, self.restart_game, (round(w/2 - 50),round(h/2-10)), "RESTART")
 
         self.resources_back = Surface((150, 130))        
         self.resources_back.fill((0,0,0))
         self.resources_back.set_alpha(150)
         self.minimap = Minimap(game.world)
+
+        self.won_lost_back = Surface((w, 200))        
+        self.won_lost_back.fill((0,0,0))
+        self.won_lost_back.set_alpha(200)
 
 
 #######################fuções dos botões
@@ -62,10 +71,24 @@ class DebugInterface:
     def show_debug_info(self):
         Settings.show_debug = not Settings.show_debug
 
+    def enable_breach(self):
+        Match.beach_enabled = True
+
+    def speed_up(self):
+        Match.speed += 1.0
+
+    def speed_down(self):
+        Match.speed -= 1.0
+
+    def restart_game(self):
+        print("restarts the game")
+
 
 #########################################
 
     def update(self, delta_time):
+        self.speed_up_button.update()
+        self.speed_down_button.update()
         self.buildtestbutton.update()  
         self.buildtestbutton2.update()  
         self.debug_show_button.update()
@@ -79,7 +102,36 @@ class DebugInterface:
         self.game.screen.blit(text_icon("iron", str(Match.iron)),(160,530))
         self.game.screen.blit(text_icon("worker", str(Match.workers)),(160,550))
         self.game.screen.blit(text_icon("soldier", str(Match.soldiers)),(160,570))
-        self.game.screen.blit(text_icon("aether", str(Match.aether)),(160,590))
+        self.game.screen.blit(text_icon("aether", str(Match.aether) + "/300"),(160,590))
+
+        #desenha o botão de upgrade da fenda caso haja aether suficiente
+        if Match.aether >= Settings.breach_required_aether:
+            self.breach_button.update()
+
+        #desenha a mensagem de vitória caso jogo ganho
+        if Match.game_won:
+            w = Window.screen.get_width()
+            h = Window.screen.get_height()
+            surf = text_icon("book", "GAME WON", large= True)
+            w = round(w/2 - surf.get_width()/2)
+            h = round(h/2 - surf.get_height())
+
+            self.game.screen.blit(self.won_lost_back,(0,h-100))
+            self.game.screen.blit(surf,(w,h))
+            self.restart_button.update()
+
+        #desenha a mensagem de derrota caso jogo seja perdido
+        if Match.game_lost:
+            w = Window.screen.get_width()
+            h = Window.screen.get_height()
+            surf = text_icon("book", "GAME LOST", large= True)
+            w = round(w/2 - surf.get_width()/2)
+            h = round(h/2 - surf.get_height())
+
+            self.game.screen.blit(self.won_lost_back,(0,h-100))
+            self.game.screen.blit(surf,(w,h))
+            self.restart_button.update()
+
         self.minimap.update()
 
 

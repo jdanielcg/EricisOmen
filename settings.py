@@ -14,8 +14,12 @@ class Settings:
     tile_number_v = 60
     show_debug = False
     breach_level = 1
-    game_won = False
+
     dominion_threshold = 1
+    breach_required_aether = 300
+    breach_center = (30,30)
+    enemy_spawns = [(6,6), (54,6), (6, 54), (54,54)]
+    max_enemies = 30
 
     def __init__(self):
         self.game_w = 1280
