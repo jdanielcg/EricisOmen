@@ -45,7 +45,7 @@ class BuildingManager:
         
         #acha o inimigo mais proximo
         for enemy in self.game.world.creatures:
-            if enemy.is_dead : continue
+            if enemy.is_dead or not enemy.is_enemy : continue
             dist = (enemy.x - building.x)**2 + (enemy.y - building.y)**2
             if dist < closest_sqr_dist:
                 closest_sqr_dist = dist

@@ -3,6 +3,7 @@
 # ║                        RAMON SANTOS         ║ 
 # ╚═════════════════════════════════════════════╝
 
+from os import path
 from pygame import Vector2
 from PPlay.sprite import *
 from camera import Camera
@@ -11,36 +12,38 @@ from camera import Camera
 
 class CharAnimationController:
 
-    def __init__(self, creature):        
+    def __init__(self, creature, folder = "kobold"):        
         self.creature = creature
+
+        base_path = path.join("assets", "movables", folder)
         
 
         #cima
-        self.walking_up = Sprite("assets\movables\Kobold\wup.png", 9)
-        self.up_idle = Sprite("assets\movables\Kobold\\up.png")
+        self.walking_up = Sprite(path.join(base_path,"wup.png"), 9)
+        self.up_idle = Sprite(path.join(base_path,"up.png"))
         self.walking_up.set_total_duration(1000)
         self.up_idle.set_total_duration(1000)
 
         #baixo
-        self.walking_down = Sprite("assets\movables\Kobold\wdown.png", 9)
-        self.down_idle = Sprite("assets\movables\Kobold\down.png")        
+        self.walking_down = Sprite(path.join(base_path,"wdown.png"), 9)
+        self.down_idle = Sprite(path.join(base_path,"down.png"))        
         self.walking_down.set_total_duration(1000)
         self.down_idle.set_total_duration(1000)
 
         #esquerda
-        self.walking_left = Sprite("assets\movables\Kobold\wleft.png", 9)
-        self.left_idle = Sprite("assets\movables\Kobold\left.png")
+        self.walking_left = Sprite(path.join(base_path,"wleft.png"), 9)
+        self.left_idle = Sprite(path.join(base_path,"left.png"))
         self.walking_left.set_total_duration(1000)
         self.left_idle.set_total_duration(1000)
 
         #direita
-        self.walking_right = Sprite("assets\movables\Kobold\wright.png", 9)
-        self.right_idle = Sprite("assets\movables\Kobold\\right.png")
+        self.walking_right = Sprite(path.join(base_path,"wright.png"), 9)
+        self.right_idle = Sprite(path.join(base_path,"right.png"))
         self.walking_right.set_total_duration(1000)
         self.right_idle.set_total_duration(1000)
 
         #morto               
-        self.dead = Sprite("assets\movables\Kobold\dead.png")       
+        self.dead = Sprite(path.join(base_path,"dead.png")  )     
         self.dead.set_total_duration(1000)
         self.is_dead = False
 

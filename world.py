@@ -16,22 +16,27 @@ class World:
         self._dominion_buildings = []
         self.generate_map()
         self.attack_possible_positions = []
+        self.domain_cells = []
 
     #atualiza a ocupação das celulas
     def update(self, delta_time):      
         self.attack_possible_positions.clear()
+        self.domain_cells.clear()
         for cell_line in self.cells:
             for cell in cell_line:
                 cell.update()
                 #atualiza a lista de posições de ataque possiveis
                 cell.possible_attack_position = False
-                if cell.dominion_level >= Settings.dominion_threshold and cell.vacant:
+                if cell.dominion_level >= Settings.dominion_threshold and cell.vacant:                    
                     #verificando alvos nos arredores
                     for neighbor in cell.close_neighbors:
                         if neighbor.building != None:
                             self.attack_possible_positions.append(cell)
                             cell.possible_attack_position = True
                 
+                #atualiza lista de celulas do  dominio
+                if cell.dominion_level >= Settings.dominion_threshold:
+                    self.domain_cells.append(cell)
     
     def add_dominion(self, building):
         self._dominion_buildings.append(building)            

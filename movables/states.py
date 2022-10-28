@@ -27,9 +27,9 @@ class IdleState:
         self.wait_timer = 0
 
         #tentar atacar
-        attakable_target = self.creature.get_attackable_target()
-        if attakable_target != None:                
-            self.creature.state = AtkState(self.creature, attakable_target)
+        attakable_cell_target = self.creature.get_attackable_target()
+        if attakable_cell_target != None:                
+            self.creature.state = AtkState(self.creature, attakable_cell_target)
             return
         
         #tentar pegar novo caminho                        
@@ -126,21 +126,29 @@ class AtkState:
         self.atkinterval = 2.0
 
     def update(self, delta_time):
-        #check attack
-        building = self.creature.game.world.cells[self.atktarget[0]][self.atktarget[1]].building
-        if building != None:
-            if building.integrity > 0:
-                self.timer += delta_time
-                if self.timer >= self.atkinterval:
+        self.timer += delta_time
+        if self.timer < self.atkinterval:
+            return
+            
+        #verificar se possivel atacar
+        if self.creature.is_enemy:
+            building = self.atktarget.building
+            if building != None:
+                if building.integrity > 0:
                     self.timer = 0
                     building.integrity -= self.creature.damage
                     print("damage")
                     self.creature.game.effects_manager.effects.append(SmokeDamage(
-                        self.atktarget[1]*Settings.tilesize, self.atktarget[0]*Settings.tilesize))
-                return
-
-
-
+                        self.atktarget.x, self.atktarget.y))
+                    return
+        #a criatura é aliada  e buscará atacar um inimigo
+        else:
+            enemy = self.atktarget.creature
+            if enemy != None:
+                if enemy.is_enemy and enemy.is_dead == False:
+                    self.timer = 0
+                    enemy.take_damage(self.creature.damage)
+                    return
         
         #se falhar, ficar idle 
         self.creature.state = IdleState(self.creature)        

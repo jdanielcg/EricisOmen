@@ -18,9 +18,10 @@ if typing.TYPE_CHECKING:
     from screens.game import Game    
 
 class Creature:
-    def __init__(self, game : "Game", tile_pos = (0.0, 0.0)):
+    def __init__(self, game : "Game", tile_pos = (0.0, 0.0), is_enemy = True, folder = "kobold"):
         self.game = game
-        self.code = randint(10000, 99999)
+        self.code = str(randint(10000, 99999)) + str(is_enemy)
+        self.is_enemy = is_enemy
 
         self.x = 1.0*tile_pos[0]* Settings.tilesize
         self.y = 1.0*tile_pos[1]* Settings.tilesize
@@ -30,7 +31,7 @@ class Creature:
 
         self.speed = 20.0
 
-        self.anim_controller = CharAnimationController(self)      
+        self.anim_controller = CharAnimationController(self, folder)      
 
         self.damage = 300
         self.lifebar = None
@@ -90,8 +91,6 @@ class Creature:
         else:
             self.future_cell = None
 
-
-
         #[debug] exibe o caminho gerado
         if Settings.show_debug:
             screen = self.game.gameWindow.get_screen() 
@@ -101,21 +100,20 @@ class Creature:
                     start = (self.path[step][0]*32 + 16 - Camera.dx, self.path[step][1]* 32  + 16 - Camera.dy)                     
                     end = (self.path[step +1][0]*32  + 16 - Camera.dx, self.path[step+1][1]*32  + 16 - Camera.dy)                 
                     pygame.draw.line(screen, self.path_color, start, end, 5)
-                ##desenha o ultimo no
-                #start = end                   
-                #end = (self.u*32  + 16 - Camera.dx, self.v*32  + 16 - Camera.dy)                 
-                #pygame.draw.line(screen, self.path_color, start, end, 5)
 
     def get_attackable_target(self):
         #verifica entornos para alvos atacaveis
-        if self.game.world.cells[self.v - 1][self.u].building != None:
-            return [self.v - 1,self.u]
-        elif self.game.world.cells[self.v + 1][self.u].building != None:
-            return [self.v + 1, self.u]
-        elif self.game.world.cells[self.v][self.u-1].building != None:
-            return [self.v, self.u-1]
-        elif self.game.world.cells[self.v][self.u+1].building != None:
-            return [self.v,self.u+1]
+        if self.current_cell == None:
+            return None
+        for cell in self.current_cell.close_neighbors:
+            if self.is_enemy:
+                if cell.building != None:
+                    return cell
+            else:
+                if cell.creature != None:
+                    if cell.creature.is_enemy:
+                        return cell
+ 
         return None
         
 

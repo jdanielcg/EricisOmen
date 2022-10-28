@@ -25,8 +25,14 @@ class MovablesManager:
             if len(self.world.creatures) < Settings.max_enemies:
                 cell = self.world.cells[pos[1]][pos[0]]
                 if cell.vacant:                
-                    creature = Creature(self.game, pos)
-                    self.world.creatures.append(creature)                    
+                    creature = Creature(self.game, pos, True, "human")
+                    self.world.creatures.append(creature)   
+        self.world.domain_cells.reverse()
+        for cell in self.world.domain_cells:
+            if cell.vacant and len(self.world.creatures) < Settings.max_enemies:
+                creature = Creature(self.game, cell.location, False, "kobold")
+                self.world.creatures.append(creature)   
+                return 
         
 
     def update(self, world, delta_time):   
