@@ -44,7 +44,7 @@ def closest_goal(creature) -> Node:
     closest = None
 
     for cell in creature.game.world.attack_possible_positions:
-        dist_from = dist(cell.location, (creature.x, creature.y))
+        dist_from = dist(cell.location, (creature.u, creature.v))
         if dist_from < dist_closest:
             dist_closest = dist_from
             closest = cell.node

@@ -80,7 +80,7 @@ class Creature:
         self.anim_controller.update(delta_time)
 
         #controla a ocupação das celulas
-        self.current_cell = self.game.world.cells[self.v][self.u]
+        self.current_cell = self.game.world.cells[round(self.y/Settings.tilesize)][round(self.x/Settings.tilesize)]
         if self.current_cell != None:
             self.current_cell.creature = self
         if self.target_uv != None:
