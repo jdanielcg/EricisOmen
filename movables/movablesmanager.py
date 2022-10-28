@@ -15,19 +15,26 @@ class MovablesManager:
     def __init__(self, game, world):
         self.game = game
         self.world = world
-        self.roll = 10      
+        self.delay = 1    
+        self.timer = 0  
         
 
     def generate(self):
+        self.delay = randint(3,4)
         for pos in Settings.enemy_spawns:           
-            if len(self.world.creatures) < Settings.max_enemies - 10:
-                roll = randint(0,100)
-                if roll == 100:
+            if len(self.world.creatures) < Settings.max_enemies:
+                cell = self.world.cells[pos[1]][pos[0]]
+                if cell.vacant:                
                     creature = Creature(self.game, pos)
                     self.world.creatures.append(creature)                    
         
 
     def update(self, world, delta_time):   
-        self.generate()                   
+        #gera criaturas continuamente
+        self.timer += delta_time
+        if self.timer >= self.delay:
+            self.generate()                   
+            self.timer = 0
+
         for creature in world.creatures:
             creature.update(delta_time)

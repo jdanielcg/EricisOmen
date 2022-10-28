@@ -19,6 +19,18 @@ class Tilemap:
         self.tileset = tileset
         self.tile_w, self.tile_h = tileset.tile_size
 
+        self.debug_red = pygame.Surface((32,32))
+        self.debug_red.fill((255,0,0))
+        self.debug_red.set_alpha(150)
+
+        self.debug_blue = pygame.Surface((32,32))
+        self.debug_blue.fill((0,0,255))
+        self.debug_blue.set_alpha(150)
+
+        self.debug_green = pygame.Surface((32,32))
+        self.debug_green.fill((0,255,0))
+        self.debug_green.set_alpha(150)
+
         #self.surface = pygame.Surface((self.tile_w*20, self.tile_h*20))
         #self.rect = self.surface.get_rect()        
 
@@ -52,11 +64,21 @@ class Tilemap:
                             extra_surf = self.tileset.get_tile_alpha(67)
                     elif cell.resource == "iron":
                         extra_surf = self.tileset.get_tile_alpha(66)
-                
-                        
 
+                debug_mark = None
+                if Settings.show_debug:
+                    if not cell.vacant:
+                        debug_mark = self.debug_red
+                    if cell.future_creature != None:
+                        debug_mark = self.debug_blue
+                    if cell.possible_attack_position == True:
+                        debug_mark = self.debug_green
 
                 screen.blit(tile, (cell.x - Camera.dx, cell.y - Camera.dy))
+
+                if debug_mark != None:
+                    screen.blit(debug_mark, (cell.x - Camera.dx, cell.y - Camera.dy))
+
                 if extra_surf != None :
                     screen.blit(extra_surf, (cell.x - Camera.dx, cell.y - Camera.dy))
                 #self.surface.blit(tile, (cell.x, cell.y))

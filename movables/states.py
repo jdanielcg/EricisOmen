@@ -16,8 +16,16 @@ if typing.TYPE_CHECKING:
 class IdleState:
     def __init__(self, creature : "Creature") -> None:        
         self.creature = creature
+        self.wait_timer = 1
+        self.wait_time = 1
 
     def update(self, delta_time):
+        self.wait_timer += delta_time
+        #verifica o tempo parado
+        if self.wait_timer < self.wait_time:
+            return
+        self.wait_timer = 0
+
         #tentar atacar
         attakable_target = self.creature.get_attackable_target()
         if attakable_target != None:                
@@ -29,31 +37,51 @@ class IdleState:
             self.creature.state = WalkingState(self.creature)
             return 
         
-        #se nao tem caminho, solicita um novo, se possivel        
-        pathfinder.creatures_needing_path.append(self.creature)
+        #se nao tem caminho, solicita um novo, se possivel     
+        if pathfinder.creatures_needing_path.count(self.creature) == 0:
+            pathfinder.creatures_needing_path.append(self.creature)
 
 
 class WalkingState:
     def __init__(self, creature: "Creature") -> None:        
-        self.creature = creature
-        self.targetUV = None
+        self.creature = creature        
+
+    def get_next_target(self) -> bool:
+        #seleciona um novo no/alvo caminho                    
+        if len(self.creature.path) != 0:
+            self.creature.target_uv = self.creature.path.pop()
+
+            #verifica se o novo caminho é possivel
+            next_cell = self.creature.game.world.cells[self.creature.target_uv[1]][self.creature.target_uv[0]]
+            if not next_cell.vacant:
+                #caso nao seja, exclui o caminho e o no                
+                self.creature.target_uv = None
+                self.creature.path.clear()
+                return False
+
+            return True
+        else:
+            return False
 
     def update(self, delta_time):
-        if (self.verify_transition()) : return
+        #verifica se tem um alvo
+        if self.creature.target_uv == None:
+            #tentar pegar novo caminho, se não conseguir, verifica transição  
+            if not self.get_next_target():
+                self.verify_transition()
+                return
 
-        tarX = self.targetUV[0]*Settings.tilesize
-        tarY = self.targetUV[1]*Settings.tilesize
+        tarX = self.creature.target_uv[0]*Settings.tilesize
+        tarY = self.creature.target_uv[1]*Settings.tilesize
 
         #verificar se chegou
         if abs(tarX - self.creature.x) <= 0.9:
             if abs(tarY - self.creature.y) <= 0.9:
                 self.creature.x = tarX
                 self.creature.y = tarY
-                if len(self.creature.path) == 0:
-                    self.targetUV = None
-                else:
-                    self.targetUV = self.creature.path.pop()
+                self.creature.target_uv = None
                 return
+
 
         #calcular direção
         dirX = tarX - self.creature.x; 
@@ -78,24 +106,17 @@ class WalkingState:
 
             
     def verify_transition(self):
-        if self.targetUV == None:
             #tentar atacar
             attakable_target = self.creature.get_attackable_target()
             if attakable_target != None:                
                 self.creature.state = AtkState(self.creature, attakable_target)
-
-
-            #tentar pegar novo caminho                        
-            if len(self.creature.path) != 0:
-                self.targetUV = self.creature.path.pop()
-                return True
+                return
 
             #se falhar, ficar idle
             self.creature.state = IdleState(self.creature)
-            return True
+            return
             
-        else:
-            return False
+
 
 class AtkState:
     def __init__(self, creature : "Creature", attakable_target) -> None:        

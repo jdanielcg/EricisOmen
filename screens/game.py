@@ -63,6 +63,9 @@ class Game:
     #loop principal
     def update(self, delta_time):  
 
+        #atualiza o estado do mapa:
+        self.world.update(delta_time)
+        
         #gera os caminhos no módulo de pathfinding
         pathfinder.update(delta_time)
 

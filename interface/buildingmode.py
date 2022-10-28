@@ -76,8 +76,7 @@ class BuildingMode:
                 self.game.simulation_mode = SimulationMode.RUNNING
 
     def build(self, posUV):        
-        self.game.buildings_manager.add(self.selected, posUV)
-        self.game.simulation_mode = SimulationMode.RUNNING
+        self.game.buildings_manager.add(self.selected, posUV)        
         Match.wood -= self.selected.wood_cost 
         Match.iron -= self.selected.iron_cost
         Match.aether -= self.selected.aether_cost 

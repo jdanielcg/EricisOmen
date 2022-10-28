@@ -18,7 +18,7 @@ class Settings:
     dominion_threshold = 1
     breach_required_aether = 300
     breach_center = (30,30)
-    enemy_spawns = [(6,6), (54,6), (6, 54), (54,54)]
+    enemy_spawns = [(6,6),(6,7),(7,6),(7,7), (54,6), (6, 54), (54,54)]
     max_enemies = 30
 
     def __init__(self):

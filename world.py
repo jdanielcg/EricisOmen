@@ -15,7 +15,23 @@ class World:
         self.building_list = []
         self._dominion_buildings = []
         self.generate_map()
-        
+        self.attack_possible_positions = []
+
+    #atualiza a ocupação das celulas
+    def update(self, delta_time):      
+        self.attack_possible_positions.clear()
+        for cell_line in self.cells:
+            for cell in cell_line:
+                cell.update()
+                #atualiza a lista de posições de ataque possiveis
+                cell.possible_attack_position = False
+                if cell.dominion_level >= Settings.dominion_threshold and cell.vacant:
+                    #verificando alvos nos arredores
+                    for neighbor in cell.close_neighbors:
+                        if neighbor.building != None:
+                            self.attack_possible_positions.append(cell)
+                            cell.possible_attack_position = True
+                
     
     def add_dominion(self, building):
         self._dominion_buildings.append(building)            
@@ -72,3 +88,11 @@ class World:
 
                 line.append(cell)
             self.cells.append(line)
+
+        #registra os vizinhos
+        for v in range(1,self.height-1):            
+            for u in range(1,self.width-1):
+                self.cells[v][u].close_neighbors.append(self.cells[v-1][u])
+                self.cells[v][u].close_neighbors.append(self.cells[v+1][u])
+                self.cells[v][u].close_neighbors.append(self.cells[v][u+1])
+                self.cells[v][u].close_neighbors.append(self.cells[v][u-1])

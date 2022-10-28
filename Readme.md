@@ -22,4 +22,5 @@
 
 # LPC generator
 * https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Reptile_lightgreen_unwinged&legs=Skirts_legion
+* https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_olive&head=Human_male_olive&sex=male&shadow=Shadow_shadow&beard=Winter_platinum&hat=Armet_steel&shoulders=Plate_steel&arms=Armour_steel&shoes=Boots_gray&legs=Pants_gray&armour=Plate_steel&weapon=Slash_pickaxe&ammo=Ammo_arrow
 

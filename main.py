@@ -2,15 +2,13 @@
 # ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
 # ║                                             ║ 
 # ╚═════════════════════════════════════════════╝
-import pygame
+
 from PPlay.window import*
-from camera import Camera
 from interface.customcursor import load_custom_cursor
 from match import Match
 from screens.game import Game
 from screens.mainmenu import MainMenu
 from settings import Settings
-
 
 def main():
     settings = Settings()   
@@ -22,8 +20,7 @@ def main():
     settings.mainmenuscreen = MainMenu(settings,gameWindow)
     settings.current_screen = settings.mainmenuscreen
 
-    load_custom_cursor("cursor16.png")
-    
+    load_custom_cursor("cursor16.png")   
 
     
     while settings.current_screen != None:

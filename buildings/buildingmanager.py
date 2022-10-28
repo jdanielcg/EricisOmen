@@ -21,7 +21,7 @@ class BuildingManager:
         self.infos["miningcamp"] = BuildingInfo("miningcamp", (0, 4), (1,2), self._image, True, wood_cost= 50)
         self.infos["lumbercamp"] = BuildingInfo("lumbercamp", (1, 4), (1,2), self._image, True, wood_cost= 50)
         self.infos["firetower"] = BuildingInfo("firetower", (20, 12), (1,2), self._image, True, self.tower_action, iron_cost=50, wood_cost=50)
-        self.infos["breach1"] = BuildingInfo("breach1", (0, 23), (1,1), self._image, True, breach_update, 1, 2500, 10, on_destroy= self.set_gameover)
+        self.infos["breach1"] = BuildingInfo("breach1", (0, 23), (1,1), self._image, True, breach_update, 1, 2500, 15, on_destroy= self.set_gameover)
         self.infos["breach2"] = BuildingInfo("breach2", (0, 24), (3,3), self._image, True, breach_update, 1, 2500, 20, on_destroy= self.set_gameover)
         self.infos["breach3"] = BuildingInfo("breach3", (0, 27), (3,3), self._image, True, breach_update, 1, 2500, 35, on_destroy= self.set_gameover)
         self.infos["breach4"] = BuildingInfo("breach4", (0, 30), (3,3), self._image, True, breach_update, 1, 2500, 40, on_destroy= self.set_gameover)

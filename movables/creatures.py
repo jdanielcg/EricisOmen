@@ -19,6 +19,9 @@ if typing.TYPE_CHECKING:
 
 class Creature:
     def __init__(self, game : "Game", tile_pos = (0.0, 0.0)):
+        self.game = game
+        self.code = randint(10000, 99999)
+
         self.x = 1.0*tile_pos[0]* Settings.tilesize
         self.y = 1.0*tile_pos[1]* Settings.tilesize
 
@@ -32,14 +35,24 @@ class Creature:
         self.damage = 300
         self.lifebar = None
 
-
         self.max_integrity = 1000    
         self.integrity = self.max_integrity    
 
-        self.game = game
+        #registra o alvo do movimento
+        self.target_uv = None
+
+        #usados para acompanhar as células ocupadas durante os movimentos
+        self.current_cell = None
+        self.future_cell = None
+        self.current_cell = self.game.world.cells[self.v][self.u]
+        self.current_cell.creature = self
+
+        #seleciona o estado inicial da criatura
         self.state = IdleState(self)     
         self.is_dead = False
-        print("creature created at {0}, {1} ".format(self.u, self.v))
+
+
+        #print("creature created at {0}, {1} ".format(self.u, self.v))
     
     @property
     def u(self):
@@ -66,13 +79,32 @@ class Creature:
         if not self.is_dead : self.state.update(delta_time)
         self.anim_controller.update(delta_time)
 
+        #controla a ocupação das celulas
+        self.current_cell = self.game.world.cells[self.v][self.u]
+        if self.current_cell != None:
+            self.current_cell.creature = self
+        if self.target_uv != None:
+            self.future_cell = self.game.world.cells[self.target_uv[1]][self.target_uv[0]]
+            if self.future_cell != None:
+                self.future_cell.future_creature = self
+        else:
+            self.future_cell = None
+
+
+
+        #[debug] exibe o caminho gerado
         if Settings.show_debug:
-            screen = self.game.gameWindow.get_screen()        
+            screen = self.game.gameWindow.get_screen() 
+            start, end = (0,0)       
             if len(self.path) > 0:
-                for step in range(len(self.path) - 1):   
-                    start = (self.path[step][0]*32 + 16 - Camera.dx, self.path[step][1]* 32  + 16 - Camera.dy)                 
+                for step in range(len(self.path) -1 ):   
+                    start = (self.path[step][0]*32 + 16 - Camera.dx, self.path[step][1]* 32  + 16 - Camera.dy)                     
                     end = (self.path[step +1][0]*32  + 16 - Camera.dx, self.path[step+1][1]*32  + 16 - Camera.dy)                 
                     pygame.draw.line(screen, self.path_color, start, end, 5)
+                ##desenha o ultimo no
+                #start = end                   
+                #end = (self.u*32  + 16 - Camera.dx, self.v*32  + 16 - Camera.dy)                 
+                #pygame.draw.line(screen, self.path_color, start, end, 5)
 
     def get_attackable_target(self):
         #verifica entornos para alvos atacaveis
