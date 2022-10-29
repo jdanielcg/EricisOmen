@@ -5,15 +5,16 @@
 
 from pygame import Surface
 from PPlay.sprite import*
+from PPlay.window import Window
 
 class TextButton:
     font = None
 
-    def __init__(self, gamewindow, func, pos = (0,0), text = ""):
-        self.mouse = gamewindow.get_mouse()                               
+    def __init__(self, func, pos = (0,0), text = ""):
+        self.mouse = Window.get_mouse()                               
         self.func = func
         self.pos = pos
-        self.screen = gamewindow.get_screen()
+        self.screen = Window.screen
         self.highlight = False
 
         #inicializa a fonte

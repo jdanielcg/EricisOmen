@@ -25,8 +25,8 @@ aether_interval = 5
 aether_timer = 0
 
 def upgrade_breach(building, manager):
-    Settings.breach_level += 1
-    stage = Settings.breach_level
+    Match.breach_level += 1
+    stage = Match.breach_level
     if stage >= 7:
         Match.game_won = True
 

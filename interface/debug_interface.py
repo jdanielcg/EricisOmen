@@ -7,6 +7,7 @@
 from pygame import Surface
 from PPlay.sprite import *
 from PPlay.window import Window
+from interface.breachmeter import setup_breachmeter, update_breachmeter
 from interface.icons import text_icon
 from interface.minimap import Minimap
 from interface.textbutton import TextButton
@@ -24,18 +25,17 @@ class DebugInterface:
         #atalhos
         w = self.gamewindow.width
         h = self.gamewindow.height        
-        gw = gamewindow
+        
 
-        self.speed_up_button = TextButton(gw, self.speed_up, (20,440), "SPEED UP")    
-        self.speed_down_button = TextButton(gw, self.speed_down, (20,470), "SPEED DOWN")    
-        self.buildtestbutton = TextButton(gw, self.build_dormitory, (20,500), "DORM")        
-        self.buildtestbutton2 = TextButton(gw, self.build_firetower, (20,530), "FIRETOWER")  
-        self.debug_show_button = TextButton(gw, self.show_debug_info, (20,560), "SHOW PATH")   
-        self.debug_up_ripple = TextButton(gw, self.build_obelisk, (20,590), "OBELISK") 
-        self.buildmining_button = TextButton(gw, self.build_mining, (20,620), "MINING")
-        self.buildmill_button = TextButton(gw, self.build_lumber, (20,650), "LUMBER")
-        self.breach_button = TextButton(gw, self.enable_breach, (230,580), "BREACH")
-        self.restart_button = TextButton(gw, self.restart_game, (round(w/2 - 50),round(h/2-10)), "RESTART")
+        self.speed_up_button = TextButton( self.speed_up, (20,440), "SPEED UP")    
+        self.speed_down_button = TextButton( self.speed_down, (20,470), "SPEED DOWN")    
+        self.buildtestbutton = TextButton( self.build_dormitory, (20,500), "DORM")        
+        self.buildtestbutton2 = TextButton( self.build_firetower, (20,530), "FIRETOWER")  
+        self.debug_show_button = TextButton( self.show_debug_info, (20,560), "SHOW PATH")   
+        self.debug_up_ripple = TextButton( self.build_obelisk, (20,590), "OBELISK") 
+        self.buildmining_button = TextButton( self.build_mining, (20,620), "MINING")
+        self.buildmill_button = TextButton( self.build_lumber, (20,650), "LUMBER")        
+        self.restart_button = TextButton( self.restart_game, (round(w/2 - 50),round(h/2-10)), "RESTART")
 
         self.resources_back = Surface((150, 130))        
         self.resources_back.fill((0,0,0))
@@ -45,6 +45,8 @@ class DebugInterface:
         self.won_lost_back = Surface((w, 200))        
         self.won_lost_back.fill((0,0,0))
         self.won_lost_back.set_alpha(200)
+
+        setup_breachmeter()
 
 
 #######################fuções dos botões
@@ -102,11 +104,7 @@ class DebugInterface:
         self.game.screen.blit(text_icon("iron", str(Match.iron)),(160,530))
         self.game.screen.blit(text_icon("worker", str(Match.workers)),(160,550))
         self.game.screen.blit(text_icon("soldier", str(Match.soldiers)),(160,570))
-        self.game.screen.blit(text_icon("aether", str(Match.aether) + "/300"),(160,590))
-
-        #desenha o botão de upgrade da fenda caso haja aether suficiente
-        if Match.aether >= Settings.breach_required_aether:
-            self.breach_button.update()
+        self.game.screen.blit(text_icon("aether", str(Match.aether)),(160,590))
 
         #desenha a mensagem de vitória caso jogo ganho
         if Match.game_won:
@@ -133,6 +131,8 @@ class DebugInterface:
             self.restart_button.update()
 
         self.minimap.update()
+
+        update_breachmeter(delta_time)
 
 
 

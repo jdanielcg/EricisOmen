@@ -13,7 +13,7 @@ class Settings:
     tile_number_u = 60
     tile_number_v = 60
     show_debug = False
-    breach_level = 1
+
 
     dominion_threshold = 1
     breach_required_aether = 300

@@ -5,6 +5,7 @@
 
 from PPlay.sprite import *
 from interface.spritebutton import SpriteButton
+from match import Match
 from settings import Settings
 
 class Gameinterface:
@@ -69,7 +70,7 @@ class Gameinterface:
         h = self.gamewindow.height
 
         gw.draw_text("Portal Level: ", w/2 + 470, 23, size=20, bold=True, color=(0, 0, 0))
-        gw.draw_text(str(Settings.breach_level), w/2 + 595, 23.5, size=20, bold=True, color=(0, 0, 0))
+        gw.draw_text(str(Match.breach_level), w/2 + 595, 23.5, size=20, bold=True, color=(0, 0, 0))
         gw.draw_text(str(self.s.portal_level_percent), w/2 + 482, 47, size=17, bold=True, color=(0, 0, 0))
         gw.draw_text("% Chance of", w/2 + 493, 48, size=17, bold=True, color=(0, 0, 0))
         gw.draw_text("spawning Ericis", w/2 + 474, 68, size=17, bold=True, color=(0, 0, 0))

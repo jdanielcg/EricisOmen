@@ -20,6 +20,9 @@ class Match:
     #registra quando o jogador decidir expandir a fenda
     beach_enabled = False
 
+    #registra o estado atual da fenda
+    breach_level = 1
+
     #registra a vitória ou derrota
     game_won = False
     game_lost = False
