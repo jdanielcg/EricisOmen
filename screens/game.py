@@ -5,12 +5,13 @@
 
 from camera import Camera
 from effects.effectsmanager import EffectsManager
+from interface.interface import Interface
 from settings import Settings, SimulationMode
 from buildings.buildingmanager import BuildingManager
 from interface.buildingmode import BuildingMode
 from interface.debug_interface import DebugInterface
 from interface.framerate import Framerate
-from interface.gameinterface import Gameinterface
+
 from mapa.tilemap import Tilemap
 from mapa.tileset import Tileset
 from movables.movablesmanager import MovablesManager
@@ -43,7 +44,7 @@ class Game:
         self.movables_manager = MovablesManager(self,self.world)    
 
         #interface do jogo
-        self.gameinterface = Gameinterface(settings,gameWindow)
+        self.gameinterface = Interface(gameWindow)
 
         #interface com botoes de teste
         self.debuginterface = DebugInterface(settings, gameWindow, self)

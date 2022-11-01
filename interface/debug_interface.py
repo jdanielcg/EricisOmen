@@ -21,6 +21,7 @@ class DebugInterface:
         self.gamewindow = gamewindow        
         self.s = s
         self.game = game
+        self.show_buttons = False
 
         #atalhos
         w = self.gamewindow.width
@@ -37,6 +38,8 @@ class DebugInterface:
         self.buildmill_button = TextButton( self.build_lumber, (20,650), "LUMBER")        
         self.restart_button = TextButton( self.restart_game, (round(w/2 - 50),round(h/2-10)), "RESTART")
 
+        self.show_debug_button = TextButton( self.show_debug_menu, (20,680), "DEBUG MENU")  
+
         self.resources_back = Surface((150, 130))        
         self.resources_back.fill((0,0,0))
         self.resources_back.set_alpha(150)
@@ -50,6 +53,10 @@ class DebugInterface:
 
 
 #######################fuções dos botões
+
+    def show_debug_menu(self):
+        self.show_buttons = not self.show_buttons        
+
     def build_dormitory(self):
         self.game.building_mode_interface.start("dormitory")
         self.game.simulation_mode = SimulationMode.BUILDING
@@ -89,22 +96,26 @@ class DebugInterface:
 #########################################
 
     def update(self, delta_time):
-        self.speed_up_button.update()
-        self.speed_down_button.update()
-        self.buildtestbutton.update()  
-        self.buildtestbutton2.update()  
-        self.debug_show_button.update()
-        self.debug_up_ripple.update()
-        self.buildmining_button.update()
-        self.buildmill_button.update()
+        if not self.show_buttons:
+            self.show_debug_button.update()
+        else:
+            self.show_debug_button.update()
+            self.speed_up_button.update()
+            self.speed_down_button.update()
+            self.buildtestbutton.update()  
+            self.buildtestbutton2.update()  
+            self.debug_show_button.update()
+            self.debug_up_ripple.update()
+            self.buildmining_button.update()
+            self.buildmill_button.update()
 
-        self.game.screen.blit(self.resources_back, (150,500))
-                    
-        self.game.screen.blit(text_icon("wood", str(Match.wood)),(160,510))
-        self.game.screen.blit(text_icon("iron", str(Match.iron)),(160,530))
-        self.game.screen.blit(text_icon("worker", str(Match.workers)),(160,550))
-        self.game.screen.blit(text_icon("soldier", str(Match.soldiers)),(160,570))
-        self.game.screen.blit(text_icon("aether", str(Match.aether)),(160,590))
+            self.game.screen.blit(self.resources_back, (150,500))
+
+            self.game.screen.blit(text_icon("wood", str(Match.wood)),(160,510))
+            self.game.screen.blit(text_icon("iron", str(Match.iron)),(160,530))
+            self.game.screen.blit(text_icon("worker", str(Match.workers)),(160,550))
+            self.game.screen.blit(text_icon("soldier", str(Match.soldiers)),(160,570))
+            self.game.screen.blit(text_icon("aether", str(Match.aether)),(160,590))
 
         #desenha a mensagem de vitória caso jogo ganho
         if Match.game_won:
@@ -130,8 +141,10 @@ class DebugInterface:
             self.game.screen.blit(surf,(w,h))
             self.restart_button.update()
 
+        #atualiza o minimapa
         self.minimap.update()
 
+        #atualiza o medidor da fenda
         update_breachmeter(delta_time)
 
 
