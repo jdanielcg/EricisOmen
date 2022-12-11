@@ -23,13 +23,13 @@ class MovablesManager:
     def generate(self):
         self.delay = randint(3,4)
         if len(self.world.creatures) < Settings.max_creatures:
-            for pos in Settings.enemy_spawns:           
-                if len(Match.enemies) < Settings.max_enemies_wave:
-                    cell = self.world.cells[pos[1]][pos[0]]
-                    if cell.vacant:                
-                        creature = Creature(self.game, pos, True, "human")
-                        Match.enemies.append(creature)
-                        self.world.creatures.append(creature)   
+            #for pos in Settings.enemy_spawns:           
+            #    if len(Match.enemies) < Settings.max_enemies_wave:
+            #        cell = self.world.cells[pos[1]][pos[0]]
+            #        if cell.vacant:                
+            #            creature = Creature(self.game, pos, True, "human")
+            #            Match.enemies.append(creature)
+            #            self.world.creatures.append(creature)   
             self.world.domain_cells.reverse()
             for cell in self.world.domain_cells:
                 if cell.vacant and len(Match.allies) < Match.max_population:
@@ -40,7 +40,7 @@ class MovablesManager:
         
 
     def update(self, world, delta_time):   
-        #gera criaturas continuamente
+        #gera criaturas aliadas continuamente
         self.timer += delta_time
         if self.timer >= self.delay:
             self.generate()                   
@@ -48,3 +48,4 @@ class MovablesManager:
 
         for creature in world.creatures:
             creature.update(delta_time)
+        

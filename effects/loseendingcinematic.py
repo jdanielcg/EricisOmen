@@ -8,7 +8,7 @@ from effects.effectsmanager import EffectsManager
 from settings import Settings
 from effects.effects import EricisBirth, Ericis, EricisFire
 
-class Ending():
+class LostEnding():
     def __init__(self, game):
         self.game = game
         self.tile_list = []
@@ -17,21 +17,18 @@ class Ending():
         self.timer = 0.0
 
         self.courtain = Surface((game.screen.get_width(), game.screen.get_height()), pygame.SRCALPHA)
-        self.courtainB = Surface((game.screen.get_width(), game.screen.get_height()), pygame.SRCALPHA)
+        self.courtain.fill((40,40,40,0))
 
-        font = pygame.font.SysFont("bahnschrift semibold", 40, False, False)
+        font = pygame.font.SysFont("bahnschrift semibold", 45, False, False)
 
         #cria a surface com o texto escrito
         credits = [
-                    font.render("OBRIGADO POR JOGAR ERICIS OMEN", True, (255,255,255)),
-                    font.render("DESENVOLVIDO POR", True, (255,255,255)),
-                    font.render("RAMON SANTOS", True, (255,255,255)),
-                    font.render("JOSE DANIEL C GOMES", True, (255,255,255)),
+                    font.render("A FENDA FOI DESTRUIDA, FIM DE JOGO", True, (255,255,255)),
                     ]
-        ty = 75
+        ty = 275
         for credit in credits:
             tx =  game.screen.get_width()/2.0 - credit.get_width()/2.0 
-            self.courtainB.blit(credit, (tx, ty))
+            self.courtain.blit(credit, (tx, ty))
             ty += 50
 
     def start_end(self):
@@ -48,16 +45,8 @@ class Ending():
                 if (abs(cell.u - ou) + abs(cell.v - ov)) < 35:
                     self.tile_list.append(cell)
 
-        ox = (Settings.breach_center[0]-1.5) * Settings.tilesize
-        oy = (Settings.breach_center[1]-2) * Settings.tilesize
+        EffectsManager.effects.append(EricisFire(self.game.world.cells[ov -1 ][ou - 1]))
 
-        EffectsManager.effects.append(EricisBirth(ox, oy, self.birth_ericis))
-
-    def birth_ericis(self):
-        ox = (Settings.breach_center[0]-2.5) * Settings.tilesize
-        oy = (Settings.breach_center[1]-3) * Settings.tilesize
-
-        EffectsManager.effects.append(Ericis(ox, oy))
 
 
 
@@ -69,18 +58,16 @@ class Ending():
         self.timer += delta_time
 
         if self.timer > 5.0 and len(self.tile_list) > 0:
-            chosen = random.sample(self.tile_list, 10 if len(self.tile_list) > 9 else len(self.tile_list))
+            chosen = random.sample(self.tile_list, 20 if len(self.tile_list) > 19 else len(self.tile_list))
             for item in chosen:
                 self.tile_list.remove(item)
-                EffectsManager.effects.append(EricisFire(item))
+                item.dominion_level = -100
 
-        if self.timer > 15.0:
-            self.courtain.fill((0,0,0, min(255*(self.timer - 15.0) + 1, 255)))
+        if self.timer > 10.0:
+            self.courtain.set_alpha(min(255*(0.4*(self.timer - 10.0)) + 1, 255))  
             self.game.screen.blit(self.courtain, (0,0))
 
-        if self.timer > 20.0:
-            self.courtainB.set_alpha(min(255*(0.2*(self.timer - 20.0)) + 1, 255))            
-            self.game.screen.blit(self.courtainB, (0,0))
+
             
 
 

@@ -8,6 +8,7 @@
 
 
 from math import ceil
+import math
 from PPlay.window import Window
 from settings import Settings
 
@@ -29,6 +30,12 @@ class Camera:
     dx = 0
     dy = 0
 
+    delta = 0
+    timer = 0
+
+    shake = False
+    shake_timer = 1
+
     def set_view_from_center(u,v):
         Camera.rootU = round(u - Camera.nU()/2)
         Camera.rootV = round(v - Camera.nV()/2)
@@ -48,7 +55,26 @@ class Camera:
         Camera.dx = Camera.rootU*Settings.tilesize
         Camera.dy = Camera.rootV*Settings.tilesize
 
+    def set_shake():
+        if not Camera.shake:
+            Camera.shake = True
 
+
+    def update( delta_time):
+        if Camera.shake:
+            Camera.timer += delta_time
+            if Camera.timer > Camera.shake_timer:
+                Camera.timer = 0
+                Camera.shake = False
+                Camera.dx = Camera.rootU*Settings.tilesize
+                Camera.dy = Camera.rootV*Settings.tilesize
+            else:
+                Camera.delta = math.sin(Camera.timer * 100)
+                Camera.dx += Camera.delta
+                Camera.dy += Camera.delta
+        else:
+            Camera.dx = Camera.rootU*Settings.tilesize
+            Camera.dy = Camera.rootV*Settings.tilesize
 
     def __init__(self) -> None:
         pass

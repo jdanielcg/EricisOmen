@@ -46,6 +46,10 @@ class DebugInterface:
         self.build_stock_button = TextButton( self.build_stock, (20,230), "STOCK")        
 
         self.end_button = TextButton( self.endgame, (20,200), "END")     
+        self.lose_button = TextButton( self.losegame, (20,170), "LOSE")     
+
+
+        
 
         self.show_debug_button = TextButton( self.show_debug_menu, (20,680), "DEBUG MENU")  
 
@@ -68,6 +72,9 @@ class DebugInterface:
 
     def endgame(self)    :
         self.game.simulation_mode = SimulationMode.ENDING
+
+    def losegame(self)    :
+        self.game.simulation_mode = SimulationMode.LOSE
 
     def build_wall(self):
         self.game.building_mode_interface.start("wall")
@@ -147,6 +154,7 @@ class DebugInterface:
             self.buildpoisontrap_button.update()
             self.build_stock_button.update()
             self.end_button.update()
+            self.lose_button.update()
 
             self.game.screen.blit(self.resources_back, (150,500))
 

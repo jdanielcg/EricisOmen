@@ -18,6 +18,9 @@ class Match:
     allies = []
     enemies = []
 
+
+
+
     #registra a velocidade da simuulaçãoo [para testes]
     speed = 1.0
 

@@ -44,17 +44,22 @@ class SmokeDamage:
         self.timer += delta_time*1000  
 
 class EricisFire:
-    def __init__(self, x, y, cell = None):
-        self.duration = 3000
-        self.x = x
-        self.y = y
+    def __init__(self, cell = None):
+        self.duration = 2000
+        
+        self.x = 0
+        self.y = 0
+        if cell != None:
+            self.x = cell.x
+            self.y = cell.y
+
         self.target_cell = cell
 
         self.animation = Sprite("assets\explosion.png", 12)        
 
 
         self.animation.set_total_duration(self.duration)
-        self.animation.set_position(x, y) 
+        self.animation.set_position(self.x, self.y) 
         self.timer = 0        
         
     def update(self, delta_time):
@@ -64,9 +69,10 @@ class EricisFire:
         self.timer += delta_time*1000 
 
         #transformar o tile
-        if self.timer > 2000 and self.target_cell != None:
+        if self.timer > 700 and self.target_cell != None:
             self.target_cell.dominion_level = 50
             self.target_cell = None
+            Camera.set_shake()
 
 class EricisBirth:
     def __init__(self, x, y, function = None):
@@ -86,13 +92,13 @@ class EricisBirth:
         self.animation.update()
         self.animation.draw()
         self.timer += delta_time*1000 
-        if self.timer > 1000 and self.function != None:
+        if self.timer > 1500 and self.function != None:
             self.function()  
             self.function = None
 
 class Ericis:
     def __init__(self, x, y):
-        self.duration = 600
+        self.duration = 500
         self.x = x
         self.y = y
 

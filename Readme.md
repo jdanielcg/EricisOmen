@@ -24,4 +24,6 @@
 # LPC generator
 * https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Reptile_lightgreen_unwinged&legs=Skirts_legion
 * https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_olive&head=Human_male_olive&sex=male&shadow=Shadow_shadow&beard=Winter_platinum&hat=Armet_steel&shoulders=Plate_steel&arms=Armour_steel&shoes=Boots_gray&legs=Pants_gray&armour=Plate_steel&weapon=Slash_pickaxe&ammo=Ammo_arrow
+* https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_olive&head=Human_male_olive&sex=male&shadow=Shadow_shadow&beard=Beard_gray_2&hat=Cloth_leather&shoulders=Plate_steel&arms=Armour_steel&shoes=Boots_gray&legs=Pants_gray&armour=Leather_leather&weapon=Spear_halberd&ammo=Ammo_arrow
 
+* https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_light&head=Human_male_light&hat=Barbuta_silver&shield=none&weapon=Slash_oversize_layered_mace&cape=Solid_gray&armour=Legion_ceramic&shoulders=Mantal_gray&gloves=Gloves_gray&legs=Armour_gold&shoes=Boots_gray

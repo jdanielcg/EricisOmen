@@ -6,7 +6,9 @@
 from camera import Camera
 from effects.effectsmanager import EffectsManager
 from effects.endingcinematic import Ending
+from effects.loseendingcinematic import LostEnding
 from interface.interface import Interface
+from movables.waver import Waver
 from settings import Settings, SimulationMode
 from buildings.buildingmanager import BuildingManager
 from interface.buildingmode import BuildingMode
@@ -65,8 +67,17 @@ class Game:
         #controla as animações e creditos ao fim da partida
         self.endgame_cinematic = Ending(self)
 
+        #controla as animações de fim de jogo ao perder
+        self.losegame_cinematic = LostEnding(self)
+
+        #inicializa o controle da geração de inimigos
+        Waver.setup(self)
+
     #loop principal
     def update(self, delta_time):  
+
+        Camera.update(delta_time)
+        Waver.update(delta_time)
 
         #atualiza o estado do mapa:
         self.world.update(delta_time)      
@@ -102,6 +113,10 @@ class Game:
             case SimulationMode.ENDING:
                 #executa as animações de fim de jogo      
                 self.endgame_cinematic.update(delta_time)
+
+            case SimulationMode.LOSE:
+                #executa as animações de fim de jogo      
+                self.losegame_cinematic.update(delta_time)
 
         self.effects_manager.update(delta_time)
 

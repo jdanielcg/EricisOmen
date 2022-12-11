@@ -7,7 +7,9 @@ from math import floor
 from random import randint
 import pygame
 from camera import Camera
-from effects.effects import Lifebar, SmokeDamage
+from effects.effects import FloatingIconText, Lifebar, SmokeDamage
+from effects.effectsmanager import EffectsManager
+from match import Match
 from movables.animcontroller import CharAnimationController
 from movables.states import IdleState, WalkingState
 from settings import Settings
@@ -18,7 +20,9 @@ if typing.TYPE_CHECKING:
     from screens.game import Game    
 
 class Creature:
-    def __init__(self, game : "Game", tile_pos = (0.0, 0.0), is_enemy = True, folder = "kobold"):
+    def __init__(self, game : "Game", tile_pos = (0.0, 0.0), is_enemy = True, folder = "kobold", aether = 0, damage = 300,
+                speed = 20.0, max_integrity = 1000):
+
         self.game = game
         self.code = str(randint(10000, 99999)) + str(is_enemy)
         self.is_enemy = is_enemy
@@ -29,14 +33,14 @@ class Creature:
         self.path = []
         self.path_color = (randint(0, 255),randint(0, 255),randint(0, 255))
 
-        self.speed = 20.0
+        self.speed = speed
 
         self.anim_controller = CharAnimationController(self, folder)      
 
-        self.damage = 300
+        self.damage = damage
         self.lifebar = None
 
-        self.max_integrity = 1000    
+        self.max_integrity = max_integrity    
         self.integrity = self.max_integrity    
 
         #registra o alvo do movimento
@@ -58,6 +62,9 @@ class Creature:
         #registra se a criatura está envenenada
         self.is_poisoned_level = 0
         self.poison_timer = 0.0 #segundos
+
+        #valor ganho ao derrotar
+        self.aether = aether
 
 
         #print("creature created at {0}, {1} ".format(self.u, self.v))
@@ -83,6 +90,9 @@ class Creature:
 
 
     def take_damage(self, damage, damage_type = None):
+        if self.is_dead:
+            return
+
         self.integrity -= damage
         self.game.effects_manager.effects.append(SmokeDamage(self.x, self.y, damage_type))
         if self.lifebar != None:
@@ -94,6 +104,9 @@ class Creature:
             self.anim_controller.set_dead()
             self.is_dead = True
             self.lifebar = None
+            if self.is_enemy:
+                Match.aether += round(self.aether)
+                EffectsManager.effects.append(FloatingIconText(self.x, self.y,"aether","+" + str(round(self.aether))))
 
     def slow_down(self):
         self.speed /= 2.0
