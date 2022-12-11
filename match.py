@@ -10,9 +10,13 @@
 class Match:
     wood = 1000
     iron = 1000
-    workers = 0
-    soldiers = 0
     aether = 100
+
+    max_stock = 100
+    max_population = 5
+    
+    allies = []
+    enemies = []
 
     #registra a velocidade da simuulaçãoo [para testes]
     speed = 1.0

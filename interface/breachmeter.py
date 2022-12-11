@@ -84,8 +84,13 @@ def update_breachmeter(delta_time):
     global clicked, button_rect
 
 
-    smooth_fill_factor += (fill_factor() - smooth_fill_factor)*4*delta_time
+    smooth_fill_factor += (fill_factor() - smooth_fill_factor)*5*delta_time
+
+    #suave
     pre_fill_area[2] = smooth_fill_factor*surf_fill.get_width()
+
+    #instantaneo
+    #pre_fill_area[2] = fill_factor()*surf_fill.get_width()
 
     if not is_filling:
         fill_timer += delta_time

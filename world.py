@@ -86,10 +86,12 @@ class World:
                 extra = cells_data["layers"][1]["data"][h*self.width + w] - 1 
                 if extra == 43 :
                     cell.resource = "wood"   
-                    cell.walkable = False                 
+                    cell.walkable = False 
+                    cell.resource_amount = 100
                 elif extra == 73:
                     cell.resource = "iron"
                     cell.walkable = False
+                    cell.resource_amount = 100
 
                 line.append(cell)
             self.cells.append(line)

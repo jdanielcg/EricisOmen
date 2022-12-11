@@ -52,6 +52,13 @@ class Creature:
         self.state = IdleState(self)     
         self.is_dead = False
 
+        #registra se a criatura esta em uma armadilha
+        self.current_trap = None
+
+        #registra se a criatura está envenenada
+        self.is_poisoned_level = 0
+        self.poison_timer = 0.0 #segundos
+
 
         #print("creature created at {0}, {1} ".format(self.u, self.v))
     
@@ -63,9 +70,21 @@ class Creature:
     def v(self):
         return floor(self.y/Settings.tilesize)
 
-    def take_damage(self, damage):
+    def check_trap(self):
+        if not self.is_enemy:
+            return False
+        if self.current_cell.building != None:
+            if self.current_trap != self.current_cell.building:
+                self.current_trap = self.current_cell.building
+                if self.current_cell.building.info.name == "firetrap":
+                    self.take_damage(500, "fire")
+                elif self.current_cell.building.info.name == "poisontrap":
+                    self.is_poisoned_level += 1
+
+
+    def take_damage(self, damage, damage_type = None):
         self.integrity -= damage
-        self.game.effects_manager.effects.append(SmokeDamage(self.x, self.y))
+        self.game.effects_manager.effects.append(SmokeDamage(self.x, self.y, damage_type))
         if self.lifebar != None:
             self.lifebar.renew()
         else:
@@ -76,9 +95,23 @@ class Creature:
             self.is_dead = True
             self.lifebar = None
 
+    def slow_down(self):
+        self.speed /= 2.0
+
     def update(self, delta_time):
         if not self.is_dead : self.state.update(delta_time)
         self.anim_controller.update(delta_time)
+
+        #verifica se pisou em armadilha
+        self.check_trap()
+
+        #verifica se esta envenenado e aplica dano
+        if self.is_poisoned_level > 0:
+            self.poison_timer += delta_time
+            if self.poison_timer >= 1.5:
+                self.poison_timer = 0.0
+                self.take_damage(100 * self.is_poisoned_level, "poison")
+
 
         #controla a ocupação das celulas
         self.current_cell = self.game.world.cells[round(self.y/Settings.tilesize)][round(self.x/Settings.tilesize)]

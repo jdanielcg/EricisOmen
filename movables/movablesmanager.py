@@ -9,6 +9,7 @@ from random import randint
 from numpy import roll
 from movables.creatures import Creature
 from settings import Settings
+from match import Match
 
 class MovablesManager:
     
@@ -21,18 +22,21 @@ class MovablesManager:
 
     def generate(self):
         self.delay = randint(3,4)
-        for pos in Settings.enemy_spawns:           
-            if len(self.world.creatures) < Settings.max_enemies:
-                cell = self.world.cells[pos[1]][pos[0]]
-                if cell.vacant:                
-                    creature = Creature(self.game, pos, True, "human")
+        if len(self.world.creatures) < Settings.max_creatures:
+            for pos in Settings.enemy_spawns:           
+                if len(Match.enemies) < Settings.max_enemies_wave:
+                    cell = self.world.cells[pos[1]][pos[0]]
+                    if cell.vacant:                
+                        creature = Creature(self.game, pos, True, "human")
+                        Match.enemies.append(creature)
+                        self.world.creatures.append(creature)   
+            self.world.domain_cells.reverse()
+            for cell in self.world.domain_cells:
+                if cell.vacant and len(Match.allies) < Match.max_population:
+                    creature = Creature(self.game, cell.location, False, "kobold")
+                    Match.allies.append(creature)
                     self.world.creatures.append(creature)   
-        self.world.domain_cells.reverse()
-        for cell in self.world.domain_cells:
-            if cell.vacant and len(self.world.creatures) < Settings.max_enemies:
-                creature = Creature(self.game, cell.location, False, "kobold")
-                self.world.creatures.append(creature)   
-                return 
+                    return 
         
 
     def update(self, world, delta_time):   

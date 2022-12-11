@@ -19,6 +19,7 @@
 * https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack
 * https://opengameart.org/content/flying-dragon-rework
 * https://statoasty.itch.io/ui-assets-pack-srt
+* https://opengameart.org/content/pixel-explosion-12-frames
 
 # LPC generator
 * https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Reptile_lightgreen_unwinged&legs=Skirts_legion

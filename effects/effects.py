@@ -4,6 +4,7 @@
 # ╚═════════════════════════════════════════════╝
 
 from math import sqrt
+from os import path
 from types import DynamicClassAttribute
 
 import pygame
@@ -15,21 +16,102 @@ from interface.icons import text_icon
 
 
 class SmokeDamage:
-    def __init__(self, x, y):
+    def __init__(self, x, y, damage_type = None):
         self.duration = 1000
         self.x = x
         self.y = y
-        self.animation = Sprite("assets\smoke.png", 5)        
+
+        self.animation = Sprite("assets\smoke.png", 5)   
+
+
+        if damage_type == "fire":
+            self.animation = Sprite("assets\\fire.png", 5)               
+        elif damage_type == "poison":
+            self.animation = Sprite("assets\\poison.png", 5) 
+            self.duration = 500  
+        elif damage_type == "ice":
+            self.animation = Sprite("assets\\ice.png", 5)    
+
+
         self.animation.set_total_duration(self.duration)
         self.animation.set_position(x, y) 
-        self.timer = 0
-        
+        self.timer = 0        
         
     def update(self, delta_time):
         self.animation.set_position(self.x - Camera.dx, self.y - Camera.dy) 
         self.animation.update()
         self.animation.draw()
-        self.timer += delta_time*1000   
+        self.timer += delta_time*1000  
+
+class EricisFire:
+    def __init__(self, x, y, cell = None):
+        self.duration = 3000
+        self.x = x
+        self.y = y
+        self.target_cell = cell
+
+        self.animation = Sprite("assets\explosion.png", 12)        
+
+
+        self.animation.set_total_duration(self.duration)
+        self.animation.set_position(x, y) 
+        self.timer = 0        
+        
+    def update(self, delta_time):
+        self.animation.set_position(self.x - Camera.dx, self.y - Camera.dy) 
+        self.animation.update()
+        self.animation.draw()
+        self.timer += delta_time*1000 
+
+        #transformar o tile
+        if self.timer > 2000 and self.target_cell != None:
+            self.target_cell.dominion_level = 50
+            self.target_cell = None
+
+class EricisBirth:
+    def __init__(self, x, y, function = None):
+        self.duration = 2000
+        self.x = x
+        self.y = y
+        self.function = function
+
+        self.animation = Sprite("assets\\birth.png", 16)     
+
+        self.animation.set_total_duration(self.duration)
+        self.animation.set_position(x, y) 
+        self.timer = 0        
+        
+    def update(self, delta_time):
+        self.animation.set_position(self.x - Camera.dx, self.y - Camera.dy) 
+        self.animation.update()
+        self.animation.draw()
+        self.timer += delta_time*1000 
+        if self.timer > 1000 and self.function != None:
+            self.function()  
+            self.function = None
+
+class Ericis:
+    def __init__(self, x, y):
+        self.duration = 600
+        self.x = x
+        self.y = y
+
+        
+        base_path = path.join("assets", "movables", "eri")
+        self.animation = Sprite(path.join(base_path,"eridown.png"), 3)          
+
+        self.animation.set_total_duration(self.duration)        
+        self.animation.set_position(x, y) 
+        self.duration = 1000000
+        self.timer = 0        
+        
+    def update(self, delta_time):
+        self.animation.set_position(self.x - Camera.dx, self.y - Camera.dy) 
+        self.animation.update()
+        self.animation.draw()
+        self.timer += delta_time*1000  
+
+
 
 class FloatingIconText:
     def __init__(self, x, y,  icon, text):
@@ -69,10 +151,91 @@ class Fireball:
         if abs(tarX - self.x) <= 0.9:
             if abs(tarY - self.y) <= 0.9:
                 self.timer = self.duration = 10000
+                self.target_creature.take_damage(self.damage, "fire")
+                return
+
+        #move a bola de fogo
+        dirX = tarX - self.x; 
+        dirY = tarY - self.y; 
+        dirT = sqrt(dirX*dirX + dirY*dirY)
+
+        if dirT != 0: 
+            dirX = dirX/dirT
+            dirY = dirY/dirT
+            self.x += dirX*delta_time*self.speed                   
+            self.y += dirY*delta_time*self.speed
+
+        self.animation.set_position(self.x- Camera.dx, self.y - Camera.dy) 
+        self.animation.update()
+        self.animation.draw()
+
+class Stoneball:
+    def __init__(self, x, y, target_creature):
+        self.duration = 10000
+        self.timer = 0
+        self.animation = Sprite("assets\\stoneball.png", 1)        
+        self.animation.set_total_duration(200)
+        self.animation.set_position(x, y) 
+        self.x = x
+        self.y = y
+        self.speed = 100
+        self.target_creature = target_creature
+        self.damage = 200
+        
+        
+    def update(self, delta_time):
+        tarX = self.target_creature.x
+        tarY = self.target_creature.y
+
+        #para que seja destruida
+        if abs(tarX - self.x) <= 0.9:
+            if abs(tarY - self.y) <= 0.9:
+                self.timer = self.duration = 10000
                 self.target_creature.take_damage(self.damage)
                 return
 
         #move a bola de fogo
+        dirX = tarX - self.x; 
+        dirY = tarY - self.y; 
+        dirT = sqrt(dirX*dirX + dirY*dirY)
+
+        if dirT != 0: 
+            dirX = dirX/dirT
+            dirY = dirY/dirT
+            self.x += dirX*delta_time*self.speed                   
+            self.y += dirY*delta_time*self.speed
+
+        self.animation.set_position(self.x- Camera.dx, self.y - Camera.dy) 
+        self.animation.update()
+        self.animation.draw()
+
+class Iceball:
+    def __init__(self, x, y, target_creature):
+        self.duration = 10000
+        self.timer = 0
+        self.animation = Sprite("assets\\iceball.png", 2)        
+        self.animation.set_total_duration(200)
+        self.animation.set_position(x, y) 
+        self.x = x
+        self.y = y
+        self.speed = 250
+        self.target_creature = target_creature
+        self.damage = 600
+        
+        
+    def update(self, delta_time):
+        tarX = self.target_creature.x
+        tarY = self.target_creature.y
+
+        #para que seja destruida
+        if abs(tarX - self.x) <= 0.9:
+            if abs(tarY - self.y) <= 0.9:
+                self.timer = self.duration = 10000
+                self.target_creature.take_damage(self.damage, "ice")
+                self.target_creature.slow_down()
+                return
+
+        #move a bola de gelo
         dirX = tarX - self.x; 
         dirY = tarY - self.y; 
         dirT = sqrt(dirX*dirX + dirY*dirY)

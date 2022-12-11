@@ -25,7 +25,7 @@ class Cell:
         self.is_map_edge = False
 
         self.resource = None
-        self.resource_amount = 1000
+        self.resource_amount = 0
         
         self.node : Node = None
 

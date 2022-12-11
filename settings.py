@@ -19,7 +19,8 @@ class Settings:
     breach_required_aether = 300
     breach_center = (30,30)
     enemy_spawns = [(6,6),(6,7),(7,6),(7,7), (54,6), (6, 54), (54,54)]
-    max_enemies = 30
+    max_creatures = 40
+    max_enemies_wave = 10
 
     def __init__(self):
         self.game_w = 1280
@@ -36,3 +37,4 @@ class Settings:
 class SimulationMode(Enum):
     BUILDING = 1
     RUNNING = 0
+    ENDING = 2

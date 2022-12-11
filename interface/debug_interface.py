@@ -30,13 +30,22 @@ class DebugInterface:
 
         self.speed_up_button = TextButton( self.speed_up, (20,440), "SPEED UP")    
         self.speed_down_button = TextButton( self.speed_down, (20,470), "SPEED DOWN")    
-        self.buildtestbutton = TextButton( self.build_dormitory, (20,500), "DORM")        
-        self.buildtestbutton2 = TextButton( self.build_firetower, (20,530), "FIRETOWER")  
         self.debug_show_button = TextButton( self.show_debug_info, (20,560), "SHOW PATH")   
         self.debug_up_ripple = TextButton( self.build_obelisk, (20,590), "OBELISK") 
         self.buildmining_button = TextButton( self.build_mining, (20,620), "MINING")
         self.buildmill_button = TextButton( self.build_lumber, (20,650), "LUMBER")        
+        self.buildwall_button = TextButton( self.build_wall, (20,530), "WALL")  
+        self.buildfiretower = TextButton( self.build_firetower, (20,410), "FIRETOWER")  
+        self.buildicetower = TextButton( self.build_icetower, (20,380), "ICETOWER")  
+        self.buildstonetower = TextButton( self.build_stonetower, (20,350), "STONETOWER")  
+        self.buildpoisontrap_button = TextButton( self.build_poisontrap, (20,320), "POISONTRAP")  
+        self.buildfiretrap_button = TextButton( self.build_firetrap, (20,290), "FIRETRAP")  
         self.restart_button = TextButton( self.restart_game, (round(w/2 - 50),round(h/2-10)), "RESTART")
+
+        self.build_dorm_button = TextButton( self.build_dormitory, (20,260), "DORM")        
+        self.build_stock_button = TextButton( self.build_stock, (20,230), "STOCK")        
+
+        self.end_button = TextButton( self.endgame, (20,200), "END")     
 
         self.show_debug_button = TextButton( self.show_debug_menu, (20,680), "DEBUG MENU")  
 
@@ -55,10 +64,21 @@ class DebugInterface:
 #######################fuções dos botões
 
     def show_debug_menu(self):
-        self.show_buttons = not self.show_buttons        
+        self.show_buttons = not self.show_buttons 
+
+    def endgame(self)    :
+        self.game.simulation_mode = SimulationMode.ENDING
+
+    def build_wall(self):
+        self.game.building_mode_interface.start("wall")
+        self.game.simulation_mode = SimulationMode.BUILDING   
 
     def build_dormitory(self):
         self.game.building_mode_interface.start("dormitory")
+        self.game.simulation_mode = SimulationMode.BUILDING
+
+    def build_stock(self):
+        self.game.building_mode_interface.start("stockpile")
         self.game.simulation_mode = SimulationMode.BUILDING
 
     def build_mining(self):
@@ -72,7 +92,19 @@ class DebugInterface:
     def build_firetower(self):
         self.game.building_mode_interface.start("firetower")
         self.game.simulation_mode = SimulationMode.BUILDING
+    def build_stonetower(self):
+        self.game.building_mode_interface.start("stonetower")
+        self.game.simulation_mode = SimulationMode.BUILDING
+    def build_icetower(self):
+        self.game.building_mode_interface.start("icetower")
+        self.game.simulation_mode = SimulationMode.BUILDING
 
+    def build_poisontrap(self):
+        self.game.building_mode_interface.start("poisontrap")
+        self.game.simulation_mode = SimulationMode.BUILDING
+    def build_firetrap(self):
+        self.game.building_mode_interface.start("firetrap")
+        self.game.simulation_mode = SimulationMode.BUILDING
     def build_obelisk(self):
         self.game.building_mode_interface.start("obelisk")
         self.game.simulation_mode = SimulationMode.BUILDING
@@ -102,19 +134,25 @@ class DebugInterface:
             self.show_debug_button.update()
             self.speed_up_button.update()
             self.speed_down_button.update()
-            self.buildtestbutton.update()  
-            self.buildtestbutton2.update()  
+            self.build_dorm_button.update()  
+            self.buildfiretower.update()  
+            self.buildicetower.update()  
+            self.buildstonetower.update()  
             self.debug_show_button.update()
             self.debug_up_ripple.update()
             self.buildmining_button.update()
             self.buildmill_button.update()
+            self.buildwall_button.update()
+            self.buildfiretrap_button.update()
+            self.buildpoisontrap_button.update()
+            self.build_stock_button.update()
+            self.end_button.update()
 
             self.game.screen.blit(self.resources_back, (150,500))
 
-            self.game.screen.blit(text_icon("wood", str(Match.wood)),(160,510))
-            self.game.screen.blit(text_icon("iron", str(Match.iron)),(160,530))
-            self.game.screen.blit(text_icon("worker", str(Match.workers)),(160,550))
-            self.game.screen.blit(text_icon("soldier", str(Match.soldiers)),(160,570))
+            self.game.screen.blit(text_icon("wood", str(Match.wood) + " / " + str(Match.max_stock)),(160,510))
+            self.game.screen.blit(text_icon("iron", str(Match.iron)+ " / " + str(Match.max_stock)),(160,530))            
+            self.game.screen.blit(text_icon("soldier", str(len(Match.allies)) + " / " + str(Match.max_population)),(160,570))
             self.game.screen.blit(text_icon("aether", str(Match.aether)),(160,590))
 
         #desenha a mensagem de vitória caso jogo ganho

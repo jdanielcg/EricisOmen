@@ -37,8 +37,8 @@ def build_dic():
 
 
 
-    icondic = { "wood":     Icon("wood", sprites16, sprites32, 13, 20),
-                "iron":     Icon("wood", sprites16, sprites32, 13, 21),
+    icondic = { "wood":     Icon("wood", sprites16, sprites32, 13, 21),
+                "iron":     Icon("iron", sprites16, sprites32, 13, 20),
                 "worker":   Icon("worker", sprites16, sprites32, 7, 11),
                 "soldier":  Icon("soldier", sprites16, sprites32, 12, 11),
                 "aether":   Icon("aether", sprites16, sprites32, 10, 9),                

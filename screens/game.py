@@ -5,6 +5,7 @@
 
 from camera import Camera
 from effects.effectsmanager import EffectsManager
+from effects.endingcinematic import Ending
 from interface.interface import Interface
 from settings import Settings, SimulationMode
 from buildings.buildingmanager import BuildingManager
@@ -61,20 +62,23 @@ class Game:
         #seleciona a posição inicial da camera
         Camera.set_view_from_center(Settings.breach_center[0], Settings.breach_center[1])
 
+        #controla as animações e creditos ao fim da partida
+        self.endgame_cinematic = Ending(self)
+
     #loop principal
     def update(self, delta_time):  
 
         #atualiza o estado do mapa:
-        self.world.update(delta_time)
-        
-        #gera os caminhos no módulo de pathfinding
-        pathfinder.update(delta_time)
+        self.world.update(delta_time)      
 
         #limpa a janela     
         self.gameWindow.set_background_color([128,128,128])     
 
         #escreve a imagem do mapa na janela
         self.tilemap.draw(self.gameWindow, self.world) 
+
+        #gera os caminhos no módulo de pathfinding
+        pathfinder.update(delta_time)
 
         #escreve a imagem dos objetos na janela        
         self.buildings_manager.update(self.gameWindow, self.world, delta_time)  
@@ -86,14 +90,18 @@ class Game:
             case SimulationMode.RUNNING:
 
                 #escreve a interface na tela
-                self.gameinterface.update(delta_time)
+                #self.gameinterface.update(delta_time)
 
                 #escreve a interface de testes na tela
-                self.debuginterface.update(delta_time)
+                self.debuginterface.update(delta_time)                
 
             case SimulationMode.BUILDING:
                 #executa o modo de construção, escrevendo a silhueta da construção na tela
-                self.building_mode_interface.update(delta_time)            
+                self.building_mode_interface.update(delta_time)   
+
+            case SimulationMode.ENDING:
+                #executa as animações de fim de jogo      
+                self.endgame_cinematic.update(delta_time)
 
         self.effects_manager.update(delta_time)
 
