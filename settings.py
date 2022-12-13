@@ -6,6 +6,8 @@
 from enum import Enum
 
 
+
+
 class Settings:
     #classe para armazenar configurações e propriedades globais
 
@@ -20,18 +22,18 @@ class Settings:
     breach_center = (30,30)
     enemy_spawns = [(6,6),(6,7),(7,6),(7,7), (54,6), (6, 54), (54,54)]
     max_creatures = 40
+    
+    game_w = 1280
+    game_h = 720
+    current_screen = None
+    mainmenuscreen = None
+    gamescreen = None
+    gameApplicationName = "EricisOmen"
 
+    #variavéis da partida
+    #portal_level_percent = 0
 
-    def __init__(self):
-        self.game_w = 1280
-        self.game_h = 720
-        self.current_screen = None
-        self.mainmenuscreen = None
-        self.gamescreen = None
-        self.gameApplicationName = "EricisOmen"
-
-        #variavéis da partida
-        self.portal_level_percent = 0
+    
 
 #varaivel que determina o estado princiapl de interação com o jogo
 class SimulationMode(Enum):

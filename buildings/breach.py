@@ -11,7 +11,7 @@ import math
 from effects.effects import FloatingIconText
 from effects.effectsmanager import EffectsManager
 from match import Match
-from settings import Settings
+from settings import Settings, SimulationMode
 
 def add_breach(u,v, manager):
     info = manager.infos.get("breach1")
@@ -26,7 +26,8 @@ def upgrade_breach(building, manager):
     Match.breach_level += 1
     stage = Match.breach_level
     if stage >= 5:
-        Match.game_won = True
+        Match.simulation_mode = SimulationMode.ENDING
+        Match.speed = 0.0
 
     name = "breach" + str(stage)
     info = manager.infos.get(name)
@@ -35,7 +36,7 @@ def upgrade_breach(building, manager):
         v = building.posUV[1]
         manager.remove(building)
         manager.add(info, [u, v])
-        Match.game_lost = False   
+           
     Match.aether -= Settings.breach_required_aether
     Match.beach_enabled = False
 

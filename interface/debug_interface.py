@@ -12,14 +12,16 @@ from interface.icons import text_icon
 from interface.minimap import Minimap
 from interface.textbutton import TextButton
 from match import Match
+
+
 from settings import Settings, SimulationMode
 from interface.spritebutton import SpriteButton
 
 class DebugInterface:
 
-    def __init__(self, s, gamewindow, game):
+    def __init__(self, gamewindow, game):
         self.gamewindow = gamewindow        
-        self.s = s
+        self.s = Settings
         self.game = game
         self.show_buttons = False
 
@@ -40,13 +42,17 @@ class DebugInterface:
         self.buildstonetower = TextButton( self.build_stonetower, (20,350), "STONETOWER")  
         self.buildpoisontrap_button = TextButton( self.build_poisontrap, (20,320), "POISONTRAP")  
         self.buildfiretrap_button = TextButton( self.build_firetrap, (20,290), "FIRETRAP")  
-        self.restart_button = TextButton( self.restart_game, (round(w/2 - 50),round(h/2-10)), "RESTART")
 
         self.build_dorm_button = TextButton( self.build_dormitory, (20,260), "DORM")        
-        self.build_stock_button = TextButton( self.build_stock, (20,230), "STOCK")        
+        self.build_stock_button = TextButton( self.build_stock, (20,230), "STOCK")   
 
-        self.end_button = TextButton( self.endgame, (20,200), "END")     
-        self.lose_button = TextButton( self.losegame, (20,170), "LOSE")     
+        
+        self.restart_button = TextButton( self.restart_game, (20,200), "RESTART")
+        self.main_menu_button = TextButton( self.mainmenu, (20,170), "MAINMENU")
+        self.pause_button = TextButton( self.pause, (20,140), "PAUSE (II)")
+
+        self.end_button = TextButton( self.endgame, (20,110), "END")     
+        self.lose_button = TextButton( self.losegame, (20,80), "LOSE")     
 
 
         
@@ -71,50 +77,50 @@ class DebugInterface:
         self.show_buttons = not self.show_buttons 
 
     def endgame(self)    :
-        self.game.simulation_mode = SimulationMode.ENDING
+        Match.simulation_mode = SimulationMode.ENDING
 
     def losegame(self)    :
-        self.game.simulation_mode = SimulationMode.LOSE
+        Match.simulation_mode = SimulationMode.LOSE
 
     def build_wall(self):
         self.game.building_mode_interface.start("wall")
-        self.game.simulation_mode = SimulationMode.BUILDING   
+        Match.simulation_mode = SimulationMode.BUILDING   
 
     def build_dormitory(self):
         self.game.building_mode_interface.start("dormitory")
-        self.game.simulation_mode = SimulationMode.BUILDING
+        Match.simulation_mode = SimulationMode.BUILDING
 
     def build_stock(self):
         self.game.building_mode_interface.start("stockpile")
-        self.game.simulation_mode = SimulationMode.BUILDING
+        Match.simulation_mode = SimulationMode.BUILDING
 
     def build_mining(self):
         self.game.building_mode_interface.start("miningcamp")
-        self.game.simulation_mode = SimulationMode.BUILDING
+        Match.simulation_mode = SimulationMode.BUILDING
 
     def build_lumber(self):
         self.game.building_mode_interface.start("lumbercamp")
-        self.game.simulation_mode = SimulationMode.BUILDING
+        Match.simulation_mode = SimulationMode.BUILDING
 
     def build_firetower(self):
         self.game.building_mode_interface.start("firetower")
-        self.game.simulation_mode = SimulationMode.BUILDING
+        Match.simulation_mode = SimulationMode.BUILDING
     def build_stonetower(self):
         self.game.building_mode_interface.start("stonetower")
-        self.game.simulation_mode = SimulationMode.BUILDING
+        Match.simulation_mode = SimulationMode.BUILDING
     def build_icetower(self):
         self.game.building_mode_interface.start("icetower")
-        self.game.simulation_mode = SimulationMode.BUILDING
+        Match.simulation_mode = SimulationMode.BUILDING
 
     def build_poisontrap(self):
         self.game.building_mode_interface.start("poisontrap")
-        self.game.simulation_mode = SimulationMode.BUILDING
+        Match.simulation_mode = SimulationMode.BUILDING
     def build_firetrap(self):
         self.game.building_mode_interface.start("firetrap")
-        self.game.simulation_mode = SimulationMode.BUILDING
+        Match.simulation_mode = SimulationMode.BUILDING
     def build_obelisk(self):
         self.game.building_mode_interface.start("obelisk")
-        self.game.simulation_mode = SimulationMode.BUILDING
+        Match.simulation_mode = SimulationMode.BUILDING
 
     def show_debug_info(self):
         Settings.show_debug = not Settings.show_debug
@@ -129,7 +135,18 @@ class DebugInterface:
         Match.speed -= 1.0
 
     def restart_game(self):
-        print("restarts the game")
+        from screens.game import Game
+        Settings.gamescreen = Game(self.gamewindow)
+        Settings.current_screen = Settings.gamescreen
+
+    def mainmenu(self):      
+        from screens.game import Game
+        Settings.current_screen = Settings.mainmenuscreen
+        Settings.gamescreen = Game(self.gamewindow)  
+
+    def pause (self):
+        Match.speed = 0.0 if Match.speed == 1.0 else 1.0
+
 
 
 #########################################
@@ -155,6 +172,9 @@ class DebugInterface:
             self.build_stock_button.update()
             self.end_button.update()
             self.lose_button.update()
+            self.main_menu_button.update()
+            self.pause_button.update()
+            self.restart_button.update()
 
             self.game.screen.blit(self.resources_back, (150,500))
 

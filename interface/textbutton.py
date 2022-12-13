@@ -8,7 +8,7 @@ from PPlay.sprite import*
 from PPlay.window import Window
 
 class TextButton:
-    font = None
+    
 
     def __init__(self, func, pos = (0,0), text = ""):
         self.mouse = Window.get_mouse()                               
@@ -17,12 +17,11 @@ class TextButton:
         self.screen = Window.screen
         self.highlight = False
 
-        #inicializa a fonte
-        if TextButton.font == None:
-            TextButton.font = pygame.font.SysFont("bahnschrift semibold", 20, False, False)
+        #inicializa a fonte    
+        self.font = pygame.font.SysFont("bahnschrift semibold", 20, False, False)
 
         #cria a surface com o texto escrito
-        font_surface = TextButton.font.render(text, True, (255,240,255))
+        font_surface = self.font.render(text, True, (255,240,255))
 
         
         font_rect = font_surface.get_rect()       

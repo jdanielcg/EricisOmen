@@ -27,3 +27,9 @@
 * https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_olive&head=Human_male_olive&sex=male&shadow=Shadow_shadow&beard=Beard_gray_2&hat=Cloth_leather&shoulders=Plate_steel&arms=Armour_steel&shoes=Boots_gray&legs=Pants_gray&armour=Leather_leather&weapon=Spear_halberd&ammo=Ammo_arrow
 
 * https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_light&head=Human_male_light&hat=Barbuta_silver&shield=none&weapon=Slash_oversize_layered_mace&cape=Solid_gray&armour=Legion_ceramic&shoulders=Mantal_gray&gloves=Gloves_gray&legs=Armour_gold&shoes=Boots_gray
+
+* https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_light&head=Human_male_light&hat=Cavalier_feather_leather&shadow=Shadow_shadow&bauldron=Bauldron_tan&clothes=Shortsleeve_white&legs=Pants_gray&shoes=Boots_black&weapon=Slash_oversize_layered_rapier&hair=Idol_ginger&beard=Bigstache_lightblonde
+
+* https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_fur_grey&head=Minotaur_fur_grey&shadow=Shadow_shadow&shoulders=Legion_bronze&bauldron=Bauldron_brown&legs=Pants_walnut
+
+* https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_bright_green&legs=Pants_walnut&head=Lizard_male_bright_green&wings=Lizard_wings_bright_green&tail=Lizard_tail_bright_green&weapon=Spear_halberd&shadow=Shadow_shadow

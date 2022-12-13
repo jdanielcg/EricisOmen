@@ -8,6 +8,7 @@ from effects.effectsmanager import EffectsManager
 from effects.endingcinematic import Ending
 from effects.loseendingcinematic import LostEnding
 from interface.interface import Interface
+from match import Match
 from movables.waver import Waver
 from settings import Settings, SimulationMode
 from buildings.buildingmanager import BuildingManager
@@ -23,14 +24,13 @@ import movables.pathfinder as pathfinder
 
 
 class Game: 
-    def __init__(self, settings, gameWindow):
-        self.s = settings      
+    def __init__(self, gameWindow):
+        self.s = Settings      
         self.gameWindow = gameWindow
         self.screen = gameWindow.get_screen()
         self.framerate = Framerate()
 
-        #stores the current simulation mode
-        self.simulation_mode = SimulationMode.RUNNING
+        Match.Setup()
 
         #world: gerencia a representação lógica do mundo, é onde estão as células (cell)
         self.world = World() 
@@ -50,7 +50,7 @@ class Game:
         self.gameinterface = Interface(gameWindow)
 
         #interface com botoes de teste
-        self.debuginterface = DebugInterface(settings, gameWindow, self)
+        self.debuginterface = DebugInterface(gameWindow, self)
 
         #interface de construção de construções
         self.building_mode_interface = BuildingMode(self)
@@ -97,7 +97,7 @@ class Game:
         #escreve a imagem das criaturas na tela
         self.movables_manager.update(self.world, delta_time) 
         
-        match self.simulation_mode:
+        match Match.simulation_mode:
             case SimulationMode.RUNNING:
 
                 #escreve a interface na tela

@@ -10,24 +10,28 @@ from screens.game import Game
 from screens.mainmenu import MainMenu
 from settings import Settings
 
-def main():
-    settings = Settings()   
 
-    gameWindow = Window(settings.game_w,settings.game_h)
-    gameWindow.set_title(settings.gameApplicationName)
 
-    settings.gamescreen = Game(settings, gameWindow)
-    settings.mainmenuscreen = MainMenu(settings,gameWindow)
-    settings.current_screen = settings.mainmenuscreen
+def main():  
+    
+
+    gameWindow = Window(Settings.game_w,Settings.game_h)
+    gameWindow.set_title(Settings.gameApplicationName)
+
+    Settings.gamescreen = Game(gameWindow)
+    Settings.mainmenuscreen = MainMenu(gameWindow)
+    Settings.current_screen = Settings.mainmenuscreen
 
     load_custom_cursor("cursor16.png")   
 
     
-    while settings.current_screen != None:
+    while Settings.current_screen != None:
         delta_time = gameWindow.delta_time()*Match.speed
-        settings.current_screen.update(delta_time)       
+        Settings.current_screen.update(delta_time)       
 
-        gameWindow.update()
+        gameWindow.update()      
+
+ 
 
 
 #verifica se esse é o script inicial e roda a função main

@@ -7,21 +7,21 @@
 #modulo para armazenar as informações pertinentes a partida, como
 #recursos, estágios, etc
 
-class Match:
-    wood = 1000
-    iron = 1000
-    aether = 100
+from settings import SimulationMode
 
-    max_stock = 100
-    max_population = 5
+
+class Match:
+    wood = 0
+    iron = 0
+    aether = 0
+
+    max_stock = 0
+    max_population = 0
     
     allies = []
     enemies = []
 
-
-
-
-    #registra a velocidade da simuulaçãoo [para testes]
+    #registra a velocidade da simuulação
     speed = 1.0
 
     #registra quando o jogador decidir expandir a fenda
@@ -30,9 +30,27 @@ class Match:
     #registra o estado atual da fenda
     breach_level = 1
 
-    #registra a vitória ou derrota
-    game_won = False
-    game_lost = False
+    simulation_mode = SimulationMode.RUNNING
+
+
+    def Setup():
+        Match.wood = 1000
+        Match.iron = 1000
+        Match.aether = 100
+
+        Match.simulation_mode = SimulationMode.RUNNING
+    
+        Match.max_stock = 100
+        Match.max_population = 5
+        
+        Match.allies = []
+        Match.enemies = []      
+        Match.speed = 1.0    
+        Match.beach_enabled = False    
+        Match.breach_level = 1   
+        Match.game_won = False
+        Match.game_lost = False
+
 
     def __init__(self) -> None:
         pass

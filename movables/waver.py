@@ -80,6 +80,26 @@ class Waver:
                  aether = 20* strength, damage = 100*strength,
                  speed= 15.0*strength, max_integrity= 500*strength)
 
+    def make_swordman(pos, strength):
+        return Creature(Waver.game, pos, is_enemy = True, folder = "swordman",
+                 aether = 25* strength, damage = 200*strength,
+                 speed= 15.0*strength, max_integrity= 700*strength)
+
+    def make_minotaur(pos, strength):
+        return Creature(Waver.game, pos, is_enemy = True, folder = "minotaur",
+                 aether = 80* strength, damage = 500*strength,
+                 speed= 20.0*strength, max_integrity= 2000*strength)
+
+    def make_kobold(pos, strength = 1):
+        return Creature(Waver.game, pos, is_enemy = False, folder = "kobold",
+                 aether = 0* strength, damage = 1000*strength,
+                 speed= 25.0*strength, max_integrity= 2000*strength)
+
+    def make_emissary(pos, strength = 1):
+        return Creature(Waver.game, pos, is_enemy = False, folder = "emissary",
+                 aether = 0* strength, damage = 10000*strength,
+                 speed= 25.0*strength, max_integrity= 20000*strength)
+
     def suffle_enemies(current_wave):
         tierlist = []
         if current_wave <= 1:
@@ -87,11 +107,14 @@ class Waver:
         elif current_wave <= 2:
             tierlist = [Waver.make_pickman, Waver.make_spearman,Waver.make_spearman, Waver.make_maceman]
         elif current_wave <= 3:
-            tierlist = [Waver.make_pickman, Waver.make_spearman, Waver.make_maceman]
+            tierlist = [Waver.make_pickman, Waver.make_spearman, Waver.make_maceman, Waver.make_swordman]
         elif current_wave >= 4:
-            tierlist = [Waver.make_pickman, Waver.make_maceman, Waver.make_maceman]
+            tierlist = [Waver.make_pickman, Waver.make_swordman, Waver.make_minotaur]
         else:
             tierlist = [Waver.make_spearman]
+
+        #para testes
+        #tierlist = [Waver.make_maceman, Waver.make_swordman, Waver.make_minotaur]
 
         return random.choices(tierlist, k=Waver.enemies_desired_number )
 

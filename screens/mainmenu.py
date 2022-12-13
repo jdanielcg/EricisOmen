@@ -6,9 +6,11 @@
 from PPlay.sprite import *
 from pygame import mixer
 
+from settings import Settings
+
 class MainMenu:
-    def __init__(self,g, gamewindow):
-        self.g = g      
+    def __init__(self, gamewindow):
+        self.settings = Settings      
         self.gameWindow = gamewindow
 
         #musica do menu
@@ -83,7 +85,7 @@ class MainMenu:
 
         #botao play
         if self.mouse.is_over_object(self.play_button) and self.mouse.is_button_pressed(True):
-            self.g.current_screen = self.g.gamescreen
+            self.settings.current_screen = self.settings.gamescreen
 
         #botao exit
         if self.mouse.is_over_object(self.exit_button) and self.mouse.is_button_pressed(True):

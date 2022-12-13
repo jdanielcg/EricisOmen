@@ -9,7 +9,7 @@ from buildings.buildings import Building, BuildingInfo
 from buildings.gathers import buildResourceList, gather
 from effects.effects import Fireball, Stoneball, Iceball
 from match import Match
-from settings import Settings
+from settings import Settings, SimulationMode
 
 class BuildingManager:
     def __init__(self,game, filename):        
@@ -49,7 +49,8 @@ class BuildingManager:
         add_breach(Settings.breach_center[0] - 3, Settings.breach_center[1] - 3, self)
 
     def set_gameover(self, building):        
-        Match.game_lost = True
+        Match.simulation_mode = SimulationMode.LOSE
+        Match.speed = 0.0
 
     def tower_action(self, building, manager):
         #a ação da torre é disparar seu projetil

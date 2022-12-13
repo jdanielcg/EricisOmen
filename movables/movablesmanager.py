@@ -5,9 +5,11 @@
 
 
 from random import randint
+import random
 
 from numpy import roll
 from movables.creatures import Creature
+from movables.waver import Waver
 from settings import Settings
 from match import Match
 
@@ -33,7 +35,8 @@ class MovablesManager:
             self.world.domain_cells.reverse()
             for cell in self.world.domain_cells:
                 if cell.vacant and len(Match.allies) < Match.max_population:
-                    creature = Creature(self.game, cell.location, False, "kobold")
+                    distribution = [Waver.make_kobold, Waver.make_kobold,Waver.make_kobold,Waver.make_kobold, Waver.make_emissary]
+                    creature = random.choice(distribution)(cell.location, 1)
                     Match.allies.append(creature)
                     self.world.creatures.append(creature)   
                     return 
