@@ -44,8 +44,14 @@ def upgrade_breach(building, manager):
 #principal loop da fenda. aqui é gerado o recurso aether e o recurso workers(trabalhadores)
 def breach_update(building, manager):
 
+
     Match.aether += 5
         #EffectsManager.effects.append(FloatingIconText(building.x, building.y,"aether","+75"))
+
+    if Match.aether > Match.max_aether:
+        Match.aether = Match.max_aether
+    if Match.aether < 0:
+        Match.aether = 0
 
     if Match.aether >= Settings.breach_required_aether and Match.beach_enabled:
         upgrade_breach(building, manager)

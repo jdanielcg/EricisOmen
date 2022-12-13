@@ -18,7 +18,8 @@ class MainMenu:
         self.is_playing_music = True
         mixer.init()
         mixer.music.load('assets\menu.mp3')
-        mixer.music.set_volume(0.2)
+        self.music_volume = 0.5
+        mixer.music.set_volume(self.music_volume)
         mixer.music.play(-1)        
         
         #pegando a entrada do usuário
@@ -48,12 +49,11 @@ class MainMenu:
         
         #botao settings
         self.settings_button = Sprite("assets\Buttons\settings.png")
-        self.settings_button.set_position(1280/2 - 120, 350)
         self.settings_panel_enabled = False
         
         #botao exit
         self.exit_button = Sprite("assets\Buttons\exit.png")
-        self.exit_button.set_position(1280/2 - 120 , 450)
+        self.exit_button.set_position(1280/2 - 120 , 400)
         
         #botao help
         self.help_button = Sprite("assets\Buttons\help.png")
@@ -77,8 +77,6 @@ class MainMenu:
         self.background_image.draw()
         self.title_image.draw()
         self.play_button.draw()
-        self.settings_button.draw()
-        self.music_mute_button.draw()
         self.credits_button.draw()
         self.exit_button.draw()       
         self.help_button.draw()
@@ -135,6 +133,7 @@ class MainMenu:
             self.janelahelp.draw()
             self.quit_panel_button.draw()
             self.gameWindow.draw_text("About", self.gameWindow.width/2 - 100, 90, size=60, bold=True, color=(224, 224, 222))
+            
 
         #desenha o painel de settings
         if self.settings_panel_enabled:

@@ -15,8 +15,7 @@ class BuildingManager:
     def __init__(self,game, filename):        
         self._image = pygame.image.load(filename)
         self._image.convert_alpha()
-        
-        
+
         self.infos = {}
         self.infos["dormitory"] = BuildingInfo("dormitory", (0, 12), (2,2), self._image, False, wood_cost= 24, setup_function= self.add_population_cap)
         self.infos["stockpile"] = BuildingInfo("stockpile", (3, 12), (2,2), self._image, False, wood_cost= 20, setup_function= self.add_resource_cap)

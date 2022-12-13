@@ -5,9 +5,30 @@ def redesenhar_menu_vermelho(barra_botoes2_jogo,botao_jogo_close):
     barra_botoes2_jogo.draw()
     botao_jogo_close.draw()
 
+#waves
+
+def next_wave(interface):
+    #precisa ser feito alguma condição aqui pro jogo saber que já acabou a wave de inimigos e reiniciar o contador. Por exemplo:
+    #if number_max_enemies == 0:
+    #   interface.isAttacking = False
+    #   interface.AttackTimer = 120
+    interface.counter_next_wave += 1
+    interface.window.draw_text("Next wave:", 1090, 375, size=12, bold=True, color=(0, 0, 0))
+    if interface.IsAttacking == True:
+        interface.window.draw_text("Attacking", 1170, 372, size=17, bold=True, color=(183,20,20))
+    if interface.AttackTimer == 0:
+        interface.IsAttacking = True
+    if interface.IsAttacking == False and interface.AttackTimer != 0:
+        interface.window.draw_text(str(interface.AttackTimer), 1165, 375, size=12, bold=True, color=(224, 224, 220))
+        interface.window.draw_text("seconds", 1190, 375, size=12, bold=True, color=(224, 224, 220))
+        if interface.counter_next_wave > 60:
+            interface.counter_next_wave = 0
+            interface.AttackTimer -= 1
+
+
 
 def research_informations(interface):
-    interface.window.draw_text("Researching:", 30, 200, size=20, bold=True, color=(109, 113, 46))
+    interface.window.draw_text("Research:", 30, 200, size=20, bold=True, color=(109, 113, 46))
     interface.research_bar_idle.draw()
     interface.window.draw_text("Time left:", 30, 295, size=20, bold=True, color=(109, 113, 46))
 

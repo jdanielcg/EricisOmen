@@ -5,6 +5,10 @@ from PPlay.sprite import*
 import interface.resources as resources
 import interface.research as research
 import interface.reports as reports
+import interface.buildings as buildings
+import interface.options as options
+
+from match import Match
 
 
 
@@ -60,27 +64,79 @@ class Interface:
         self.portal_level_percent = 0
 
         #-> jogo
-        #botao menu jogo
-        self.menu_jogo = Sprite("assets\Buttons\menu_jogo.png")
-        self.menu_jogo.set_position(12,12)
-        self.exibir_menu_jogo = False
-        #barra botoes jogo
-        self.barra_botoes_jogo = Sprite("assets\Buttons\Barra_botoes_jogo.png")
-        self.barra_botoes_jogo.set_position(self.janela_largura/2 - 340,7)
+        #moldura botoes
+        self.moldura_botoes = Sprite("assets\Buttons\moldura_botoes.png")
+        self.moldura_botoes.set_position(7,9)
         self.p_barra_botoes_jogo = True
-        #portal level
-        self.portal_level = Sprite("assets\Buttons\portal_level.png")
-        self.portal_level.set_position(self.janela_largura/2 + 450, 12)
-        #botao jogo construct
+
+        #breach bar frame
+        self.breach_bar_frame = Sprite("assets\Buttons\Breach_bar_frame.png")
+        self.breach_bar_frame.set_position(245,653.5)
+        #minimap frame
+        self.minimap_frame = Sprite("assets\Buttons\Minimap_frame.png")
+        self.minimap_frame.set_position(1057,500)
+
+        #->botao jogo construct
         self.botao_jogo_construct = Sprite("assets\Buttons\Botao_jogo_construct.png")
-        self.botao_jogo_construct.set_position(self.janela_largura/2 - 265, 20)
+        self.botao_jogo_construct.set_position(20, 21)
         self.p_construct = True
         self.exibir_menu_construct = False
+        #botao construct menu
+        self.botao_construct_direita = Sprite("assets\Buttons\Botao_construct_direita.png")
+        self.botao_construct_direita.set_position(110, 217)
+        self.botao_construct_esquerda = Sprite("assets\Buttons\Botao_construct_esquerda.png")
+        self.botao_construct_esquerda.set_position(40, 217)
+            #exibição de janelas
+        self.construct_page = 1
+        self.exibir_menu_construct_barracks = False
+        self.exibir_menu_construct_warehouse = False
+        self.exibir_menu_construct_fire_tower = False
+        self.exibir_menu_construct_frost_tower = False
+        self.exibir_menu_construct_rock_tower = False
+        self.exibir_menu_construct_poison_trap = False
+        self.exibir_menu_construct_fire_trap = False
+        self.exibir_menu_construct_wall = False
+        self.exibir_menu_construct_obelisk = False
+        self.exibir_menu_construct_mining_camp = False
+        self.exibir_menu_construct_woodcamp = False
+        #botao barracks
+        self.botao_barracks = Sprite("assets\Buttons\Botao_barracks.png")
+        self.botao_barracks.set_position(20, 250)        
+        #botao warehouse
+        self.botao_warehouse = Sprite("assets\Buttons\Botao_warehouse.png")
+        self.botao_warehouse.set_position(20, 300)
+        #botao firetower
+        self.botao_firetower = Sprite("assets\Buttons\Botao_firetower.png")
+        self.botao_firetower.set_position(20, 350)
+        #botao frosttower
+        self.botao_frosttower = Sprite("assets\Buttons\Botao_frosttower.png")
+        self.botao_frosttower.set_position(20, 400)
+        #botao rocktower
+        self.botao_rocktower = Sprite("assets\Buttons\Botao_rocktower.png")
+        self.botao_rocktower.set_position(20, 450)
+        #botao poisontrap
+        self.botao_poisontrap = Sprite("assets\Buttons\Botao_poisontrap.png")
+        self.botao_poisontrap.set_position(20, 500)
+        #botao firetrap
+        self.botao_firetrap = Sprite("assets\Buttons\Botao_firetrap.png")
+        self.botao_firetrap.set_position(20, 550)
+        #botao wall
+        self.botao_wall = Sprite("assets\Buttons\Botao_wall.png")
+        self.botao_wall.set_position(20, 250)
+        #botao obelisk
+        self.botao_obelisk = Sprite("assets\Buttons\Botao_obelisk.png")
+        self.botao_obelisk.set_position(20, 300)
+        #botao miningcamp
+        self.botao_miningcamp = Sprite("assets\Buttons\Botao_miningcamp.png")
+        self.botao_miningcamp.set_position(20, 350)
+        #botao woodcamp
+        self.botao_woodcamp = Sprite("assets\Buttons\Botao_woodcamp.png")
+        self.botao_woodcamp.set_position(20, 400)
+
         #botao jogo resources
         self.show_resources = Sprite("assets\Buttons\show_resources.png")
         self.show_resources.set_position(1070, 130)
         self.botao_jogo_resources = Sprite("assets\Buttons\Botao_jogo_resources.png")
-        self.botao_jogo_resources.set_position(self.janela_largura/2 - 165, 20)
         self.p_resources = True
         self.resources_counter = 0
         self.exibir_menu_resources = False
@@ -101,23 +157,23 @@ class Interface:
         self.exibir_menu_research_eficient_smelting = False
             #fim
         self.botao_jogo_research = Sprite("assets\Buttons\Botao_jogo_research.png")
-        self.botao_jogo_research.set_position(self.janela_largura/2 - 65, 20)
+        self.botao_jogo_research.set_position(20, 70)
         self.p_research = True
         self.research_in_progress = False
         self.timer = 0
         self.exibir_menu_research = False
         #-> botao taticas de matilha
         self.taticas_de_matilha = Sprite("assets\Buttons\Taticas_de_matilha.png")
-        self.taticas_de_matilha.set_position(25, self.janela_altura/2 - 165)
+        self.taticas_de_matilha.set_position(20, 220)
         #-> botao serrote duplo
         self.serrote_duplo = Sprite("assets\Buttons\Serrote_duplo.png")
-        self.serrote_duplo.set_position(190, self.janela_altura/2 - 165)
+        self.serrote_duplo.set_position(20, 270)
         #-> botao hardened picks
         self.hardened_picks = Sprite("assets\Buttons\Hardened_picks.png")
-        self.hardened_picks.set_position(25, self.janela_altura/2 - 110)
+        self.hardened_picks.set_position(20, 320)
         #-> botao eficient smelting
         self.eficient_smelting = Sprite("assets\Buttons\Eficient_smelting.png")
-        self.eficient_smelting.set_position(190, self.janela_altura/2 - 110)
+        self.eficient_smelting.set_position(20, 370)
         #--> botao in progress
         self.in_progress = Sprite("assets\Buttons\Research_in_progress.png")
         self.in_progress.set_position(self.janela_largura/2 + 120, self.janela_altura/2 + 230)
@@ -145,78 +201,219 @@ class Interface:
 
         #botao jogo reports
         self.botao_jogo_reports = Sprite("assets\Buttons\Botao_jogo_reports.png")
-        self.botao_jogo_reports.set_position(self.janela_largura/2 + 35, 20)
+
         self.p_reports = True
         self.exibir_menu_reports = False
-        #botao jogo options
+        #-> botao jogo options
         self.botao_jogo_options = Sprite("assets\Buttons\Botao_jogo_options.png")
-        self.botao_jogo_options.set_position(self.janela_largura/2 + 135, 20)
+        self.botao_jogo_options.set_position(20, 119)
         self.p_options = True
         self.exibir_menu_options = False
+        #botoes de alterar volume
+        self.botao_sound_direita = Sprite("assets\Buttons\Botao_construct_direita.png")
+        self.botao_sound_direita.set_position(105, 285)
+        self.botao_sound_esquerda = Sprite("assets\Buttons\Botao_construct_esquerda.png")
+        self.botao_sound_esquerda.set_position(40, 285)
+        self.is_playing_music = True
+        self.volume_level = 5
+        #volume level 1
+        self.volume_level_1 = Sprite("assets\Buttons\Volume_level_1.png")
+        self.volume_level_1.set_position(40, 250)
+        #volume level 2
+        self.volume_level_2 = Sprite("assets\Buttons\Volume_level_2.png")
+        self.volume_level_2.set_position(40, 250)
+        #volume level 3
+        self.volume_level_3 = Sprite("assets\Buttons\Volume_level_3.png")
+        self.volume_level_3.set_position(40, 250)
+        #volume level 4
+        self.volume_level_4 = Sprite("assets\Buttons\Volume_level_4.png")
+        self.volume_level_4.set_position(40, 250)
+        #volume level 5
+        self.volume_level_5 = Sprite("assets\Buttons\Volume_level_5.png")
+        self.volume_level_5.set_position(40, 250)
+        #volume level 6
+        self.volume_level_6 = Sprite("assets\Buttons\Volume_level_6.png")
+        self.volume_level_6.set_position(40, 250)
+        #volume level 7
+        self.volume_level_7 = Sprite("assets\Buttons\Volume_level_7.png")
+        self.volume_level_7.set_position(40, 250)
+        #volume level 8
+        self.volume_level_8 = Sprite("assets\Buttons\Volume_level_8.png")
+        self.volume_level_8.set_position(40, 250)
+        #volume level 9
+        self.volume_level_9 = Sprite("assets\Buttons\Volume_level_9.png")
+        self.volume_level_9.set_position(40, 250)
+        #volume level 10
+        self.volume_level_10 = Sprite("assets\Buttons\Volume_level_10.png")
+        self.volume_level_10.set_position(40, 250)
+
+        #fullscreen
+        self.checkbox_fullscreen_true = Sprite("assets\Buttons\Checkbox_true.png")
+        self.checkbox_fullscreen_false = Sprite("assets\Buttons\Checkbox_false.png")
+        self.checkbox_fullscreen = Sprite("assets\Buttons\Checkbox.png")
+        self.checkbox_fullscreen_true.set_position(52, 355)
+        self.checkbox_fullscreen_false.set_position(52, 355)
+        self.p_fullscreen = False
+
+
+        #botao options restart
+        self.botao_jogo_restart = Sprite("assets\Buttons\Botao_restart.png")
+        self.botao_jogo_restart.set_position(50, 555)
+
+        #botao options quit
+        self.botao_jogo_quit = Sprite("assets\Buttons\Botao_quit.png")
+        self.botao_jogo_quit.set_position(50, 585)
+
+        #barra botao quit
+        self.barra_botao_quit = Sprite("assets\Buttons\portal_level.png")
+        self.barra_botao_quit.set_position(175,545)
+        self.p_quit = False
+        #botao barra quit quit
+        self.botao_barra_quit_quit = Sprite("assets\Buttons\Botao_quit.png")
+        self.botao_barra_quit_quit.set_position(265,593)
+        #barra botao quit close
+        self.botao_barra_quit_close = Sprite("assets\Buttons\Botao_close.png")
+        self.botao_barra_quit_close.set_position(181,593)
+
         #botao jogo close
         self.botao_jogo_close = Sprite("assets\Buttons\Botao_close.png")
-        self.botao_jogo_close.set_position(140, self.janela_altura/2 - 210)
+        self.botao_jogo_close.set_position(50, 190)
         #botao jogo close amarelo
         self.botao_jogo_close_amarelo = Sprite("assets\Buttons\Botao_close.png")
-        self.botao_jogo_close_amarelo.set_position(self.janela_largura/2 - 190, self.janela_altura/2 + 236)
+        self.botao_jogo_close_amarelo.set_position(240, 560)
         #barra botoes2 jogo
         self.barra_botoes2_jogo = Sprite("assets\Buttons\Barra_botoes2_jogo.png")
-        self.barra_botoes2_jogo.set_position(20,self.janela_altura/2 - 220)
+        self.barra_botoes2_jogo.set_position(7,180)
         self.p_barra_botoes2_jogo = True
         #barra background cost menu
         self.background_cost_menu = Sprite("assets\Buttons\Background_cost_menu.png")
-        self.background_cost_menu.set_position(self.janela_largura/2 - self.background_cost_menu.width/2 + 40, self.janela_altura/2 - self.background_cost_menu.height/2 + 40)
+        self.background_cost_menu.set_position(170, 182)
         #botao next
         self.botao_next = Sprite("assets\Buttons\Botao_next.png")
-        self.botao_next.set_position(self.janela_largura/2 + 120, self.janela_altura/2 + 230)
+        self.botao_next.set_position(340, 560)
+
+        #attack
+        self.IsAttacking = True
+        self.AttackTimer = 0
+        self.counter_next_wave = 0
         
     def update(self,delta_time):
-        self.menu_jogo.draw()
-        self.portal_level.draw()
+        self.moldura_botoes.draw()
+        self.botao_jogo_construct.draw()
+        self.botao_jogo_research.draw()
+        self.botao_jogo_options.draw()
+        self.breach_bar_frame.draw()
+        self.minimap_frame.draw()
 
         #barra direita:
         resources.show_resources(self)
         research.show_research_blank(self)
         research.research_informations_small(self)
+        reports.next_wave(self)
         
         #progressão de pesquisa:
         research.researching(self)
 
 
         #atualização dos recursos:
-        self.resources_counter = resources.change_resources(resources.resources,resources.Balance, self.resources_counter)
-
-            #escrever as coisas dentro do visor portal level
-        self.window.draw_text("Portal Level: ", self.janela_largura/2 + 470, 23, size=20, bold=True, color=(0, 0, 0))
-        self.window.draw_text(str(self.portal_level_counter), self.janela_largura/2 + 595, 23.5, size=20, bold=True, color=(0, 0, 0))
-        self.window.draw_text(str(self.portal_level_percent), self.janela_largura/2 + 482, 47, size=17, bold=True, color=(0, 0, 0))
-        self.window.draw_text("% Chance of", self.janela_largura/2 + 493, 48, size=17, bold=True, color=(0, 0, 0))
-        self.window.draw_text("spawning Ericis", self.janela_largura/2 + 474, 68, size=17, bold=True, color=(0, 0, 0))
-            #fim
-
-
-        
-        if self.clickjogo.is_over_object(self.menu_jogo) and self.clickjogo.is_button_pressed(True):
-            self.exibir_menu_jogo = True
-        if self.exibir_menu_jogo:
-            #fechar o menu azul
-            if self.teclado.key_pressed("ESC"):
-                self.exibir_menu_jogo = False
-                
-            self.barra_botoes_jogo.draw()
-            self.botao_jogo_construct.draw()
-            self.botao_jogo_resources.draw()
-            self.botao_jogo_research.draw()
-            self.botao_jogo_reports.draw()
-            self.botao_jogo_options.draw()
-
+        self.resources_counter = resources.change_resources(self)
+        resources.change_max_resources(Match)
             
-
         #menu construct
         if self.clickjogo.is_over_object(self.botao_jogo_construct) and self.clickjogo.is_button_pressed(True):
             self.exibir_menu_construct = True
         if self.exibir_menu_construct:               
             self.barra_botoes2_jogo.draw()
+            buildings.show_menu_construct(self)
+
+            #Barracks:
+            if self.clickjogo.is_over_object(self.botao_barracks) and self.construct_page == 1:
+                buildings.popout(self, 'Barracks')
+                if self.clickjogo.is_button_pressed(True):
+                    self.exibir_menu_construct_barracks = True
+            if self.exibir_menu_construct_barracks:
+                buildings.popout_perma(self,'Barracks')
+
+            #Warehouse:
+            if self.clickjogo.is_over_object(self.botao_warehouse) and self.construct_page == 1:
+                buildings.popout(self, 'Warehouse')
+                if self.clickjogo.is_button_pressed(True):
+                    self.exibir_menu_construct_warehouse = True
+            if self.exibir_menu_construct_warehouse:
+                buildings.popout_perma(self,'Warehouse')
+
+            #Fire_tower:
+            if self.clickjogo.is_over_object(self.botao_firetower) and self.construct_page == 1:
+                buildings.popout(self, 'Fire_tower')
+                if self.clickjogo.is_button_pressed(True):
+                    self.exibir_menu_construct_fire_tower = True
+            if self.exibir_menu_construct_fire_tower:
+                buildings.popout_perma(self,'Fire_tower')
+
+            #Frost_tower:
+            if self.clickjogo.is_over_object(self.botao_frosttower) and self.construct_page == 1:
+                buildings.popout(self, 'Frost_tower')
+                if self.clickjogo.is_button_pressed(True):
+                    self.exibir_menu_construct_frost_tower = True
+            if self.exibir_menu_construct_frost_tower:
+                buildings.popout_perma(self,'Frost_tower')
+
+            #Rock_tower:
+            if self.clickjogo.is_over_object(self.botao_rocktower) and self.construct_page == 1:
+                buildings.popout(self, 'Rock_tower')
+                if self.clickjogo.is_button_pressed(True):
+                    self.exibir_menu_construct_rock_tower = True
+            if self.exibir_menu_construct_rock_tower:
+                buildings.popout_perma(self,'Rock_tower')
+
+            #Poison_trap:
+            if self.clickjogo.is_over_object(self.botao_poisontrap) and self.construct_page == 1:
+                buildings.popout(self, 'Poison_trap')
+                if self.clickjogo.is_button_pressed(True):
+                    self.exibir_menu_construct_poison_trap = True
+            if self.exibir_menu_construct_poison_trap:
+                buildings.popout_perma(self,'Poison_trap')
+
+            #Fire_trap:
+            if self.clickjogo.is_over_object(self.botao_firetrap) and self.construct_page == 1:
+                buildings.popout(self, 'Fire_trap')
+                if self.clickjogo.is_button_pressed(True):
+                    self.exibir_menu_construct_fire_trap = True
+            if self.exibir_menu_construct_fire_trap:
+                buildings.popout_perma(self,'Fire_trap')
+
+            #Wall:
+            if self.clickjogo.is_over_object(self.botao_wall) and self.construct_page == 2:
+                buildings.popout(self, 'Wall')
+                if self.clickjogo.is_button_pressed(True):
+                    self.exibir_menu_construct_wall = True
+            if self.exibir_menu_construct_wall:
+                buildings.popout_perma(self,'Wall')
+
+            #Obelisk:
+            if self.clickjogo.is_over_object(self.botao_obelisk) and self.construct_page == 2:
+                buildings.popout(self, 'Obelisk')
+                if self.clickjogo.is_button_pressed(True):
+                    self.exibir_menu_construct_obelisk = True
+            if self.exibir_menu_construct_obelisk:
+                buildings.popout_perma(self,'Obelisk')
+
+            #Mining_camp:
+            if self.clickjogo.is_over_object(self.botao_miningcamp) and self.construct_page == 2:
+                buildings.popout(self, 'Mining_camp')
+                if self.clickjogo.is_button_pressed(True):
+                    self.exibir_menu_construct_mining_camp = True
+            if self.exibir_menu_construct_mining_camp:
+                buildings.popout_perma(self,'Mining_camp')
+
+            #Wood_camp:
+            if self.clickjogo.is_over_object(self.botao_woodcamp) and self.construct_page == 2:
+                buildings.popout(self, 'Wood_camp')
+                if self.clickjogo.is_button_pressed(True):
+                    self.exibir_menu_construct_woodcamp = True
+            if self.exibir_menu_construct_woodcamp:
+                buildings.popout_perma(self,'Wood_camp')
+            
             
             #fechar o menu construct
             self.botao_jogo_close.draw()
@@ -308,7 +505,10 @@ class Interface:
         if self.exibir_menu_options:              
             self.barra_botoes2_jogo.draw()
             self.botao_jogo_close.draw()
+            options.music_level(self)
+            options.fullscreen(self)
+            options.exit(self)
 
-        #fechar                                  
-        if self.clickjogo.is_over_object(self.botao_jogo_close) and self.clickjogo.is_button_pressed(True):
-            self.exibir_menu_options = False
+            #fechar                                  
+            if self.clickjogo.is_over_object(self.botao_jogo_close) and self.clickjogo.is_button_pressed(True):
+                self.exibir_menu_options = False
