@@ -8,6 +8,10 @@ def redesenhar_menu_vermelho(barra_botoes2_jogo,botao_jogo_close):
 #waves
 
 def next_wave(interface):
+    #precisa ser feito alguma condição aqui pro jogo saber que já acabou a wave de inimigos e reiniciar o contador. Por exemplo:
+    #if number_max_enemies == 0:
+    #   interface.isAttacking = False
+    #   interface.AttackTimer = 120
     interface.counter_next_wave += 1
     interface.window.draw_text("Next wave:", 1090, 375, size=12, bold=True, color=(0, 0, 0))
     if interface.IsAttacking == True:

@@ -64,6 +64,6 @@ def exit(interface):
         interface.botao_barra_quit_close.draw()
         interface.window.draw_text("Are you sure?", 206, 560, size=18, bold=True, color=(224, 224, 220))
         if interface.clickjogo.is_over_object(interface.botao_barra_quit_quit) and interface.clickjogo.is_button_pressed(True):
-            print('quit')
+            interface.window.close()
         if interface.clickjogo.is_over_object(interface.botao_barra_quit_close) and interface.clickjogo.is_button_pressed(True):
             interface.p_quit = False

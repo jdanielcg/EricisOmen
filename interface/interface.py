@@ -76,10 +76,6 @@ class Interface:
         self.minimap_frame = Sprite("assets\Buttons\Minimap_frame.png")
         self.minimap_frame.set_position(1057,500)
 
-        #portal level
-        self.portal_level = Sprite("assets\Buttons\portal_level.png")
-        self.portal_level.set_position(self.janela_largura/2 + 450, 12)
-
         #->botao jogo construct
         self.botao_jogo_construct = Sprite("assets\Buttons\Botao_jogo_construct.png")
         self.botao_jogo_construct.set_position(20, 21)
@@ -141,7 +137,6 @@ class Interface:
         self.show_resources = Sprite("assets\Buttons\show_resources.png")
         self.show_resources.set_position(1070, 130)
         self.botao_jogo_resources = Sprite("assets\Buttons\Botao_jogo_resources.png")
-        self.botao_jogo_resources.set_position(self.janela_largura/2 - 165, 20)
         self.p_resources = True
         self.resources_counter = 0
         self.exibir_menu_resources = False
@@ -206,7 +201,7 @@ class Interface:
 
         #botao jogo reports
         self.botao_jogo_reports = Sprite("assets\Buttons\Botao_jogo_reports.png")
-        self.botao_jogo_reports.set_position(self.janela_largura/2 + 35, 20)
+
         self.p_reports = True
         self.exibir_menu_reports = False
         #-> botao jogo options
@@ -260,6 +255,7 @@ class Interface:
         self.checkbox_fullscreen_false.set_position(52, 355)
         self.p_fullscreen = False
 
+
         #botao options restart
         self.botao_jogo_restart = Sprite("assets\Buttons\Botao_restart.png")
         self.botao_jogo_restart.set_position(50, 555)
@@ -306,7 +302,6 @@ class Interface:
         self.botao_jogo_construct.draw()
         self.botao_jogo_research.draw()
         self.botao_jogo_options.draw()
-        self.portal_level.draw()
         self.breach_bar_frame.draw()
         self.minimap_frame.draw()
 
@@ -323,18 +318,7 @@ class Interface:
         #atualização dos recursos:
         self.resources_counter = resources.change_resources(self)
         resources.change_max_resources(Match)
-
-            #escrever as coisas dentro do visor portal level
-        self.window.draw_text("Portal Level: ", self.janela_largura/2 + 470, 23, size=20, bold=True, color=(0, 0, 0))
-        self.window.draw_text(str(self.portal_level_counter), self.janela_largura/2 + 595, 23.5, size=20, bold=True, color=(0, 0, 0))
-        self.window.draw_text(str(self.portal_level_percent), self.janela_largura/2 + 482, 47, size=17, bold=True, color=(0, 0, 0))
-        self.window.draw_text("% Chance of", self.janela_largura/2 + 493, 48, size=17, bold=True, color=(0, 0, 0))
-        self.window.draw_text("spawning Ericis", self.janela_largura/2 + 474, 68, size=17, bold=True, color=(0, 0, 0))
-            #fim
-                
-
             
-
         #menu construct
         if self.clickjogo.is_over_object(self.botao_jogo_construct) and self.clickjogo.is_button_pressed(True):
             self.exibir_menu_construct = True

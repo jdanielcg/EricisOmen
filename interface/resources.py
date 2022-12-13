@@ -20,7 +20,7 @@ def show_resources(interface):
     interface.window.draw_text(str(Match.max_soldiers), 1219, 204, size=15, bold=True, color=(224, 224, 220))
 
     interface.window.draw_text("Aether:", 1100, 228, size=18, bold=True, color=(0, 0, 0))
-    interface.window.draw_text(str(Match.aether), 1180, 229, size=15, bold=True, color=(224, 224, 220))
+    interface.window.draw_text(str(Match.aether), 1180, 230, size=15, bold=True, color=(224, 224, 220))
     interface.window.draw_text('/', 1210, 228, size=18, bold=True, color=(224, 224, 220))
     interface.window.draw_text(str(Match.max_aether), 1219, 229, size=15, bold=True, color=(224, 224, 220))
 

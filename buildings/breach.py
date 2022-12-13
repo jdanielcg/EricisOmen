@@ -50,9 +50,13 @@ def breach_update(building, manager):
     worker_timer += 1
     aether_timer +=1
 
-    if worker_timer >= worker_interval:
+    if worker_timer >= worker_interval and Match.soldiers <= Match.max_soldiers:
         worker_timer =0
         Match.soldiers += 5
+        if Match.soldiers > Match.max_soldiers:
+            Match.soldiers = Match.max_soldiers
+        if Match.soldiers < 0:
+            Match.soldiers = 0
         EffectsManager.effects.append(FloatingIconText(building.x, building.y,"worker","+5"))
 
     if aether_timer >= aether_interval and Match.aether <= Match.max_aether:
