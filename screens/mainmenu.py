@@ -16,7 +16,8 @@ class MainMenu:
         self.is_playing_music = True
         mixer.init()
         mixer.music.load('assets\menu.mp3')
-        mixer.music.set_volume(0.2)
+        self.music_volume = 0.5
+        mixer.music.set_volume(self.music_volume)
         mixer.music.play(-1)        
         
         #pegando a entrada do usuário

@@ -14,8 +14,7 @@ class BuildingManager:
     def __init__(self,game, filename):        
         self._image = pygame.image.load(filename)
         self._image.convert_alpha()
-        
-        
+
         self.infos = {}
         self.infos["dormitory"] = BuildingInfo("dormitory", (0, 12), (2,2), self._image, True, wood_cost= 50)
         self.infos["miningcamp"] = BuildingInfo("miningcamp", (0, 4), (1,2), self._image, True, wood_cost= 50)
@@ -29,7 +28,7 @@ class BuildingManager:
         self.infos["breach6"] = BuildingInfo("breach6", (3, 23), (5,5), self._image, True, breach_update, 1, 2500, 50, on_destroy= self.set_gameover)
         self.infos["breach7"] = BuildingInfo("breach7", (3, 28), (7,7), self._image, True, breach_update, 1, 2500, 60, on_destroy= self.set_gameover)
         self.infos["obelisk"] = BuildingInfo("obelisk", (10, 28), (1,2), self._image, True, None, 10, 2500, 10, aether_cost= 30)
-        self.game = game   
+        self.game = game
 
     def build_base(self):
         add_breach(Settings.breach_center[0], Settings.breach_center[1], self)

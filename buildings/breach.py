@@ -52,12 +52,16 @@ def breach_update(building, manager):
 
     if worker_timer >= worker_interval:
         worker_timer =0
-        Match.workers += 5
+        Match.soldiers += 5
         EffectsManager.effects.append(FloatingIconText(building.x, building.y,"worker","+5"))
 
-    if aether_timer >= aether_interval:
+    if aether_timer >= aether_interval and Match.aether <= Match.max_aether:
         aether_timer =0
         Match.aether += 75
+        if Match.aether > Match.max_aether:
+            Match.aether = Match.max_aether
+        if Match.aether < 0:
+            Match.aether = 0
         EffectsManager.effects.append(FloatingIconText(building.x, building.y,"aether","+75"))
 
     if Match.aether >= Settings.breach_required_aether and Match.beach_enabled:
