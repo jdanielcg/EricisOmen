@@ -37,10 +37,10 @@ def research_informations(interface):
         interface.window.draw_text("Double Saw", 180, 203, size=17, bold=True, color=(224, 224, 220))
         interface.window.draw_text(str(research.double_saw['time']), 160, 295, size=20, bold=True, color=(224, 224, 220))
         interface.window.draw_text('seconds', 195, 295, size=20, bold=True, color=(224, 224, 220))
-    elif interface.hp == True:
-        research.draw_research_bar(interface,'hardened picks')
-        interface.window.draw_text("Hardened Picks", 180, 203, size=17, bold=True, color=(224, 224, 220))
-        interface.window.draw_text(str(research.hardened_picks['time']), 160, 295, size=20, bold=True, color=(224, 224, 220))
+    elif interface.wp == True:
+        research.draw_research_bar(interface,'warpainting')
+        interface.window.draw_text("warpainting", 180, 203, size=17, bold=True, color=(224, 224, 220))
+        interface.window.draw_text(str(research.warpainting['time']), 160, 295, size=20, bold=True, color=(224, 224, 220))
         interface.window.draw_text('seconds', 195, 295, size=20, bold=True, color=(224, 224, 220))
     elif interface.es == True:
         research.draw_research_bar(interface,'eficient smelting')

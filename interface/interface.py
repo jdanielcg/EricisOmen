@@ -48,6 +48,8 @@ class Interface:
         self.botao_construct_direita.set_position(110, 217)
         self.botao_construct_esquerda = Sprite("assets\Buttons\Botao_construct_esquerda.png")
         self.botao_construct_esquerda.set_position(40, 217)
+        self.botao_demolish = Sprite("assets\Buttons\Botao_demolish.png")
+        self.botao_demolish.set_position(50,590)
         #exibição de janelas
         self.construct_page = 1
         self.exibir_menu_construct_barracks = False
@@ -81,19 +83,19 @@ class Interface:
         self.botao_poisontrap.set_position(20, 500)
         #botao firetrap
         self.botao_firetrap = Sprite("assets\Buttons\Botao_firetrap.png")
-        self.botao_firetrap.set_position(20, 550)
+        self.botao_firetrap.set_position(20, 250)
         #botao wall
         self.botao_wall = Sprite("assets\Buttons\Botao_wall.png")
-        self.botao_wall.set_position(20, 250)
+        self.botao_wall.set_position(20, 300)
         #botao obelisk
         self.botao_obelisk = Sprite("assets\Buttons\Botao_obelisk.png")
-        self.botao_obelisk.set_position(20, 300)
+        self.botao_obelisk.set_position(20, 350)
         #botao miningcamp
         self.botao_miningcamp = Sprite("assets\Buttons\Botao_miningcamp.png")
-        self.botao_miningcamp.set_position(20, 350)
+        self.botao_miningcamp.set_position(20, 400)
         #botao woodcamp
         self.botao_woodcamp = Sprite("assets\Buttons\Botao_woodcamp.png")
-        self.botao_woodcamp.set_position(20, 400)
+        self.botao_woodcamp.set_position(20, 450)
 
         #botao jogo resources
         self.show_resources = Sprite("assets\Buttons\show_resources.png")
@@ -107,15 +109,15 @@ class Interface:
             #controle de pesquisa
         self.pt, self.pt_end = False, False
         self.ds, self.ds_end = False, False
-        self.hp, self.hp_end = False, False
+        self.wp, self.wp_end = False, False
         self.es, self.es_end = False, False
         self.gate = False
-        self.lock_pt, self.lock_ds, self.lock_hp, self.lock_es = False, False, False, False
+        self.lock_pt, self.lock_ds, self.lock_wp, self.lock_es = False, False, False, False
             #fim
             #exibição de janelas
         self.exibir_menu_research_pack_tactics = False
         self.exibir_menu_research_double_saw = False
-        self.exibir_menu_research_hardened_picks = False
+        self.exibir_menu_research_warpainting = False
         self.exibir_menu_research_eficient_smelting = False
             #fim
         self.botao_jogo_research = Sprite("assets\Buttons\Botao_jogo_research.png")
@@ -127,12 +129,12 @@ class Interface:
         #-> botao taticas de matilha
         self.taticas_de_matilha = Sprite("assets\Buttons\Taticas_de_matilha.png")
         self.taticas_de_matilha.set_position(20, 220)
+        #-> botao warpainting
+        self.warpainting = Sprite("assets\Buttons\Botao_warpainting.png")
+        self.warpainting.set_position(20, 270)
         #-> botao serrote duplo
         self.serrote_duplo = Sprite("assets\Buttons\Serrote_duplo.png")
-        self.serrote_duplo.set_position(20, 270)
-        #-> botao hardened picks
-        self.hardened_picks = Sprite("assets\Buttons\Hardened_picks.png")
-        self.hardened_picks.set_position(20, 320)
+        self.serrote_duplo.set_position(20, 320)
         #-> botao eficient smelting
         self.eficient_smelting = Sprite("assets\Buttons\Eficient_smelting.png")
         self.eficient_smelting.set_position(20, 370)
@@ -328,7 +330,7 @@ class Interface:
                 buildings.popout_perma(self,'Poison_trap')
 
             #Fire_trap:
-            if self.clickjogo.is_over_object(self.botao_firetrap) and self.construct_page == 1:
+            if self.clickjogo.is_over_object(self.botao_firetrap) and self.construct_page == 2:
                 buildings.popout(self, 'Fire_trap')
                 if self.clickjogo.is_button_pressed(True):
                     self.exibir_menu_construct_fire_trap = True
@@ -402,13 +404,13 @@ class Interface:
             if self.exibir_menu_research_double_saw:
                 research.popout_perma(self,'Double Saw')
 
-            #hardened picks:
-            if self.clickjogo.is_over_object(self.hardened_picks):
-                research.popout(self,'Hardened Picks')
+            #Warpainting:
+            if self.clickjogo.is_over_object(self.warpainting):
+                research.popout(self,'Warpainting')
                 if self.clickjogo.is_button_pressed(True):
-                    self.exibir_menu_research_hardened_picks = True
-            if self.exibir_menu_research_hardened_picks:
-                research.popout_perma(self,'Hardened Picks')
+                    self.exibir_menu_research_warpainting = True
+            if self.exibir_menu_research_warpainting:
+                research.popout_perma(self,'Warpainting')
 
             #Eficient Smelting:
             if self.clickjogo.is_over_object(self.eficient_smelting):

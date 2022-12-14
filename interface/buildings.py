@@ -28,6 +28,10 @@ wood_camp_cost = {'wood': 50}
 def show_menu_construct(interface):
     interface.botao_construct_direita.draw()
     interface.botao_construct_esquerda.draw()
+    interface.botao_demolish.draw()
+
+    if interface.clickjogo.is_over_object(interface.botao_demolish) and interface.clickjogo.is_button_pressed(True):
+        print('Demoliu')
     
     if interface.p_construct == True:
         interface.botao_barracks.draw()
@@ -36,11 +40,11 @@ def show_menu_construct(interface):
         interface.botao_frosttower.draw()
         interface.botao_rocktower.draw()
         interface.botao_poisontrap.draw()
-        interface.botao_firetrap.draw()
         if interface.clickjogo.is_over_object(interface.botao_construct_direita) and interface.clickjogo.is_button_pressed(True):
             interface.construct_page = 2
             interface.p_construct = False
     if interface.p_construct == False:
+        interface.botao_firetrap.draw()
         interface.botao_wall.draw()
         interface.botao_obelisk.draw()
         interface.botao_miningcamp.draw()
