@@ -4,6 +4,7 @@
 # ╚═════════════════════════════════════════════╝
 
 import pygame
+from audio.audiomanager import AudioManager
 from camera import Camera
 from effects.effectsmanager import EffectsManager
 from effects.endingcinematic import Ending
@@ -79,6 +80,9 @@ class Game:
 
         Camera.update(delta_time)
         Waver.update(delta_time)
+
+        #atualiza os sons
+        AudioManager.update(delta_time)
 
         #atualiza o estado do mapa:
         self.world.update(delta_time)      

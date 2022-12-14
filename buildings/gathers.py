@@ -1,5 +1,6 @@
 
 
+from audio.spacialsfx import SpacialSFX
 from effects.effects import FloatingIconText
 from effects.effectsmanager import EffectsManager
 from effects.effects import SmokeDamage
@@ -14,11 +15,13 @@ def gather(building, manager):
 
             EffectsManager.effects.append(SmokeDamage(resourceTile.x, resourceTile.y))
 
+
             if building.info.gather_type == "wood":
                 value = 10 if not Match.researched_saw else 20
                 Match.wood += value
                 EffectsManager.effects.append(FloatingIconText(building.x, building.y,"wood","+" + str(value)))
             elif building.info.gather_type == "iron":
+                SpacialSFX("pick",building.x, building.y)
                 value = 10 if not Match.researched_smelting else 20
                 Match.iron += value
                 EffectsManager.effects.append(FloatingIconText(building.x, building.y,"iron","+" + str(value)))

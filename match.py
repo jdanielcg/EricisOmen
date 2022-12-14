@@ -43,6 +43,8 @@ class Match:
     researched_picks = False
     researched_smelting = False
 
+    maxSFXVolume = 0
+
 
     def Setup(game):
         Match.game = game
@@ -68,6 +70,8 @@ class Match:
         Match.researched_saw = False
         Match.researched_picks = False
         Match.researched_smelting = False
+
+        Match.maxSFXVolume = 1
 
 
     def __init__(self) -> None:

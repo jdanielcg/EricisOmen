@@ -33,3 +33,9 @@
 * https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_fur_grey&head=Minotaur_fur_grey&shadow=Shadow_shadow&shoulders=Legion_bronze&bauldron=Bauldron_brown&legs=Pants_walnut
 
 * https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_bright_green&legs=Pants_walnut&head=Lizard_male_bright_green&wings=Lizard_wings_bright_green&tail=Lizard_tail_bright_green&weapon=Spear_halberd&shadow=Shadow_shadow
+
+* https://opengameart.org/content/rpg-sound-pack
+
+* https://opengameart.org/content/spell-sounds-starter-pack
+
+* https://freesound.org/people/bigal13/sounds/654499/

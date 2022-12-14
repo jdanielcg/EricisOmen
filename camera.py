@@ -60,6 +60,11 @@ class Camera:
         if not Camera.shake:
             Camera.shake = True
 
+    def center():
+        x = Camera.dx + Window.screen.get_width()/2.0
+        y = Camera.dy + Window.screen.get_height()/2.0
+        return (x,y)
+
 
     def update( delta_time):
         delta_time = Match.game.gameWindow.delta_time()
