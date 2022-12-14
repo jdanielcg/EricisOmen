@@ -23,45 +23,45 @@ def wall_side_checker(cell, world):
 
     if  left and right and up and down:
         if not ul:
-            return 24
+            return 7
         if not ur:
-            return 24
+            return 9
         if not dl:
-            return 24
+            return 27
         if not dr:
-            return 24
+            return 29
         else:
-            return 24
+            return 33
     #casos de 3 lados
     elif up and left and down:
-        return 24
+        return 39
     elif up and right and down:
-        return 24
+        return 34
     elif left and right and up:
-        return 24
+        return 37
     elif left and right and down:
-        return 24
+        return 36
     #casos de 2 lados
     elif up and left:
-        return 16
+        return 22
     elif up and right:
-        return 14
+        return 20
     elif down and right:
         return 0
     elif down and left:
         return 2
     elif down and up:
-        return 10
+        return 13
     elif left and right:
-        return 22
+        return 31
     #casos de 1 lados 
     elif left:
-        return 23
+        return 32
     elif right:
-        return 21
+        return 30
     elif up:
-        return 17
+        return 23
     elif down:
         return 3
     else:
-        return 24
+        return 33

@@ -37,16 +37,23 @@ class Match:
     game = None
 
 
+
+    researched_pack = False
+    researched_saw = False
+    researched_picks = False
+    researched_smelting = False
+
+
     def Setup(game):
         Match.game = game
-        Match.wood = 300
-        Match.iron = 300
+        Match.wood = 200
+        Match.iron = 200
         Match.aether = 0
-        Match.max_aether = 1000
+        Match.max_aether = 200
 
         Match.simulation_mode = SimulationMode.RUNNING
     
-        Match.max_stock = 500
+        Match.max_stock = 300
         Match.max_population = 5
         
         Match.allies = []
@@ -56,6 +63,11 @@ class Match:
         Match.breach_level = 1   
         Match.game_won = False
         Match.game_lost = False
+
+        Match.researched_pack = False
+        Match.researched_saw = False
+        Match.researched_picks = False
+        Match.researched_smelting = False
 
 
     def __init__(self) -> None:

@@ -106,9 +106,9 @@ class BuildingInfo:
             dx = Settings.tilesize * self.size[0]
             dy = Settings.tilesize * self.size[1]
 
-            surf = pygame.Surface((dx, dy), pygame.SRCALPHA)
+            surf = pygame.Surface((dx, dy))#, pygame.SRCALPHA)
             surf.fill((0, 0, 0, 0))
-            surf.blit(self.atlas, (0,0), (x0, y0, x0 + dx, y0 + dy), special_flags = pygame.BLEND_RGBA_ADD)
+            surf.blit(self.atlas, (0,0), (x0, y0, x0 + dx, y0 + dy))#, special_flags = pygame.BLEND_RGBA_ADD)
             #surf.set_colorkey((255, 0 , 255))
         elif (self.name == "wall"):
             surf = []
@@ -117,7 +117,7 @@ class BuildingInfo:
             dx = Settings.tilesize * 1
             dy = Settings.tilesize * 1
             for m in range(4):
-                for n in range(7):                
+                for n in range(10):                
                     ddx = n * dx
                     ddy = m * dy
                     temp_surf = pygame.Surface((dx, dy))

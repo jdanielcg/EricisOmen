@@ -49,7 +49,7 @@ class Tileset:
         return self._tile_library.get(tile_code, self._tile_library[0])
 
     #Função que retorna um ladrilho no formato surface com alfa
-    def get_tile_alpha(self, tile_code):
+    def get_tile_alpha(self, tile_code):        
         return self._tile_library_alpha.get(tile_code, self._tile_library_alpha[0])
 
     def get_tileset_size(self):

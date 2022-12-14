@@ -35,7 +35,7 @@ fill_timer = 0
 
 #fator de preenchimento da barra
 def fill_factor():
-    return Match.aether/(Settings.breach_required_aether*Match.breach_level)
+    return Match.aether/(Settings.breach_required_aether[Match.breach_level])
 
 clicked = False
 button_rect : Rect = None

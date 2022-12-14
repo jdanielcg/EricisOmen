@@ -33,8 +33,7 @@ def research_informations_small(interface):
         name = "Hard Picks"               
         time = (hardened_picks['time'])
     elif interface.es == True:
-        draw_research_bar_small(interface,'eficient smelting')
-        interface.window.draw_text("Efficient Smelting", 1153, 280, size=12, bold=True, color=(224, 224, 220))        
+        draw_research_bar_small(interface,'eficient smelting')              
         name = "Smelting"
         time = (eficient_smelting['time'])
 
@@ -89,14 +88,14 @@ def informations(nome,interface):
         interface.window.draw_text("moment to strike, Kobolds are",  242, 375, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("now able to take down foes",  242, 390, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("easier.",  242, 405, size=12, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Increases Tower damage.",  240, 455, size=15, bold=True, color=(0, 0, 0))         
+        interface.window.draw_text("Doubles Tower damage.",  240, 455, size=15, bold=True, color=(0, 0, 0))         
     if nome == 'Double Saw':
         interface.window.draw_text("Double Saw",  270, 220, size=20, bold=True, color=(0, 0, 0))
         interface.window.draw_text("50 Wood, 200 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("Cooperative methods of wood",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("cutting turns feeble kobolds",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("on capable lumber jackers.",  242, 375, size=12, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Increases wood",  244, 425, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Doubles wood",  244, 425, size=15, bold=True, color=(0, 0, 0))
         interface.window.draw_text("production rate on Wood",  242, 440, size=15, bold=True, color=(0, 0, 0))
         interface.window.draw_text("cutter's camps.",  242, 455, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Hardened Picks':
@@ -105,7 +104,7 @@ def informations(nome,interface):
         interface.window.draw_text("Well-thought crafting",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("techniques creates stronger",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("tools with higher productivity.",  242, 375, size=12, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Increases Iron production",  244, 425, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Doubles Iron production",  244, 425, size=15, bold=True, color=(0, 0, 0))
         interface.window.draw_text("rate on mines.",  244, 440, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Eficient Smelting':
         interface.window.draw_text("Efficient Smelting",  250, 220, size=20, bold=True, color=(0, 0, 0))
@@ -114,7 +113,7 @@ def informations(nome,interface):
         interface.window.draw_text("with try and error, made kobolds",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("able to understand iron fusion",  242, 375, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("point properly.",  242, 390, size=12, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Increase iron",  244, 440, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Doubles iron",  244, 440, size=15, bold=True, color=(0, 0, 0))
         interface.window.draw_text("production rate on mines.",  244, 455, size=15, bold=True, color=(0, 0, 0)) 
 
 def popout_perma(interface,nome):
@@ -288,21 +287,25 @@ def research_end(nome, interface):
             interface.pt = False
         if interface.pt_end == False:
             interface.pt_end = True
+            Match.researched_pack = True
     if nome == 'double saw':
         if interface.ds == True:
             interface.ds = False
         if interface.ds_end == False:
             interface.ds_end = True
+            Match.researched_saw = True
     if nome == 'hardened picks':
         if interface.hp == True:
             interface.hp = False
         if interface.hp_end == False:
             interface.hp_end = True
+            Match.researched_picks = True
     if nome == 'eficient smelting':
         if interface.es == True:
             interface.es = False
         if interface.es_end == False:
             interface.es_end = True
+            Match.researched_smelting = True
 
 
 def already_researching(interface):

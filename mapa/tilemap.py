@@ -63,7 +63,13 @@ class Tilemap:
                         else:
                             extra_surf = self.tileset.get_tile_alpha(67)
                     elif cell.resource == "iron":
-                        extra_surf = self.tileset.get_tile_alpha(66)
+                        if cell.dominion_level > Settings.dominion_threshold:
+                            extra_surf = self.tileset.get_tile_alpha(66)
+                        else:
+                            extra_surf = self.tileset.get_tile_alpha(47)
+                elif cell.resource != None and cell.resource_amount <= 0:
+                    cell.walkable = True
+
 
                 debug_mark = None
                 if Settings.show_debug:

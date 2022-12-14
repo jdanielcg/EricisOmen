@@ -38,7 +38,7 @@ def upgrade_breach(building, manager):
         manager.remove(building)
         manager.add(info, [u, v])
            
-    Match.aether -= Settings.breach_required_aether
+    Match.aether -= Settings.breach_required_aether[Match.breach_level-1]
     Match.beach_enabled = False
 
 
@@ -46,7 +46,7 @@ def upgrade_breach(building, manager):
 def breach_update(building, manager):
 
 
-    Match.aether += 50
+    Match.aether += 10
         #EffectsManager.effects.append(FloatingIconText(building.x, building.y,"aether","+75"))
 
     if Match.aether > Match.max_aether:
@@ -54,7 +54,7 @@ def breach_update(building, manager):
     if Match.aether < 0:
         Match.aether = 0
 
-    if Match.aether >= Settings.breach_required_aether and Match.beach_enabled:
+    if Match.aether >= Settings.breach_required_aether[Match.breach_level] and Match.beach_enabled:
         upgrade_breach(building, manager)
         
 

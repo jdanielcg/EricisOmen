@@ -15,11 +15,13 @@ def gather(building, manager):
             EffectsManager.effects.append(SmokeDamage(resourceTile.x, resourceTile.y))
 
             if building.info.gather_type == "wood":
-                Match.wood += 10
-                EffectsManager.effects.append(FloatingIconText(building.x, building.y,"wood","+10"))
+                value = 10 if not Match.researched_saw else 20
+                Match.wood += value
+                EffectsManager.effects.append(FloatingIconText(building.x, building.y,"wood","+" + str(value)))
             elif building.info.gather_type == "iron":
-                Match.iron += 10
-                EffectsManager.effects.append(FloatingIconText(building.x, building.y,"iron","+10"))
+                value = 10 if not Match.researched_smelting else 20
+                Match.iron += value
+                EffectsManager.effects.append(FloatingIconText(building.x, building.y,"iron","+" + str(value)))
 
             break
 
@@ -27,8 +29,12 @@ def gather(building, manager):
 def buildResourceList(building, world):
     building.resource_list = []
 
-    #mascara dos oito ladrilhos adjacentes
-    mask = [(-1,-1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1,1), (0, 1), (1,1)]
+    #mascara dos dez ladrilhos adjacentes
+    mask = [(-1,-1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1,1), (0, 2), (1,1), (-1,2), (1,2)]
+    # X X X
+    # X G X
+    # X G X
+    # X X X
 
     #verifica os ladrilhos adjacentes, se eles possuirem recursos, adicioona a lista
     for tile in mask:

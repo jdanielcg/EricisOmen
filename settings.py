@@ -18,9 +18,9 @@ class Settings:
 
 
     dominion_threshold = 1
-    breach_required_aether = 300
-    breach_center = (30,30)
-    enemy_spawns = [(6,6),(6,7),(7,6),(7,7), (54,6), (6, 54), (54,54)]
+    breach_required_aether = [100, 200, 300, 500, 600, 700]
+    breach_center = (40,41)
+    enemy_spawns = [(9,8),(9,9),(9,10), (46,4),(45,4),(44,4),(0, 50),(0,51),(0,52),(56,59), (55,59)]
     max_creatures = 40
     
     game_w = 1280

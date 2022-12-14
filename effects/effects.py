@@ -150,7 +150,8 @@ class Fireball:
         self.y = y
         self.speed = 150
         self.target_creature = target_creature
-        self.damage = 400
+        self.damage = 400 if not Match.researched_pack else 800
+
         
         
     def update(self, delta_time):
@@ -158,8 +159,8 @@ class Fireball:
         tarY = self.target_creature.y
 
         #para que seja destruida
-        if abs(tarX - self.x) <= 0.9:
-            if abs(tarY - self.y) <= 0.9:
+        if abs(tarX - self.x) <= 4:
+            if abs(tarY - self.y) <= 4:
                 self.timer = self.duration = 10000
                 self.target_creature.take_damage(self.damage, "fire")
                 return
@@ -190,7 +191,7 @@ class Stoneball:
         self.y = y
         self.speed = 100
         self.target_creature = target_creature
-        self.damage = 200
+        self.damage = 200 if not Match.researched_pack else 400
         
         
     def update(self, delta_time):
@@ -198,8 +199,8 @@ class Stoneball:
         tarY = self.target_creature.y
 
         #para que seja destruida
-        if abs(tarX - self.x) <= 0.9:
-            if abs(tarY - self.y) <= 0.9:
+        if abs(tarX - self.x) <= 4:
+            if abs(tarY - self.y) <= 4:
                 self.timer = self.duration = 10000
                 self.target_creature.take_damage(self.damage)
                 return
@@ -230,7 +231,7 @@ class Iceball:
         self.y = y
         self.speed = 250
         self.target_creature = target_creature
-        self.damage = 600
+        self.damage = 100 if not Match.researched_pack else 200
         
         
     def update(self, delta_time):
@@ -238,8 +239,8 @@ class Iceball:
         tarY = self.target_creature.y
 
         #para que seja destruida
-        if abs(tarX - self.x) <= 0.9:
-            if abs(tarY - self.y) <= 0.9:
+        if abs(tarX - self.x) <= 4:
+            if abs(tarY - self.y) <= 4:
                 self.timer = self.duration = 10000
                 self.target_creature.take_damage(self.damage, "ice")
                 self.target_creature.slow_down()

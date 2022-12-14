@@ -17,35 +17,47 @@ class BuildingManager:
         self._image.convert_alpha()
 
         self.infos = {}
-        self.infos["dormitory"] = BuildingInfo("dormitory", (0, 12), (2,2), self._image, False, wood_cost= 24, setup_function= self.add_population_cap)
-        self.infos["stockpile"] = BuildingInfo("stockpile", (3, 12), (2,2), self._image, False, wood_cost= 20, setup_function= self.add_resource_cap)
+        self.infos["dormitory"] = BuildingInfo("dormitory", (12, 0), (2,2), self._image, False, wood_cost= 24, setup_function= self.add_population_cap)
+        self.infos["stockpile"] = BuildingInfo("stockpile", (15, 0), (2,2), self._image, False, wood_cost= 20, setup_function= self.add_resource_cap, on_destroy=self.remove_resource_cap)
 
         self.infos["wall"] = BuildingInfo("wall", (0, 6), (1,1), self._image, False, wood_cost= 4, iron_cost= 4)
         self.infos["miningcamp"] = BuildingInfo("miningcamp", (0, 4), (1,2), self._image, False, gather, wood_cost= 8, setup_function = buildResourceList,gather_type="iron")
         self.infos["lumbercamp"] = BuildingInfo("lumbercamp", (1, 4), (1,2), self._image, False, gather, wood_cost= 8, setup_function = buildResourceList,gather_type="wood")
-        self.infos["firetower"] = BuildingInfo("firetower", (20, 12), (1,2), self._image, False, self.tower_action,   iron_cost=20, wood_cost=25)
-        self.infos["icetower"] = BuildingInfo("icetower", (18, 12), (1,2), self._image, False, self.tower_action,     iron_cost=30, wood_cost=50)
-        self.infos["stonetower"] = BuildingInfo("stonetower", (19, 12), (1,2), self._image, False, self.tower_action, recharge_time= 1, iron_cost=10, wood_cost=10)
+        self.infos["firetower"] = BuildingInfo("firetower", (14, 2), (1,2), self._image, False, self.tower_action,   iron_cost=20, wood_cost=25)
+        self.infos["icetower"] = BuildingInfo("icetower", (12, 2), (1,2), self._image, False, self.tower_action,     iron_cost=30, wood_cost=50)
+        self.infos["stonetower"] = BuildingInfo("stonetower", (13, 2), (1,2), self._image, False, self.tower_action, recharge_time= 1, iron_cost=10, wood_cost=10)
 
-        self.infos["poisontrap"] = BuildingInfo("poisontrap", (19, 15), (1,1), self._image, True, None, iron_cost=5, wood_cost=20)
-        self.infos["firetrap"] = BuildingInfo("firetrap", (18, 15), (1,1), self._image, True, None, iron_cost=15, wood_cost=10)
+        self.infos["poisontrap"] = BuildingInfo("poisontrap", (13, 5), (1,1), self._image, True, None, iron_cost=5, wood_cost=20)
+        self.infos["firetrap"] = BuildingInfo("firetrap", (12, 5), (1,1), self._image, True, None, iron_cost=15, wood_cost=10)
 
-        self.infos["breach1"] = BuildingInfo("breach1", (0, 26), (7,7), self._image, False, breach_update, 1, 2500, 60, on_destroy= self.set_gameover)
-        self.infos["breach2"] = BuildingInfo("breach2", (7, 26), (7,7), self._image, False, breach_update,  1, 2500, 70, on_destroy= self.set_gameover)
-        self.infos["breach3"] = BuildingInfo("breach3", (14, 26), (7,7), self._image, False, breach_update,  1, 2500, 85, on_destroy= self.set_gameover)
-        self.infos["breach4"] = BuildingInfo("breach4", (0, 33), (7,7), self._image, False, breach_update,  1, 2500, 95, on_destroy= self.set_gameover)
-        self.infos["breach5"] = BuildingInfo("breach5", (7, 33), (7,7), self._image, False, breach_update,  1, 2500, 100, on_destroy= self.set_gameover)
-        self.infos["obelisk"] = BuildingInfo("obelisk", (14, 33), (1,2), self._image, False, None, 10, 2500, 10, aether_cost= 30, setup_function= self.add_aeter_cap)
+        self.infos["breach1"] = BuildingInfo("breach1", (0, 11), (7,7), self._image, False, breach_update, 1, 2500, 60, on_destroy= self.set_gameover)
+        self.infos["breach2"] = BuildingInfo("breach2", (7, 11), (7,7), self._image, False, breach_update,  1, 2500, 70, on_destroy= self.set_gameover)
+        self.infos["breach3"] = BuildingInfo("breach3", (14, 11), (7,7), self._image, False, breach_update,  1, 2500, 85, on_destroy= self.set_gameover)
+        self.infos["breach4"] = BuildingInfo("breach4", (0, 18), (7,7), self._image, False, breach_update,  1, 2500, 95, on_destroy= self.set_gameover)
+        self.infos["breach5"] = BuildingInfo("breach5", (7, 18), (7,7), self._image, False, breach_update,  1, 2500, 100, on_destroy= self.set_gameover)
+        self.infos["obelisk"] = BuildingInfo("obelisk", (14, 18), (1,2), self._image, False, None, 10, 2500, 10, aether_cost= 30, setup_function= self.add_aeter_cap, on_destroy=self.remove_aeter_cap)
         self.game = game   
 
     def add_population_cap(self, building, world):
-        Match.max_population += 5        
+        Match.max_population += 5 
+        if Match.max_population > 20:
+            Match.max_population = 20       
 
     def add_resource_cap(self,building,world):
         Match.max_stock += 100     
 
     def add_aeter_cap(self,building,world):
-        Match.max_aether += 100     
+        Match.max_aether += 100    
+
+    def remove_aeter_cap(self,building):
+        Match.max_aether -= 100
+        if Match.max_aether < 200:
+            Match.max_aether = 200
+
+    def remove_resource_cap(self,building):
+        Match.max_stock -= 100
+        if Match.max_stock < 100:
+            Match.max_stock = 100
 
     def build_base(self):
         add_breach(Settings.breach_center[0] - 3, Settings.breach_center[1] - 3, self)
@@ -123,12 +135,20 @@ class BuildingManager:
     def add(self, buildingInfo, posUV):        
         building = Building(posUV, buildingInfo, self.game)
 
-        #remove connstrução se já houver
+        #remove connstrução e aliados se já houver
         for cell_mask in buildingInfo.mask:            
             v = posUV[1] + cell_mask[1]
             u = posUV[0] + cell_mask[0]
             if self.game.world.cells[v][u].building != None :
                 self.remove(self.game.world.cells[v][u].building)
+
+            creature = self.game.world.cells[v][u].creature
+            if  creature!= None:
+                if (not creature.is_enemy) and creature in self.game.world.creatures:
+                    self.game.world.creatures.remove(creature)
+                if (not creature.is_enemy) and creature in Match.allies:
+                    Match.allies.remove(creature)
+
 
 
         #adiciona a contrução 

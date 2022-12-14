@@ -27,6 +27,7 @@ class BuildingMode:
         self.left_clicked = False
         self.cost_text = make_cost_text(self.selected.wood_cost,self.selected.iron_cost,self.selected.aether_cost)
         Match.simulation_mode = SimulationMode.BUILDING
+        Match.speed = 0.0
 
     def update(self, delta_time):
         if self.selected != None:
@@ -44,6 +45,11 @@ class BuildingMode:
                 if self.game.world.cells[vc][uc].is_dominion_border: possible = False
                 #verifica se esta sobre um tile dominado:
                 if self.game.world.cells[vc][uc].dominion_level < Settings.dominion_threshold: possible = False
+
+                #verifica se há um inimigo no espaço
+                creature = self.game.world.cells[vc][uc].creature
+                if creature != None:
+                    if creature.is_enemy: possible = False
             #Verifica se possui recursos o suficiente
             if self.selected.wood_cost > Match.wood: possible = False
             if self.selected.iron_cost > Match.iron: possible = False
@@ -74,6 +80,7 @@ class BuildingMode:
                     
             #verifica o click para cancelar
             if self.mouse.is_button_pressed(self.mouse.BUTTON_RIGHT):
+                Match.speed = 1.0
                 Match.simulation_mode = SimulationMode.RUNNING
 
     def build(self, posUV):        
