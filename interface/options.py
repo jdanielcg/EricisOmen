@@ -1,6 +1,10 @@
 
 import pygame
 
+from settings import Settings
+
+from match import Match
+
 def music_level(interface):
     interface.window.draw_text("Music", 64, 225, size=18, bold=True, color=(224, 224, 220))
     interface.botao_sound_direita.draw()
@@ -55,7 +59,9 @@ def exit(interface):
     interface.botao_jogo_restart.draw()
     interface.botao_jogo_quit.draw()
     if interface.clickjogo.is_over_object(interface.botao_jogo_restart) and interface.clickjogo.is_button_pressed(True):
-        print('restart')
+        from screens.game import Game
+        Settings.gamescreen = Game(interface.window)
+        Settings.current_screen = Settings.gamescreen
     if interface.clickjogo.is_over_object(interface.botao_jogo_quit) and interface.clickjogo.is_button_pressed(True):
         interface.p_quit = True
     if interface.p_quit == True:
@@ -64,6 +70,8 @@ def exit(interface):
         interface.botao_barra_quit_close.draw()
         interface.window.draw_text("Are you sure?", 206, 560, size=18, bold=True, color=(224, 224, 220))
         if interface.clickjogo.is_over_object(interface.botao_barra_quit_quit) and interface.clickjogo.is_button_pressed(True):
-            interface.window.close()
+            from screens.game import Game
+            Settings.current_screen = Settings.mainmenuscreen
+            Settings.gamescreen = Game(interface.window)
         if interface.clickjogo.is_over_object(interface.botao_barra_quit_close) and interface.clickjogo.is_button_pressed(True):
             interface.p_quit = False

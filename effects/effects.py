@@ -13,6 +13,7 @@ from PPlay.window import Window
 from camera import Camera
 from effects.effectsmanager import EffectsManager
 from interface.icons import text_icon
+from match import Match
 
 
 class SmokeDamage:
@@ -63,6 +64,7 @@ class EricisFire:
         self.timer = 0        
         
     def update(self, delta_time):
+        delta_time = Match.game.gameWindow.delta_time()
         self.animation.set_position(self.x - Camera.dx, self.y - Camera.dy) 
         self.animation.update()
         self.animation.draw()
@@ -88,6 +90,7 @@ class EricisBirth:
         self.timer = 0        
         
     def update(self, delta_time):
+        delta_time = Match.game.gameWindow.delta_time()
         self.animation.set_position(self.x - Camera.dx, self.y - Camera.dy) 
         self.animation.update()
         self.animation.draw()
@@ -112,6 +115,7 @@ class Ericis:
         self.timer = 0        
         
     def update(self, delta_time):
+        delta_time = Match.game.gameWindow.delta_time()
         self.animation.set_position(self.x - Camera.dx, self.y - Camera.dy) 
         self.animation.update()
         self.animation.draw()

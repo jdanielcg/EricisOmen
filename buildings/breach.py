@@ -13,16 +13,17 @@ from effects.effectsmanager import EffectsManager
 from match import Match
 from settings import Settings, SimulationMode
 
-def add_breach(u,v, manager):
+
+
+def add_breach(u,v, manager):    
     info = manager.infos.get("breach1")
     if info != None:
-        manager.add(info, [u, v])  
+        current_breach_building = manager.add(info, [u, v])       
 
-worker_interval = 3
-worker_timer = 0
-aether_timer = 0
 
-def upgrade_breach(building, manager):
+
+
+def upgrade_breach(building, manager):  
     Match.breach_level += 1
     stage = Match.breach_level
     if stage >= 5:
@@ -45,7 +46,7 @@ def upgrade_breach(building, manager):
 def breach_update(building, manager):
 
 
-    Match.aether += 5
+    Match.aether += 50
         #EffectsManager.effects.append(FloatingIconText(building.x, building.y,"aether","+75"))
 
     if Match.aether > Match.max_aether:

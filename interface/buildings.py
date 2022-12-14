@@ -1,5 +1,5 @@
 from match import Match
-from interface.debug_interface import DebugInterface as DI
+from settings import SimulationMode
 buildings_counter = {
     "warehouse": 0,
     "barrack": 0,
@@ -80,71 +80,77 @@ def popout_perma(interface,nome):
         if (Match.wood - barracks_cost['wood'] >= 0):
             interface.botao_next.draw()
             if interface.clickjogo.is_over_object(interface.botao_next) and interface.clickjogo.is_button_pressed(True):
-                print('build')
+                Match.game.building_mode_interface.start("dormitory")                
         else:
             no_resources(interface)
     elif nome =='Warehouse':
         if (Match.wood - warehouse_cost['wood'] >= 0):
             interface.botao_next.draw()
             if interface.clickjogo.is_over_object(interface.botao_next) and interface.clickjogo.is_button_pressed(True):
-                print('build')
+                Match.game.building_mode_interface.start("stockpile")
         else:
             no_resources(interface)
     elif nome =='Fire_tower':
         if (Match.wood - fire_tower_cost['wood'] >= 0 and Match.iron - fire_tower_cost['iron'] >= 0):
             interface.botao_next.draw()
+            if interface.clickjogo.is_over_object(interface.botao_next) and interface.clickjogo.is_button_pressed(True):
+                Match.game.building_mode_interface.start("firetower")
         else:
             no_resources(interface)
     elif nome =='Frost_tower':
         if (Match.wood - frost_tower_cost['wood'] >= 0 and Match.iron - frost_tower_cost['iron'] >= 0):
             interface.botao_next.draw()
+            if interface.clickjogo.is_over_object(interface.botao_next) and interface.clickjogo.is_button_pressed(True):
+                Match.game.building_mode_interface.start("icetower")
         else:
             no_resources(interface)
     elif nome =='Rock_tower':
         if (Match.wood - rock_tower_cost['wood'] >= 0 and Match.iron - rock_tower_cost['iron'] >= 0):
             interface.botao_next.draw()
+            if interface.clickjogo.is_over_object(interface.botao_next) and interface.clickjogo.is_button_pressed(True):
+                Match.game.building_mode_interface.start("stonetower")
         else:
             no_resources(interface)
     elif nome =='Poison_trap':
         if (Match.wood - poison_trap_cost['wood'] >= 0 and Match.iron - poison_trap_cost['iron'] >= 0):
             interface.botao_next.draw()
             if interface.clickjogo.is_over_object(interface.botao_next) and interface.clickjogo.is_button_pressed(True):
-                print('build')
+                Match.game.building_mode_interface.start("poisontrap")
         else:
             no_resources(interface)
     elif nome =='Fire_trap':
         if (Match.wood - fire_trap_cost['wood'] >= 0 and Match.iron - fire_trap_cost['iron'] >= 0):
             interface.botao_next.draw()
             if interface.clickjogo.is_over_object(interface.botao_next) and interface.clickjogo.is_button_pressed(True):
-                print('build')
+                Match.game.building_mode_interface.start("firetrap")
         else:
             no_resources(interface)
     elif nome =='Wall':
         if (Match.wood - wall_cost['wood'] >= 0 and Match.iron - wall_cost['iron'] >= 0):
             interface.botao_next.draw()
             if interface.clickjogo.is_over_object(interface.botao_next) and interface.clickjogo.is_button_pressed(True):
-                print('build')
+                Match.game.building_mode_interface.start("wall")
         else:
             no_resources(interface)
     elif nome =='Obelisk':
         if (Match.aether - obelisk_cost['aether'] >= 0):
             interface.botao_next.draw()
             if interface.clickjogo.is_over_object(interface.botao_next) and interface.clickjogo.is_button_pressed(True):
-                print('build')
+                Match.game.building_mode_interface.start("obelisk")
         else:
             no_resources(interface)
     elif nome =='Mining_camp':
         if (Match.wood - mining_camp_cost['wood'] >= 0):
             interface.botao_next.draw()
             if interface.clickjogo.is_over_object(interface.botao_next) and interface.clickjogo.is_button_pressed(True):
-                print('build')
+                Match.game.building_mode_interface.start("miningcamp")
         else:
             no_resources(interface)
     elif nome =='Wood_camp':
         if (Match.wood - wood_camp_cost['wood'] >= 0):
             interface.botao_next.draw()
             if interface.clickjogo.is_over_object(interface.botao_next) and interface.clickjogo.is_button_pressed(True):
-                print('build')
+                Match.game.building_mode_interface.start("lumbercamp")
         else:
             no_resources(interface)
         

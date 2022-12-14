@@ -3,6 +3,7 @@
 # ║                                             ║ 
 # ╚═════════════════════════════════════════════╝
 
+import pygame
 from camera import Camera
 from effects.effectsmanager import EffectsManager
 from effects.endingcinematic import Ending
@@ -28,9 +29,9 @@ class Game:
         self.s = Settings      
         self.gameWindow = gameWindow
         self.screen = gameWindow.get_screen()
-        self.framerate = Framerate()
+        self.framerate = Framerate()        
 
-        Match.Setup()
+        Match.Setup(self)
 
         #world: gerencia a representação lógica do mundo, é onde estão as células (cell)
         self.world = World() 
@@ -101,7 +102,7 @@ class Game:
             case SimulationMode.RUNNING:
 
                 #escreve a interface na tela
-                #self.gameinterface.update(delta_time)
+                self.gameinterface.update(delta_time)
 
                 #escreve a interface de testes na tela
                 self.debuginterface.update(delta_time)                

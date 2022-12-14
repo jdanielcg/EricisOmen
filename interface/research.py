@@ -14,31 +14,33 @@ p_researching = False
 timer = 0
 
 def show_research_blank(interface):
-    interface.window.draw_text("Research:", 1090, 280, size=12, bold=True, color=(0, 0, 0))
+    #interface.window.draw_text("Research:", 1090, 280, size=12, bold=True, color=(0, 0, 0))
     interface.research_bar_idle_small.draw()
-    interface.window.draw_text("Time left:", 1090, 345, size=12, bold=True, color=(0, 0, 0))
 
 def research_informations_small(interface):
+    time = 0
+    name = ""
     if interface.pt == True:
-        draw_research_bar_small(interface, 'Pack Tactics')
-        interface.window.draw_text("Pack Tactics", 1165, 280, size=12, bold=True, color=(224, 224, 220))
-        interface.window.draw_text(str(pack_tactics['time']), 1158, 345, size=12, bold=True, color=(224, 224, 220))
-        interface.window.draw_text('seconds', 1175, 345, size=12, bold=True, color=(224, 224, 220))
+        draw_research_bar_small(interface, 'Pack Tactics')        
+        name = "Pack Tactics"          
+        time = (pack_tactics['time'])
     elif interface.ds == True:
-        draw_research_bar_small(interface,'double saw')
-        interface.window.draw_text("Double Saw", 1165, 280, size=12, bold=True, color=(224, 224, 220))
-        interface.window.draw_text(str(double_saw['time']), 1158, 345, size=12, bold=True, color=(224, 224, 220))
-        interface.window.draw_text('seconds', 1175, 345, size=12, bold=True, color=(224, 224, 220))
+        draw_research_bar_small(interface,'double saw')       
+        name = "Double Saw"               
+        time = (double_saw['time'])
     elif interface.hp == True:
-        draw_research_bar_small(interface,'hardened picks')
-        interface.window.draw_text("Hardened Picks", 1161, 280, size=12, bold=True, color=(224, 224, 220))
-        interface.window.draw_text(str(hardened_picks['time']), 1158, 345, size=12, bold=True, color=(224, 224, 220))
-        interface.window.draw_text('seconds', 1175, 345, size=12, bold=True, color=(224, 224, 220))
+        draw_research_bar_small(interface,'hardened picks')        
+        name = "Hard Picks"               
+        time = (hardened_picks['time'])
     elif interface.es == True:
         draw_research_bar_small(interface,'eficient smelting')
-        interface.window.draw_text("Efficient Smelting", 1153, 280, size=12, bold=True, color=(224, 224, 220))
-        interface.window.draw_text(str(eficient_smelting['time']), 1158, 345, size=12, bold=True, color=(224, 224, 220))
-        interface.window.draw_text('seconds', 1175, 345, size=12, bold=True, color=(224, 224, 220))
+        interface.window.draw_text("Efficient Smelting", 1153, 280, size=12, bold=True, color=(224, 224, 220))        
+        name = "Smelting"
+        time = (eficient_smelting['time'])
+
+    if time > 0:  
+        interface.window.draw_text(name, 1115, 230, size=16, bold=True, color=(0, 0, 0))  
+        interface.window.draw_text("TIME LEFT: {}".format(time), 1095, 265, size=16, bold=True, color=(255, 255, 255))
         
 def draw_research_bar_small(interface,p):
     if p == 'Pack Tactics':

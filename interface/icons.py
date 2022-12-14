@@ -22,7 +22,7 @@ class Icon:
 
 #inicializa a fonte
 font = pygame.font.SysFont("bahnschrift semibold", 20, False, False)
-font_large = pygame.font.SysFont("bahnschrift semibold", 40, False, False)
+font_large = pygame.font.SysFont("bahnschrift semibold", 28, False, False)
 icondic = None
 error_icon = None
 
@@ -43,6 +43,8 @@ def build_dic():
                 "soldier":  Icon("soldier", sprites16, sprites32, 12, 11),
                 "aether":   Icon("aether", sprites16, sprites32, 10, 9),                
                 "book":   Icon("book", sprites16, sprites32, 2, 2),     
+                "shield":   Icon("shield", sprites16, sprites32, 7, 18),   
+                "sword":   Icon("sword", sprites16, sprites32, 5, 21),   
                 "error":    error_icon,
     }
 
@@ -50,7 +52,7 @@ def get_icon(name):
     if icondic == None: build_dic()
     return icondic.get(name, error_icon)
 
-def text_icon(icon, text, cor = (255,240,255), large = False) -> pygame.Surface:
+def text_icon(icon, text, cor = (255,255,255), large = False) -> pygame.Surface:
     s = 16 if not large else 32   
     icon = get_icon(icon).surf16 if not large else get_icon(icon).surf32
     
@@ -64,7 +66,7 @@ def text_icon(icon, text, cor = (255,240,255), large = False) -> pygame.Surface:
 
     #escreve o texto e o icone    
     back_surf.blit(icon,(0,0), special_flags = pygame.BLEND_RGBA_ADD )
-    back_surf.blit(textsurf, (s,0))
+    back_surf.blit(textsurf, (s,0) if not large else (s, 5) )
     return back_surf
 
 def make_cost_text(wood_cost, iron_cost, aether_cost) -> pygame.Surface:

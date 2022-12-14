@@ -10,6 +10,7 @@
 from math import ceil
 import math
 from PPlay.window import Window
+from match import Match
 from settings import Settings
 
 
@@ -61,6 +62,7 @@ class Camera:
 
 
     def update( delta_time):
+        delta_time = Match.game.gameWindow.delta_time()
         if Camera.shake:
             Camera.timer += delta_time
             if Camera.timer > Camera.shake_timer:

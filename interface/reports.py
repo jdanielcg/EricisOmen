@@ -1,4 +1,7 @@
+from match import Match
+from interface.icons import text_icon
 import interface.research as research
+from movables.waver import Waver
 
 
 def redesenhar_menu_vermelho(barra_botoes2_jogo,botao_jogo_close):
@@ -12,19 +15,11 @@ def next_wave(interface):
     #if number_max_enemies == 0:
     #   interface.isAttacking = False
     #   interface.AttackTimer = 120
-    interface.counter_next_wave += 1
-    interface.window.draw_text("Next wave:", 1090, 375, size=12, bold=True, color=(0, 0, 0))
-    if interface.IsAttacking == True:
-        interface.window.draw_text("Attacking", 1170, 372, size=17, bold=True, color=(183,20,20))
-    if interface.AttackTimer == 0:
-        interface.IsAttacking = True
-    if interface.IsAttacking == False and interface.AttackTimer != 0:
-        interface.window.draw_text(str(interface.AttackTimer), 1165, 375, size=12, bold=True, color=(224, 224, 220))
-        interface.window.draw_text("seconds", 1190, 375, size=12, bold=True, color=(224, 224, 220))
-        if interface.counter_next_wave > 60:
-            interface.counter_next_wave = 0
-            interface.AttackTimer -= 1
-
+    pos = (1092, 300)
+    if (Waver.is_attacking):
+        Match.game.screen.blit(text_icon("sword",  "   ATTACK".format(round(Waver.interval)), (200, 5,5), large = True),pos)        
+    else:
+        Match.game.screen.blit(text_icon("shield",  "ATTACK IN {}".format(round(Waver.interval - Waver.timer)), (255, 255,255), large = True),pos)
 
 
 def research_informations(interface):

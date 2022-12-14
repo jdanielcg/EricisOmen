@@ -26,6 +26,7 @@ class BuildingMode:
         self.selected = self.game.buildings_manager.infos[name]
         self.left_clicked = False
         self.cost_text = make_cost_text(self.selected.wood_cost,self.selected.iron_cost,self.selected.aether_cost)
+        Match.simulation_mode = SimulationMode.BUILDING
 
     def update(self, delta_time):
         if self.selected != None:
@@ -73,7 +74,7 @@ class BuildingMode:
                     
             #verifica o click para cancelar
             if self.mouse.is_button_pressed(self.mouse.BUTTON_RIGHT):
-                self.game.simulation_mode = SimulationMode.RUNNING
+                Match.simulation_mode = SimulationMode.RUNNING
 
     def build(self, posUV):        
         self.game.buildings_manager.add(self.selected, posUV)        

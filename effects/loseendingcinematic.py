@@ -5,6 +5,7 @@ from pygame import Surface
 import pygame
 from camera import Camera
 from effects.effectsmanager import EffectsManager
+from match import Match
 from settings import Settings
 from effects.effects import EricisBirth, Ericis, EricisFire
 
@@ -51,6 +52,7 @@ class LostEnding():
 
 
     def update(self, delta_time):
+        delta_time = Match.game.gameWindow.delta_time()
         if self.start == False:
             self.start = True
             self.start_end()
@@ -66,6 +68,14 @@ class LostEnding():
         if self.timer > 10.0:
             self.courtain.set_alpha(min(255*(0.4*(self.timer - 10.0)) + 1, 255))  
             self.game.screen.blit(self.courtain, (0,0))
+
+        if self.timer > 20.0:
+            self.mainmenu()
+
+    def mainmenu(self):      
+        from screens.game import Game
+        Settings.current_screen = Settings.mainmenuscreen
+        Settings.gamescreen = Game(Match.game.gameWindow)
 
 
             

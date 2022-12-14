@@ -35,21 +35,25 @@ class BuildingManager:
         self.infos["breach3"] = BuildingInfo("breach3", (14, 26), (7,7), self._image, False, breach_update,  1, 2500, 85, on_destroy= self.set_gameover)
         self.infos["breach4"] = BuildingInfo("breach4", (0, 33), (7,7), self._image, False, breach_update,  1, 2500, 95, on_destroy= self.set_gameover)
         self.infos["breach5"] = BuildingInfo("breach5", (7, 33), (7,7), self._image, False, breach_update,  1, 2500, 100, on_destroy= self.set_gameover)
-        self.infos["obelisk"] = BuildingInfo("obelisk", (14, 33), (1,2), self._image, False, None, 10, 2500, 10, aether_cost= 30)
+        self.infos["obelisk"] = BuildingInfo("obelisk", (14, 33), (1,2), self._image, False, None, 10, 2500, 10, aether_cost= 30, setup_function= self.add_aeter_cap)
         self.game = game   
 
     def add_population_cap(self, building, world):
         Match.max_population += 5        
 
     def add_resource_cap(self,building,world):
-        Match.max_stock += 100        
+        Match.max_stock += 100     
+
+    def add_aeter_cap(self,building,world):
+        Match.max_aether += 100     
 
     def build_base(self):
         add_breach(Settings.breach_center[0] - 3, Settings.breach_center[1] - 3, self)
 
-    def set_gameover(self, building):        
-        Match.simulation_mode = SimulationMode.LOSE
-        Match.speed = 0.0
+    def set_gameover(self, building):    
+        if not Match.beach_enabled:
+            Match.simulation_mode = SimulationMode.LOSE
+            Match.speed = 0.0
 
     def tower_action(self, building, manager):
         #a ação da torre é disparar seu projetil
@@ -100,8 +104,8 @@ class BuildingManager:
                 self.remove(building)
 
     def remove(self, building):
-        #if building in self.game.world.building_list
-        self.game.world.building_list.remove(building)
+        if building in self.game.world.building_list:
+            self.game.world.building_list.remove(building)
 
         if building.info.dominion_factor > 0:
             self.game.world.remove_dominion(building) 
@@ -138,4 +142,6 @@ class BuildingManager:
             self.game.world.cells[v][u].walkable = buildingInfo.walkable
             self.game.world.cells[v][u].buildable = False
             self.game.world.cells[v][u].building = building
+
+        return building
             

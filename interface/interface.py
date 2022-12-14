@@ -1,5 +1,6 @@
 from PPlay.window import*
 from PPlay.sprite import*
+from interface.icons import text_icon
 
 
 import interface.resources as resources
@@ -10,9 +11,6 @@ import interface.options as options
 
 from match import Match
 
-
-
-
 class Interface:
     def __init__(self,window):
         #dimensões
@@ -22,46 +20,10 @@ class Interface:
         #janela
         self.window = window
 
-
         #pegando a entrada do usuário
         self.clickjogo = self.window.get_mouse()
         self.teclado = self.window.get_keyboard()
 
-        #titulo
-        self.titulo = Sprite("assets\Titulo.png")
-        self.titulo.set_position(1280/2 - 280, 50)
-
-        #botao play
-        self.play = Sprite("assets\Buttons\play.png")
-        self.play.set_position(1280/2 - 120, 250)
-
-        #botao settings
-        self.settings = Sprite("assets\Buttons\settings.png")
-        self.settings.set_position(1280/2 - 120, 350)
-
-        #botao exit
-        self.exit = Sprite("assets\Buttons\exit.png")
-        self.exit.set_position(1280/2 - 120 , 450)
-
-        #botao help
-        self.help = Sprite("assets\Buttons\help.png")
-        self.help.set_position(1260 - 70 , 630)
-
-        #botao music
-        self.music = Sprite("assets\Buttons\music.png")
-        self.music.set_position(1260 - 150, 630)
-
-        #botao quit
-        self.quit = Sprite("assets\Buttons\quit.png")
-        self.quit.set_position(1280/2 - 120, 570)
-
-        #creditos
-        self.creditos = Sprite("assets\creditos.png")
-        self.creditos.set_position(1280/2 - 280 , 550)
-
-        #portal level
-        self.portal_level_counter = 1
-        self.portal_level_percent = 0
 
         #-> jogo
         #moldura botoes
@@ -86,7 +48,7 @@ class Interface:
         self.botao_construct_direita.set_position(110, 217)
         self.botao_construct_esquerda = Sprite("assets\Buttons\Botao_construct_esquerda.png")
         self.botao_construct_esquerda.set_position(40, 217)
-            #exibição de janelas
+        #exibição de janelas
         self.construct_page = 1
         self.exibir_menu_construct_barracks = False
         self.exibir_menu_construct_warehouse = False
@@ -135,7 +97,7 @@ class Interface:
 
         #botao jogo resources
         self.show_resources = Sprite("assets\Buttons\show_resources.png")
-        self.show_resources.set_position(1070, 130)
+        self.show_resources.set_position(1072, 9)
         self.botao_jogo_resources = Sprite("assets\Buttons\Botao_jogo_resources.png")
         self.p_resources = True
         self.resources_counter = 0
@@ -179,31 +141,23 @@ class Interface:
         self.in_progress.set_position(self.janela_largura/2 + 120, self.janela_altura/2 + 230)
         #-->botao already researched
         self.research_done = Sprite("assets\Buttons\Research_done.png")
-        #-> Research bar
-        self.research_bar_idle = Sprite("assets\Buttons\Research_bar_1.png")
-        self.research_bar_2 = Sprite("assets\Buttons\Research_bar_2.png")
-        self.research_bar_3 = Sprite("assets\Buttons\Research_bar_3.png")
-        self.research_bar_4 = Sprite("assets\Buttons\Research_bar_4.png")
-        self.research_bar_idle.set_position(30, 230)
-        self.research_bar_2.set_position(30, 230)
-        self.research_bar_3.set_position(30, 230)
-        self.research_bar_4.set_position(30, 230)
+
 
         #-> Research bar small
         self.research_bar_idle_small = Sprite("assets\Buttons\Research_bar_idle_small.png")
         self.research_bar_2_small = Sprite("assets\Buttons\Research_bar_2_small.png")
         self.research_bar_3_small = Sprite("assets\Buttons\Research_bar_3_small.png")
-        self.research_bar_4_small = Sprite("assets\Buttons\Research_bar_4_small.png")
-        self.research_bar_idle_small.set_position(1090, 300)
-        self.research_bar_2_small.set_position(1090, 300)
-        self.research_bar_3_small.set_position(1090, 300)
-        self.research_bar_4_small.set_position(1090, 300)
+        self.research_bar_4_small = Sprite("assets\Buttons\Research_bar_4_small.png")        
+        self.research_bar_idle_small.set_position(1095, 220)
+        self.research_bar_2_small.set_position(1095, 220)
+        self.research_bar_3_small.set_position(1095, 220)
+        self.research_bar_4_small.set_position(1095, 220)
 
-        #botao jogo reports
-        self.botao_jogo_reports = Sprite("assets\Buttons\Botao_jogo_reports.png")
+        self.show_resources.image.blit(text_icon("book",  "RESEARCH:", (255, 255,255), large = True),(20, 180))
+        
 
-        self.p_reports = True
-        self.exibir_menu_reports = False
+
+
         #-> botao jogo options
         self.botao_jogo_options = Sprite("assets\Buttons\Botao_jogo_options.png")
         self.botao_jogo_options.set_position(20, 119)
@@ -316,8 +270,7 @@ class Interface:
 
 
         #atualização dos recursos:
-        self.resources_counter = resources.change_resources(self)
-        resources.change_max_resources(Match)
+        self.resources_counter = resources.check_limits(self)
             
         #menu construct
         if self.clickjogo.is_over_object(self.botao_jogo_construct) and self.clickjogo.is_button_pressed(True):
@@ -421,21 +374,6 @@ class Interface:
                 self.exibir_menu_construct = False
             #fim
 
-        #menu resources
-        if self.clickjogo.is_over_object(self.botao_jogo_resources) and self.clickjogo.is_button_pressed(True):
-            self.exibir_menu_resources = True
-        if self.exibir_menu_resources:
-            self.barra_botoes2_jogo.draw()
-            self.botao_jogo_close.draw()
-
-            #resources
-            resources.stocked(self.window)
-            resources.input(self.window)
-            resources.output(self.window)
-            resources.balance(self.window)
-            if self.clickjogo.is_over_object(self.botao_jogo_close) and self.clickjogo.is_button_pressed(True):
-                self.exibir_menu_resources = False
-
         #menu research
         if self.clickjogo.is_over_object(self.botao_jogo_research) and self.clickjogo.is_button_pressed(True):
             self.exibir_menu_research = True
@@ -482,23 +420,9 @@ class Interface:
             
             #fechar
             if self.clickjogo.is_over_object(self.botao_jogo_close) and self.clickjogo.is_button_pressed(True):
-                self.exibir_menu_research = False
-                    
+                self.exibir_menu_research = False                  
 
-        #menu reports
-        if self.clickjogo.is_over_object(self.botao_jogo_reports) and self.clickjogo.is_button_pressed(True):
-            self.exibir_menu_reports = True
-        if self.exibir_menu_reports:
-            reports.redesenhar_menu_vermelho(self.barra_botoes2_jogo,self.botao_jogo_close)
-
-            #research
-            reports.research_informations(self)
-
-            #fechar                                  
-            if self.clickjogo.is_over_object(self.botao_jogo_close) and self.clickjogo.is_button_pressed(True):
-                self.exibir_menu_reports = False
-
-                
+        
         #menu options
         if self.clickjogo.is_over_object(self.botao_jogo_options) and self.clickjogo.is_button_pressed(True):
             self.exibir_menu_options = True
