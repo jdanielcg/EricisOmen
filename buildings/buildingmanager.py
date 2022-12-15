@@ -4,6 +4,7 @@
 # ╚═════════════════════════════════════════════╝
 
 import pygame
+from audio.spacialsfx import SpacialSFX
 from buildings.breach import add_breach, breach_update
 from buildings.buildings import Building, BuildingInfo
 from buildings.gathers import buildResourceList, gather
@@ -17,6 +18,7 @@ class BuildingManager:
         self._image.convert_alpha()
 
         self.infos = {}
+        self.infos["demolition"] = BuildingInfo("dormitory", (0, 0), (1,1), self._image, False)
         self.infos["dormitory"] = BuildingInfo("dormitory", (12, 0), (2,2), self._image, False, wood_cost= 24, setup_function= self.add_population_cap)
         self.infos["stockpile"] = BuildingInfo("stockpile", (15, 0), (2,2), self._image, False, wood_cost= 20, setup_function= self.add_resource_cap, on_destroy=self.remove_resource_cap)
 
@@ -30,11 +32,11 @@ class BuildingManager:
         self.infos["poisontrap"] = BuildingInfo("poisontrap", (13, 5), (1,1), self._image, True, None, iron_cost=5, wood_cost=20)
         self.infos["firetrap"] = BuildingInfo("firetrap", (12, 5), (1,1), self._image, True, None, iron_cost=15, wood_cost=10)
 
-        self.infos["breach1"] = BuildingInfo("breach1", (0, 11), (7,7), self._image, False, breach_update, 1, 2500, 60, on_destroy= self.set_gameover)
-        self.infos["breach2"] = BuildingInfo("breach2", (7, 11), (7,7), self._image, False, breach_update,  1, 2500, 70, on_destroy= self.set_gameover)
-        self.infos["breach3"] = BuildingInfo("breach3", (14, 11), (7,7), self._image, False, breach_update,  1, 2500, 85, on_destroy= self.set_gameover)
-        self.infos["breach4"] = BuildingInfo("breach4", (0, 18), (7,7), self._image, False, breach_update,  1, 2500, 95, on_destroy= self.set_gameover)
-        self.infos["breach5"] = BuildingInfo("breach5", (7, 18), (7,7), self._image, False, breach_update,  1, 2500, 100, on_destroy= self.set_gameover)
+        self.infos["breach1"] = BuildingInfo("breach1", (0, 11), (7,7), self._image, False, breach_update, 1, 2500, 60, on_destroy= self.set_gameover, can_demolish= False)
+        self.infos["breach2"] = BuildingInfo("breach2", (7, 11), (7,7), self._image, False, breach_update,  1, 2500, 70, on_destroy= self.set_gameover,can_demolish= False)
+        self.infos["breach3"] = BuildingInfo("breach3", (14, 11), (7,7), self._image, False, breach_update,  1, 2500, 85, on_destroy= self.set_gameover,can_demolish= False)
+        self.infos["breach4"] = BuildingInfo("breach4", (0, 18), (7,7), self._image, False, breach_update,  1, 2500, 95, on_destroy= self.set_gameover,can_demolish= False)
+        self.infos["breach5"] = BuildingInfo("breach5", (7, 18), (7,7), self._image, False, breach_update,  1, 2500, 100, on_destroy= self.set_gameover,can_demolish= False)
         self.infos["obelisk"] = BuildingInfo("obelisk", (14, 18), (1,2), self._image, False, None, 10, 2500, 10, aether_cost= 30, setup_function= self.add_aeter_cap, on_destroy=self.remove_aeter_cap)
         self.game = game   
 
@@ -91,6 +93,8 @@ class BuildingManager:
         elif building.info.name == "stonetower":
             effect = Stoneball(building.x, building.y, closest_enemy)
 
+        SpacialSFX("towershot",building.x, building.y) 
+
         if effect != None:
             self.game.effects_manager.effects.append(effect)
 
@@ -129,8 +133,11 @@ class BuildingManager:
             self.game.world.cells[v][u].buildable = True
             self.game.world.cells[v][u].building = None
 
+
         if building.on_destroy != None:
             building.on_destroy(building)
+        else:
+            SpacialSFX("demolish",building.x, building.y)
 
     def add(self, buildingInfo, posUV):        
         building = Building(posUV, buildingInfo, self.game)

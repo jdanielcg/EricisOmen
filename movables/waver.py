@@ -1,4 +1,6 @@
 import random
+from audio.audiomanager import AudioManager
+from audio.spacialsfx import SpacialSFX
 from movables.creatures import Creature
 from settings import Settings
 
@@ -51,6 +53,10 @@ class Waver:
         Waver.current_enemies = []
 
         Waver.enemies_to_spawn = Waver.suffle_enemies(Waver.current_wave)
+
+        if Waver.current_wave > 1:
+            SpacialSFX("wavestart",0, 0, max_volume= True) 
+            AudioManager.change_music(0)
 
     def generate_one_enemy():
         if len(Waver.game.world.creatures) < Settings.max_creatures:
@@ -122,6 +128,7 @@ class Waver:
     def finish_wave():
         Waver.timer = 0.0
         Waver.is_attacking = False
+        AudioManager.change_music(2)
 
     def update(delta_time):
         if not Waver.is_attacking:

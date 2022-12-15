@@ -68,7 +68,7 @@ class Match:
 
         Match.researched_pack = False
         Match.researched_saw = False
-        Match.researched_picks = False
+        Match.researched_war = False
         Match.researched_smelting = False
 
         Match.maxSFXVolume = 1

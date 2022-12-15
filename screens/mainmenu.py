@@ -5,6 +5,7 @@
 
 from PPlay.sprite import *
 from pygame import mixer
+from audio.audiomanager import AudioManager
 
 from settings import Settings
 
@@ -16,11 +17,10 @@ class MainMenu:
         #musica do menu
         self.p_musica = True
         self.is_playing_music = True
-        mixer.init()
-        mixer.music.load('assets\menu.mp3')
-        self.music_volume = 0.5
-        mixer.music.set_volume(self.music_volume)
-        mixer.music.play(-1)        
+
+               
+
+      
         
         #pegando a entrada do usuário
         self.teclado = gamewindow.get_keyboard()
@@ -84,6 +84,7 @@ class MainMenu:
         #botao play
         if self.mouse.is_over_object(self.play_button) and self.mouse.is_button_pressed(True):
             self.settings.current_screen = self.settings.gamescreen
+            AudioManager.change_music(0)
 
         #botao exit
         if self.mouse.is_over_object(self.exit_button) and self.mouse.is_button_pressed(True):

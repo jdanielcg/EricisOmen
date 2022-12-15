@@ -6,6 +6,7 @@
 from math import floor
 from random import randint
 import pygame
+from audio.spacialsfx import SpacialSFX
 from camera import Camera
 from effects.effects import FloatingIconText, Lifebar, SmokeDamage
 from effects.effectsmanager import EffectsManager
@@ -85,6 +86,7 @@ class Creature:
                 self.current_trap = self.current_cell.building
                 if self.current_cell.building.info.name == "firetrap":
                     self.take_damage(500, "fire")
+                    SpacialSFX("firehit",self.x, self.y) 
                 elif self.current_cell.building.info.name == "poisontrap":
                     self.is_poisoned_level += 1
 
@@ -92,6 +94,15 @@ class Creature:
     def take_damage(self, damage, damage_type = None):
         if self.is_dead:
             return
+
+        if self.is_enemy and not Match.researched_war:
+            damage = damage
+        elif self.is_enemy and Match.researched_war:
+            damage = 2.0*damage
+        elif not self.is_enemy and not Match.researched_war:
+            damage = damage
+        elif not self.is_enemy and Match.researched_war:
+            damage = damage/2.0
 
         self.integrity -= damage
         self.game.effects_manager.effects.append(SmokeDamage(self.x, self.y, damage_type))
@@ -104,6 +115,8 @@ class Creature:
             self.anim_controller.set_dead()
             self.is_dead = True
             self.lifebar = None
+
+            SpacialSFX("dead",self.x, self.y)
             if self.is_enemy:
                 Match.aether += round(self.aether)
                 EffectsManager.effects.append(FloatingIconText(self.x, self.y,"aether","+" + str(round(self.aether))))
@@ -123,6 +136,7 @@ class Creature:
             self.poison_timer += delta_time
             if self.poison_timer >= 1.5:
                 self.poison_timer = 0.0
+                SpacialSFX("poisontrap",self.x, self.y) 
                 self.take_damage(100 * self.is_poisoned_level, "poison")
 
 

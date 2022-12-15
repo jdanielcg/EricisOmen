@@ -9,6 +9,7 @@ import math
 import pygame
 
 from camera import Camera
+from settings import Settings
 
 
 class SpacialSFX():
@@ -18,14 +19,36 @@ class SpacialSFX():
 
     def Setup():
         pygame.mixer.init()
-        SpacialSFX.library = {  "bubble":"bubble.wav",
-                                "pick":"pickaxe.wav" }
+        SpacialSFX.library = {  
+                                "pick":"pick.ogg",
+                                "chop":"15Hitonwood.wav",
+                                "enemyhit":"swing.wav",
+                                "allyhit":"swing3.wav",
+                                "dead":"51Flee02.wav",
+                                "portalcrack":"DragonStomp Snow (2).wav",
+                                "build":"GPPutDown1.wav",
+                                "demolish":"GPDamage5.wav",
+                                "firehit": "03fruit.wav", #"04Fire.wav",
+                                "stonehit":"61Hit03.wav",
+                                "frozenhit":"bubble.wav",
+                                "towershot":"cloth.wav",
+                                "poisontrap" : "bite-small2.wav",
+                                "wavestart":"GPBeginTurn1.wav",
 
-    def __init__(self, filename, x, y, real_delta_time = False) -> None:
+                                "explosion":"explode.ogg",   
+                                "explosion2" : "18Thunder.wav",                             
+                                "spitfire" :"DragonBreath (7).wav", #"DragonBreath (1).wav",
+                                "endgame" : "AstralDragon (9).wav",
+                                "dragon":"DragonFlight (3).wav", #"DragonBreathing (10).wav",
+                                 }
+
+    def __init__(self, filename, x, y, real_delta_time = False, max_volume = False, loop = False, given_length = 0.0) -> None:
         if not SpacialSFX.started:
             SpacialSFX.Setup()
 
         self.file = None
+        self.max_volue = max_volume
+        self.loop = loop
         self.pos = (x,y)
         self.sound = None
         self.real_delta_time = real_delta_time
@@ -37,9 +60,11 @@ class SpacialSFX():
             self.sound = None
         else:
             self.sound = pygame.mixer.Sound(path.join("assets","audio",soundfile))
-            self.sound.play()
+            self.sound.play(loops= 0 if not loop else -1)
             self.length = self.sound.get_length()
             AudioManager.spacialSFXs.append(self)
+        if given_length > 0.0:
+            self.length = given_length
 
 
     def update(self, delta_time):
@@ -53,7 +78,12 @@ class SpacialSFX():
         self.timer += delta_time
 
 
-        volume = min(1, 200/math.dist(self.pos, Camera.center()))
+        volume = 1
+        if self.max_volue:
+            volume = 1
+        else:
+            volume = min(1, 200/math.dist(self.pos, Camera.center()))
+
         #print(volume, "  ", math.dist(self.pos, Camera.center()))
      
-        self.sound.set_volume(volume)
+        self.sound.set_volume(volume*Settings.audio_volume)

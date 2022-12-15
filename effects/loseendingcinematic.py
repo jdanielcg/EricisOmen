@@ -3,6 +3,7 @@ import random
 
 from pygame import Surface
 import pygame
+from audio.audiomanager import AudioManager
 from camera import Camera
 from effects.effectsmanager import EffectsManager
 from match import Match
@@ -73,6 +74,7 @@ class LostEnding():
             self.mainmenu()
 
     def mainmenu(self):      
+        AudioManager.change_music(1)
         from screens.game import Game
         Settings.current_screen = Settings.mainmenuscreen
         Settings.gamescreen = Game(Match.game.gameWindow)

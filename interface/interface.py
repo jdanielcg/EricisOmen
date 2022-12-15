@@ -1,6 +1,7 @@
 from PPlay.window import*
 from PPlay.sprite import*
 from interface.icons import text_icon
+from settings import Settings
 
 
 import interface.resources as resources
@@ -171,7 +172,7 @@ class Interface:
         self.botao_sound_esquerda = Sprite("assets\Buttons\Botao_construct_esquerda.png")
         self.botao_sound_esquerda.set_position(40, 285)
         self.is_playing_music = True
-        self.volume_level = 5
+        self.volume_level = round(Settings.audio_volume)
         #volume level 1
         self.volume_level_1 = Sprite("assets\Buttons\Volume_level_1.png")
         self.volume_level_1.set_position(40, 250)

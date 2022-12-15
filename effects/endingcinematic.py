@@ -3,6 +3,8 @@ import random
 
 from pygame import Surface
 import pygame
+from audio.audiomanager import AudioManager
+from audio.spacialsfx import SpacialSFX
 from camera import Camera
 from effects.effectsmanager import EffectsManager
 from match import Match
@@ -16,6 +18,10 @@ class Ending():
 
         self.start = False
         self.timer = 0.0
+
+
+        self.firestarted = False
+        self.boom_timer = 0.0
 
         self.courtain = Surface((game.screen.get_width(), game.screen.get_height()), pygame.SRCALPHA)
         self.courtainB = Surface((game.screen.get_width(), game.screen.get_height()), pygame.SRCALPHA)
@@ -57,8 +63,11 @@ class Ending():
     def birth_ericis(self):
         ox = (Settings.breach_center[0]-2.5) * Settings.tilesize
         oy = (Settings.breach_center[1]-3) * Settings.tilesize
+        SpacialSFX("dragon",ox, oy, real_delta_time= True, max_volume= True, loop=True, given_length=25.0) 
 
         EffectsManager.effects.append(Ericis(ox, oy))
+
+        AudioManager.change_music(3)
 
 
 
@@ -71,10 +80,19 @@ class Ending():
         self.timer += delta_time
 
         if self.timer > 5.0 and len(self.tile_list) > 0:
-            chosen = random.sample(self.tile_list, 10 if len(self.tile_list) > 9 else len(self.tile_list))
-            for item in chosen:
-                self.tile_list.remove(item)
-                EffectsManager.effects.append(EricisFire(item))
+            if self.firestarted:
+                chosen = random.sample(self.tile_list, 10 if len(self.tile_list) > 9 else len(self.tile_list))
+                for item in chosen:
+                    self.tile_list.remove(item)
+                    EffectsManager.effects.append(EricisFire(item))
+            else:
+                self.firestarted = True
+                SpacialSFX("spitfire",1, 1, real_delta_time= True, max_volume= True) 
+                SpacialSFX("portalcrack",1, 1, real_delta_time=True, max_volume= True) 
+            if self.boom_timer - self.timer < -1.0:
+                self.boom_timer = self.timer
+                SpacialSFX("portalcrack",1, 1, real_delta_time=True, max_volume= True) 
+                
 
         if self.timer > 15.0:
             self.courtain.fill((0,0,0, min(255*(self.timer - 15.0) + 1, 255)))

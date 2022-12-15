@@ -25,6 +25,7 @@ class DebugInterface:
         self.game = game
         self.show_buttons = False
 
+        self.keyboard = gamewindow.keyboard
         #atalhos
         w = self.gamewindow.width
         h = self.gamewindow.height        
@@ -152,9 +153,9 @@ class DebugInterface:
 #########################################
 
     def update(self, delta_time):
-        if not self.show_buttons:
+        if not self.show_buttons and self.keyboard.key_pressed("D"):
             self.show_debug_button.update()
-        else:
+        elif self.show_buttons:
             self.show_debug_button.update()
             self.speed_up_button.update()
             self.speed_down_button.update()

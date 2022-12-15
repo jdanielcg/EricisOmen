@@ -4,6 +4,7 @@
 # ╚═════════════════════════════════════════════╝
 
 from PPlay.window import*
+from audio.audiomanager import AudioManager
 from interface.customcursor import load_custom_cursor
 from match import Match
 from screens.game import Game
@@ -23,6 +24,8 @@ def main():
     Settings.current_screen = Settings.mainmenuscreen
 
     load_custom_cursor("cursor16.png")   
+
+    AudioManager.setup()
 
     
     while Settings.current_screen != None:

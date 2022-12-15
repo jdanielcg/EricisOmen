@@ -39,3 +39,17 @@
 * https://opengameart.org/content/spell-sounds-starter-pack
 
 * https://freesound.org/people/bigal13/sounds/654499/
+
+* https://www.gamedevmarket.net/asset/ultimate-free-music-bundle-5353/
+
+* https://www.gamedevmarket.net/asset/action-rpg-music-free/
+
+* https://leohpaz.itch.io/rpg-essentials-sfx-free
+
+* https://gamesupply.itch.io/classic-workshop-industry-sfx
+
+* https://olexmazur.itch.io/fantasy-card-game
+
+* https://leohpaz.itch.io/minifantasy-forgotten-plains-sfx-pack
+
+* https://ateliermagicae.itch.io/compendium-of-dragons-sfx-free-demo
