@@ -133,6 +133,14 @@ class MainMenu:
             self.janelahelp.draw()
             self.quit_panel_button.draw()
             self.gameWindow.draw_text("About", self.gameWindow.width/2 - 100, 90, size=60, bold=True, color=(224, 224, 222))
+            self.gameWindow.draw_text("Dig, construct, conquer. Expand the rift to Dervoa, the realm of", 270, 180, size=24, bold=True, color=(224, 224, 222))
+            self.gameWindow.draw_text("dragons, and bring to mortal lands its queen, Ericis. ", 340, 220, size=24, bold=True, color=(224, 224, 222))
+            self.gameWindow.draw_text("To do so, command your minions to corrupt holy lands and build", 270, 300, size=24, bold=True, color=(224, 224, 222))
+            self.gameWindow.draw_text("an epic fortress. Receive minions periodically while constructing", 275, 340, size=24, bold=True, color=(224, 224, 222))
+            self.gameWindow.draw_text("defences, and expand the portal to get it large enough for the", 300, 380, size=24, bold=True, color=(224, 224, 222))
+            self.gameWindow.draw_text("goddess to cross through.", 480, 420, size=24, bold=True, color=(224, 224, 222))
+            self.gameWindow.draw_text("Be aware: human kingdoms will try their best to stop you", 310, 480, size=24, bold=True, color=(224, 224, 222))
+            self.gameWindow.draw_text("and save their home.", 500, 520, size=24, bold=True, color=(224, 224, 222))
             
 
         #desenha o painel de settings
