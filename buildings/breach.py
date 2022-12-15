@@ -8,6 +8,7 @@
 
 from math import ceil
 import math
+from audio.spacialsfx import SpacialSFX
 from effects.effects import FloatingIconText
 from effects.effectsmanager import EffectsManager
 from match import Match
@@ -37,6 +38,8 @@ def upgrade_breach(building, manager):
         v = building.posUV[1]
         manager.remove(building)
         manager.add(info, [u, v])
+
+    SpacialSFX("portalcrack",building.x, building.y, max_volume= True)
            
     Match.aether -= Settings.breach_required_aether[Match.breach_level-1]
     Match.beach_enabled = False

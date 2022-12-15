@@ -10,6 +10,7 @@ from types import DynamicClassAttribute
 import pygame
 from PPlay.sprite import Sprite
 from PPlay.window import Window
+from audio.spacialsfx import SpacialSFX
 from camera import Camera
 from effects.effectsmanager import EffectsManager
 from interface.icons import text_icon
@@ -26,12 +27,14 @@ class SmokeDamage:
 
 
         if damage_type == "fire":
-            self.animation = Sprite("assets\\fire.png", 5)               
+            self.animation = Sprite("assets\\fire.png", 5)              
         elif damage_type == "poison":
             self.animation = Sprite("assets\\poison.png", 5) 
-            self.duration = 500  
+            self.duration = 500              
         elif damage_type == "ice":
-            self.animation = Sprite("assets\\ice.png", 5)    
+            self.animation = Sprite("assets\\ice.png", 5)            
+        
+             
 
 
         self.animation.set_total_duration(self.duration)
@@ -63,6 +66,7 @@ class EricisFire:
         self.animation.set_position(self.x, self.y) 
         self.timer = 0        
         
+        
     def update(self, delta_time):
         delta_time = Match.game.gameWindow.delta_time()
         self.animation.set_position(self.x - Camera.dx, self.y - Camera.dy) 
@@ -87,7 +91,7 @@ class EricisBirth:
 
         self.animation.set_total_duration(self.duration)
         self.animation.set_position(x, y) 
-        self.timer = 0        
+        self.timer = 0                
         
     def update(self, delta_time):
         delta_time = Match.game.gameWindow.delta_time()
@@ -163,6 +167,7 @@ class Fireball:
             if abs(tarY - self.y) <= 4:
                 self.timer = self.duration = 10000
                 self.target_creature.take_damage(self.damage, "fire")
+                SpacialSFX("firehit",tarX, tarY) 
                 return
 
         #move a bola de fogo
@@ -203,6 +208,7 @@ class Stoneball:
             if abs(tarY - self.y) <= 4:
                 self.timer = self.duration = 10000
                 self.target_creature.take_damage(self.damage)
+                SpacialSFX("stonehit",tarX, tarY) 
                 return
 
         #move a bola de fogo
@@ -243,6 +249,7 @@ class Iceball:
             if abs(tarY - self.y) <= 4:
                 self.timer = self.duration = 10000
                 self.target_creature.take_damage(self.damage, "ice")
+                SpacialSFX("frozenhit",tarX, tarY)    
                 self.target_creature.slow_down()
                 return
 

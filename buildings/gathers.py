@@ -17,6 +17,7 @@ def gather(building, manager):
 
 
             if building.info.gather_type == "wood":
+                SpacialSFX("chop",building.x, building.y)
                 value = 10 if not Match.researched_saw else 20
                 Match.wood += value
                 EffectsManager.effects.append(FloatingIconText(building.x, building.y,"wood","+" + str(value)))

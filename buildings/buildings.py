@@ -59,7 +59,7 @@ class BuildingInfo:
     def __init__(self, name, origin, size, atlas, walkable = False, action = None,
                  recharge_time = 3, max_integrity = 1000, dominion_factor = 0,
                  iron_cost = 0, aether_cost = 0, wood_cost = 0, on_destroy = None,
-                 setup_function = None, gather_type = None):
+                 setup_function = None, gather_type = None, can_demolish = True):
         self.name = name
         self.origin = origin
         self.size = size      
@@ -76,6 +76,7 @@ class BuildingInfo:
         self.on_destroy = on_destroy
         self.setup_function = setup_function
         self.gather_type = gather_type
+        self.can_demolish = can_demolish
 
         #custos
         self.wood_cost = wood_cost

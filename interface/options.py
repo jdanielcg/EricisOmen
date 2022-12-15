@@ -6,13 +6,13 @@ from settings import Settings
 from match import Match
 
 def music_level(interface):
-    interface.window.draw_text("Music", 64, 225, size=18, bold=True, color=(224, 224, 220))
+    interface.window.draw_text("Audio", 64, 225, size=18, bold=True, color=(224, 224, 220))
     interface.botao_sound_direita.draw()
     interface.botao_sound_esquerda.draw()
     if interface.volume_level == 1:
-        pygame.mixer.music.set_volume(0)
+        Settings.audio_volume = 0.0
     else:
-        pygame.mixer.music.set_volume(0.5 * (interface.volume_level/5))
+        Settings.audio_volume = (0.5 * (interface.volume_level/5))
     if interface.clickjogo.is_over_object(interface.botao_sound_direita) and interface.clickjogo.is_button_pressed(True) and interface.volume_level <= 9:
         interface.volume_level +=1
     if interface.clickjogo.is_over_object(interface.botao_sound_esquerda) and interface.clickjogo.is_button_pressed(True) and interface.volume_level >= 2:

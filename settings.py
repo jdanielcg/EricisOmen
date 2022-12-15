@@ -30,6 +30,8 @@ class Settings:
     gamescreen = None
     gameApplicationName = "EricisOmen"
 
+    audio_volume = 1
+
     #variavéis da partida
     #portal_level_percent = 0
 

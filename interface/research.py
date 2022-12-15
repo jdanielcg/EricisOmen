@@ -300,7 +300,7 @@ def research_end(nome, interface):
             interface.wp = False
         if interface.wp_end == False:
             interface.wp_end = True
-            Match.researched_picks = True
+            Match.researched_war = True
     if nome == 'eficient smelting':
         if interface.es == True:
             interface.es = False

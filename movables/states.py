@@ -4,6 +4,7 @@
 # ╚═════════════════════════════════════════════╝
 
 from math import sqrt
+from audio.spacialsfx import SpacialSFX
 from effects.effects import SmokeDamage
 from settings import Settings
 import movables.pathfinder as pathfinder
@@ -137,7 +138,8 @@ class AtkState:
                 if building.integrity > 0:
                     self.timer = 0
                     building.integrity -= self.creature.damage
-                    print("damage")
+                    #print("damage")
+                    SpacialSFX("enemyhit",self.atktarget.x, self.atktarget.y)
                     self.creature.game.effects_manager.effects.append(SmokeDamage(
                         self.atktarget.x, self.atktarget.y))
                     return
@@ -147,6 +149,7 @@ class AtkState:
             if enemy != None:
                 if enemy.is_enemy and enemy.is_dead == False:
                     self.timer = 0
+                    SpacialSFX("allyhit",enemy.x, enemy.y)
                     enemy.take_damage(self.creature.damage)
                     return
         

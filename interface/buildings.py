@@ -31,7 +31,7 @@ def show_menu_construct(interface):
     interface.botao_demolish.draw()
 
     if interface.clickjogo.is_over_object(interface.botao_demolish) and interface.clickjogo.is_button_pressed(True):
-        print('Demoliu')
+        Match.game.building_mode_interface.start("demolition", demolition = True)
     
     if interface.p_construct == True:
         interface.botao_barracks.draw()
