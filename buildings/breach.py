@@ -53,7 +53,7 @@ def upgrade_breach(building, manager):
 def breach_update(building, manager):
 
 
-    Match.aether += 10
+    Match.aether += 5
         #EffectsManager.effects.append(FloatingIconText(building.x, building.y,"aether","+75"))
 
     if Match.aether > Match.max_aether:

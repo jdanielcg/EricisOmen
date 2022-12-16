@@ -54,7 +54,7 @@ class Match:
         Match.game = game
         Match.wood = 200
         Match.iron = 200
-        Match.aether = 0
+        Match.aether = 100
         Match.max_aether = 200
 
         Match.simulation_mode = SimulationMode.RUNNING

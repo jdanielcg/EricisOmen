@@ -178,7 +178,7 @@ class Interface:
         self.botao_sound_esquerda = Sprite("assets\Buttons\Botao_construct_esquerda.png")
         self.botao_sound_esquerda.set_position(40, 285)
         self.is_playing_music = True
-        self.volume_level = round(Settings.audio_volume)
+        self.volume_level = round(Settings.audio_volume*10)
         #volume level 1
         self.volume_level_1 = Sprite("assets\Buttons\Volume_level_1.png")
         self.volume_level_1.set_position(40, 250)

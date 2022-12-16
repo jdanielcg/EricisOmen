@@ -16,7 +16,7 @@ def music_level(interface):
     if interface.volume_level == 1:
         Settings.audio_volume = 0.0
     else:
-        Settings.audio_volume = (0.5 * (interface.volume_level/5))
+        Settings.audio_volume = interface.volume_level/10.0
     if interface.clickjogo.is_over_object(interface.botao_sound_direita) and interface.clickjogo.is_button_pressed(True) and interface.volume_level <= 9:
         interface.volume_level +=1
     if interface.clickjogo.is_over_object(interface.botao_sound_esquerda) and interface.clickjogo.is_button_pressed(True) and interface.volume_level >= 2:
