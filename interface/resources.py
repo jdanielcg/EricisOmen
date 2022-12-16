@@ -1,3 +1,8 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: RAMON SANTOS         ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
+
 from interface.buildings import buildings_counter, buildings_capacity
 from interface.icons import text_icon
 from match import Match

@@ -1,3 +1,9 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: RAMON SANTOS         ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
+
+
 from PPlay.window import*
 from PPlay.sprite import*
 from interface.icons import text_icon

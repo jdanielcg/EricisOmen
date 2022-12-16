@@ -2,6 +2,10 @@
 # ║  Parte Programada Por: JOSE DANIEL C. GOMES ║
 # ║                                             ║ 
 # ╚═════════════════════════════════════════════╝
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: RAMON SANTOS         ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
 
 
 #modulo para controlar os parametros de visualização do mundo

@@ -1,3 +1,8 @@
+# ╔═════════════════════════════════════════════╗
+# ║  Parte Programada Por: RAMON SANTOS         ║
+# ║                                             ║ 
+# ╚═════════════════════════════════════════════╝
+
 from match import Match
 from settings import SimulationMode
 buildings_counter = {
@@ -13,17 +18,17 @@ buildings_capacity = {
     "aether": 100
 }
 
-barracks_cost = {'wood': 50}
-warehouse_cost = {'wood': 50}
-fire_tower_cost = {'wood': 50, 'iron': 50}
-frost_tower_cost = {'wood': 50, 'iron': 50}
-rock_tower_cost = {'wood': 50, 'iron': 50}
-poison_trap_cost = {'wood': 50, 'iron': 50}
-fire_trap_cost = {'wood': 50, 'iron': 50}
-wall_cost = {'wood': 50, 'iron': 50}
-obelisk_cost = {'aether': 100}
-mining_camp_cost = {'wood': 50}
-wood_camp_cost = {'wood': 50}
+barracks_cost = {'wood': 24}
+warehouse_cost = {'wood': 20}
+fire_tower_cost = {'wood': 25, 'iron': 20}
+frost_tower_cost = {'wood': 50, 'iron': 30}
+rock_tower_cost = {'wood': 10, 'iron': 10}
+poison_trap_cost = {'wood': 20, 'iron': 5}
+fire_trap_cost = {'wood': 10, 'iron': 15}
+wall_cost = {'wood': 4, 'iron': 4}
+obelisk_cost = {'aether': 30}
+mining_camp_cost = {'wood': 8}
+wood_camp_cost = {'wood': 8}
 
 def show_menu_construct(interface):
     interface.botao_construct_direita.draw()
@@ -166,26 +171,27 @@ def popout(interface,nome):
 def informations(interface,nome):
     if nome == 'Barracks':
         interface.window.draw_text("Barracks",  270, 220, size=20, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("50 Wood",  255, 280, size=16, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("24 Wood",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("An cozy place for",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("kobolds to rest and",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("recover from their",  242, 375, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("wounds.",  242, 390, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  242, 405, size=12, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Increases Soldiers max capacity.",  240, 455, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Increases Soldiers",  240, 455, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("max capacity.",  240, 470, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Warehouse':
         interface.window.draw_text("Warehouse",  270, 220, size=20, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("50 Wood",  255, 280, size=16, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("20 Wood",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("A makeshift place for",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("kobolds store",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("resources.",  242, 375, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  242, 390, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  242, 405, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("Increases Wood and Iron",  240, 455, size=15, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("max capacity.",  240, 505, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("max capacity.",  240, 470, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Fire_tower':
         interface.window.draw_text("Fire Tower",  270, 220, size=20, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("50 Wood, 50 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("25 Wood, 20 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("A defensive tower that",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("shoots fireballs at",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("approaching enemies.",  242, 375, size=12, bold=True, color=(0, 0, 0))
@@ -195,17 +201,17 @@ def informations(interface,nome):
         interface.window.draw_text("",  240, 505, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Frost_tower':
         interface.window.draw_text("Frost Tower",  270, 220, size=20, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("50 Wood, 50 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("50 Wood, 30 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("A defensive tower that",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("shoots ice balls at",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("approaching enemies.",  242, 375, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  242, 390, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  242, 405, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("Deals low damage.",  240, 455, size=15, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Slow down enemies.",  240, 505, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Slow down enemies.",  240, 470, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Rock_tower':
         interface.window.draw_text("Rock Tower",  270, 220, size=20, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("50 Wood, 50 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("10 Wood, 10 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("A defensive tower that",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("shoots boulders at",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("approaching enemies.",  242, 375, size=12, bold=True, color=(0, 0, 0))
@@ -215,47 +221,51 @@ def informations(interface,nome):
         interface.window.draw_text("",  240, 505, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Poison_trap':
         interface.window.draw_text("Poison trap",  270, 220, size=20, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("50 Wood, 50 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("20 Wood, 5 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("A clever mechanism that",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("releases poisonous gas",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("into a surrounding area",  242, 375, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("when triggered.",  242, 390, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  242, 405, size=12, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Deals low damage per second.",  240, 455, size=15, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Slow down enemies.",  240, 505, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Deals low damage per",  240, 455, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("second.",  240, 470, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Slow down enemies.",  240, 485, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Fire_trap':
         interface.window.draw_text("Fire trap",  270, 220, size=20, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("50 Wood, 50 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("10 Wood, 15 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("A clever mechanism that",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("ignites a surrounding",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("area when triggered",  242, 375, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  242, 390, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  242, 405, size=12, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Deals medium damage per second.",  240, 455, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Deals medium damage per",  240, 455, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("second.",  240, 470, size=15, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  240, 505, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Wall':
         interface.window.draw_text("Wall",  270, 220, size=20, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("50 Wood, 50 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("4 Wood, 4 Iron",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("A defensive perimeter",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("that forces enemies to",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("break through before",  242, 375, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("crossing",  242, 390, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  242, 405, size=12, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Blocks enemies movements.",  240, 455, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Blocks enemies",  240, 455, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("movements.",  240, 470, size=15, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  240, 505, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Obelisk':
         interface.window.draw_text("Obelisk",  270, 220, size=20, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Aether: 100",  255, 280, size=16, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Aether: 30",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("A holy inscripted shrine",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("containing wards to worship",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("Ericis.",  242, 375, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  242, 390, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("",  242, 405, size=12, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Increase Aether max capacity.",  240, 455, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Increase Aether max.",  240, 455, size=15, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("capacity.",  240, 470, size=15, bold=True, color=(0, 0, 0))
         interface.window.draw_text("Expands corrupted zone.",  240, 505, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Mining_camp':
         interface.window.draw_text("Mining camp",  270, 220, size=20, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Wood: 50",  255, 280, size=16, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Wood: 8",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("A place to house miners and",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("mining equipments. It destroys",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("surrounding boulders for",  242, 375, size=12, bold=True, color=(0, 0, 0))
@@ -265,7 +275,7 @@ def informations(interface,nome):
         interface.window.draw_text("",  240, 505, size=15, bold=True, color=(0, 0, 0))
     if nome == 'Wood_camp':
         interface.window.draw_text("Wood camp",  270, 220, size=20, bold=True, color=(0, 0, 0))
-        interface.window.draw_text("Wood: 50",  255, 280, size=16, bold=True, color=(0, 0, 0))
+        interface.window.draw_text("Wood: 8",  255, 280, size=16, bold=True, color=(0, 0, 0))
         interface.window.draw_text("A place to house choppers and",  242, 345, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("lumber equipments. It destroys",  242, 360, size=12, bold=True, color=(0, 0, 0))
         interface.window.draw_text("surrounding trees for",  242, 375, size=12, bold=True, color=(0, 0, 0))
